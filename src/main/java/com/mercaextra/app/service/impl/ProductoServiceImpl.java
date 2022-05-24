@@ -256,6 +256,10 @@ public class ProductoServiceImpl implements ProductoService {
     @Override
     public List<ProductoDTO> discountProductHome() {
         log.debug("Request to get 4 products whit aviable discount");
-        return productoRepository.discountProductHome().stream().map(productoMapper::toDto).toList();
+        return productoRepository
+            .discountProductHome()
+            .stream()
+            .map(productoMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 }

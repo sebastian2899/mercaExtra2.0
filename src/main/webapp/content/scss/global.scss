@@ -14,7 +14,7 @@ h4 {
   font-weight: 300;
 }
 
-@import url(https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css);
+@import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
 
 @import url(https://fonts.googleapis.com/css?family=Titillium+Web:300);
 
@@ -870,6 +870,6 @@ angular-cli removes postcss-rtl processed inline css, processed rules must be ad
   background-size: contain;
 }
 
-.list-group{
+.list-group {
   background-color: white;
 }
