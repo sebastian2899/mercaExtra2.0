@@ -128,6 +128,6 @@ public class DomiciliarioServiceImpl implements DomiciliarioService {
 
         List<Domiciliario> domiciliaries = q.getResultList();
 
-        return domiciliaries.stream().map(domiciliarioMapper::toDto).toList();
+        return domiciliaries.stream().map(domiciliarioMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
     }
 }
