@@ -1,0 +1,11 @@
+{
+  "mercaExtraApp": {
+    "TipoFactura": {
+      "null": "",
+      "CREDITO": "CREDITO",
+      "DEBITO": "DEBITO",
+      "CONTADO": "CONTADO",
+      "TRANSACCION": "TRANSACCION"
+    }
+  }
+}

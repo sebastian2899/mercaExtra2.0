@@ -1,0 +1,241 @@
+<!-- <jhi-page-ribbon></jhi-page-ribbon>
+<div [ngSwitch]="account !== null && account !== undefined">
+  <div class="container-fluid" style="margin-top: 30px; width: 100%; position: fixed">
+    <div class="row flex-nowrap">
+      <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0" style="width: 205px; box-shadow: 0px 0px 20px -8px black">
+        <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+          <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+            <span class="mt-2 fs-5 d-none d-sm-inline font-size-black">Menu</span>
+          </a>
+          <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+            <li>
+              <a [routerLink]="['/domiciliario']" class="nav-link link-home px-0 align-middle">
+                <span class="ms-1 d-none d-sm-inline font-size-black"
+                  >Info Domicilio
+                  <mat-icon class="icon-config-black">contact_support</mat-icon>
+                </span></a
+              >
+            </li>
+            <li>
+              <a href="#submenu2" data-bs-toggle="collapse" class="nav-link link-home px-0 align-middle">
+                <span class="ms-1 d-none d-sm-inline font-size-black">Idioma</span>
+                <mat-icon class="icon-config-black">g_translate</mat-icon>
+              </a>
+              <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
+                <li *ngFor="let language of languages">
+                  <a
+                    style="background-color: rgba(205, 229, 252, 0.546); color: rgb(41, 101, 212)"
+                    class="link-home"
+                    [jhiActiveMenu]="language"
+                    href="javascript:void(0);"
+                    (click)="changeLanguage(language)"
+                    >{{ language | findLanguageFromKey }}</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a (click)="categoriaProductos()" class="nav-link link-home px-0 align-middle">
+                <span class="ms-1 d-none d-sm-inline font-size-black"
+                  >Ver Productos
+                  <mat-icon class="icon-config-black">production_quantity_limits</mat-icon>
+                </span></a
+              >
+            </li>
+            <li>
+              <a href="#submenu3" data-bs-toggle="collapse" class="nav-link link-home dropdown-toggle px-0 align-middle">
+                <span class="ms-1 d-none d-sm-inline font-size-black">Pedidos-Facturas</span>
+                <mat-icon class="icon-config-black">fact_check</mat-icon>
+              </a>
+              <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
+                <li>
+                  <a [routerLink]="['/pedido/new']" class="nav-link link-home px-0">
+                    <span style="font-size: 13px" class="d-none d-sm-inline font-size-black">-Realizar pedido</span>
+                    <mat-icon class="icon-config-black">list_alt</mat-icon></a
+                  >
+                </li>
+                <li>
+                  <a [routerLink]="['/pedido']" class="nav-link link-home px-0">
+                    <span style="font-size: 13px" class="d-none d-sm-inline font-size-black">-Mis pedidos</span>
+                    <mat-icon class="icon-config-black">local_grocery_store</mat-icon></a
+                  >
+                </li>
+                <li>
+                  <a [routerLink]="['/factura']" class="nav-link link-home px-0">
+                    <span style="font-size: 13px" class="d-none d-sm-inline font-size-black">-Mis facturas</span>
+                    <mat-icon class="icon-config-black">feed</mat-icon></a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a [routerLink]="['/factura/new']" class="nav-link link-home px-0 align-middle">
+                <span class="ms-1 d-none d-sm-inline font-size-black">Realizar Compra</span>
+                <mat-icon class="icon-config-black">storefront</mat-icon>
+              </a>
+            </li>
+          </ul>
+          <hr />
+          <div *ngSwitchCase="false" class="mb-3">
+            <p style="color: black">
+              En esta seccion de inicio podra ver todo lo relacionado a los productos, categorias, descuentos diarios y mercados.
+            </p>
+            <span style="color: black">Inicia sesion para realizar tu compra.</span>
+          </div>
+
+          <div class="dropdown" style="margin-bottom: 118px">
+            <a
+              href="#"
+              class="d-flex link-home align-items-center text-black text-decoration-none dropdown-toggle"
+              id="dropdownUser1"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <span *ngSwitchCase="false" class="font-size-black d-none d-sm-inline mx-1">Iniciar Sesion</span>
+              <span *ngSwitchCase="true" class="font-size-black d-none font-size-white d-sm-inline mx-1">Cuenta</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-light text-small shadow">
+              <li>
+                <a *ngSwitchCase="true" [routerLink]="['reembolso/new']" class="dropdown-item"
+                  >Reembolsos
+                  <mat-icon class="icon-config-black">published_with_changes</mat-icon>
+                </a>
+              </li>
+              <li>
+                <a *ngSwitchCase="true" [routerLink]="['account/password']" class="dropdown-item"
+                  >Contraseña
+                  <mat-icon class="icon-config-black">lock</mat-icon>
+                </a>
+              </li>
+              <li>
+                <a *ngSwitchCase="true" [routerLink]="['account/settings']" class="dropdown-item"
+                  >Cuenta
+                  <mat-icon class="icon-config-black">admin_panel_settings</mat-icon>
+                </a>
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+              <li>
+                <a *ngSwitchCase="true" (click)="logout()" class="dropdown-item" href="#"
+                  ><span>Cerrar sesion</span>
+                  <mat-icon class="icon-config-black">logout</mat-icon>
+                </a>
+              </li>
+              <li>
+                <a *ngSwitchCase="false" class="dropdown-item" [routerLink]="['account/register']"
+                  ><span>Crear cuenta</span>
+                  <mat-icon class="icon-config-black">person_add_alt</mat-icon>
+                </a>
+              </li>
+              <li>
+                <a *ngSwitchCase="false" (click)="login()" class="dropdown-item"
+                  ><span>Ingresar</span>
+                  <mat-icon class="icon-config-black">logout</mat-icon>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+<!-- aplicar container-fluid para hacer el container mas responsive-->
+
+<div>
+  <router-outlet name="navbar"></router-outlet>
+  <div class="area"></div>
+  <nav class="main-menu">
+    <ul class="mt-5">
+      <li class="mb-3">
+        <a href="#">
+          <i class="fa fa-home" aria-hidden="true"></i>
+          <span class="nav-text"> Inicio </span>
+        </a>
+      </li>
+      <li class="mb-3">
+        <a [routerLink]="['domiciliario']">
+          <i class="fa fa-info-circle" aria-hidden="true"></i>
+          <span class="nav-text"> Información Domicilios y Pedidos. </span>
+        </a>
+      </li>
+
+      <li class="mb-3">
+        <a [routerLink]="['producto']">
+          <i class="fa fa-shopping-basket fa-2x"></i>
+          <span class="nav-text"> Ver Productos </span>
+        </a>
+      </li>
+
+      <li class="has-subnav mb-3">
+        <a [routerLink]="['factura/new']">
+          <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+          <span class="nav-text"> Hacer Mercado </span>
+        </a>
+      </li>
+      <li class="has-subnav mb-3">
+        <a [routerLink]="['pedido/new']">
+          <i class="fa fa-truck" aria-hidden="true"></i>
+          <span class="nav-text"> Mercados listos para pedir </span>
+        </a>
+      </li>
+      <li class="has-subnav mb-3">
+        <a [routerLink]="['factura']">
+          <i class="fa fa fa-money fa-2x"></i>
+          <span class="nav-text"> Mis Facturas </span>
+        </a>
+      </li>
+      <li class="mb-3">
+        <a [routerLink]="['pedido']">
+          <i class="fa fa-cutlery fa-2x"></i>
+          <span class="nav-text"> Mis pedidos </span>
+        </a>
+      </li>
+      <li class="mb-3">
+        <a [routerLink]="['reembolso/new']">
+          <i class="fa fa-reply fa-2x"></i>
+          <span class="nav-text"> Reenvolsos </span>
+        </a>
+      </li>
+      <!-- <li class="mb-3">
+         <a href="#">
+             <i class="fa fa-table fa-2x"></i>
+              <span class="nav-text">
+                  Tables
+              </span>
+          </a>
+      </li>
+      <li class="mb-3">
+         <a href="#">
+              <i class="fa fa-map-marker fa-2x"></i>
+              <span class="nav-text">
+                  Maps
+              </span>
+          </a>
+      </li>
+      <li class="mb-3">
+          <a href="#">
+             <i class="fa fa-info fa-2x"></i>
+              <span class="nav-text">
+                  Documentation
+              </span>
+          </a>
+      </li> -->
+    </ul>
+
+    <ul class="logout">
+      <li>
+        <a href="#">
+          <i class="fa fa-user" aria-hidden="true"></i>
+
+          <span class="nav-text"> Cerrar Sesion </span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <div style="padding-top: 45px; margin-left: 120px; margin-right: 50px" class="card jh-card">
+    <router-outlet></router-outlet>
+    <jhi-footer style="background-color: white; position: inherit"></jhi-footer>
+  </div>
+</div>

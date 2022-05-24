@@ -1,0 +1,93 @@
+<div [ngSwitch]="account!.login === 'admin'" class="d-flex justify-content-center">
+  <div class="col-10">
+    <div *ngIf="producto">
+      <h2 data-cy="productoDetailsHeading"><span jhiTranslate="mercaExtraApp.producto.detail.title">Producto</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <div class="d-flex me-5 mb-3">
+        <div *ngIf="producto.imagen" class="col-md-6">
+          <a (click)="openFile(producto.imagen, producto.imagenContentType)">
+            <img [src]="'data:' + producto.imagenContentType + ';base64,' + producto.imagen" style="max-width: 60%" alt="producto image" />
+          </a>
+          {{ producto.imagenContentType }}, {{ byteSize(producto.imagen) }}
+        </div>
+
+        <dl class="row-md jh-entity-details ms-5 mb-3">
+          <dt><span class="font-size-entidades" jhiTranslate="mercaExtraApp.producto.nombre">Nombre</span></dt>
+          <dd>
+            <span>{{ producto.nombre }}</span>
+          </dd>
+          <dt><span class="font-size-entidades">Precio</span></dt>
+          <dd>
+            <span>{{ producto.precio | currency }}</span>
+          </dd>
+          <dt *ngIf="producto.precioDescuento"><span class="font-size-entidades">Descuento del dia</span></dt>
+          <dd *ngIf="producto.precioDescuento">
+            <span>{{ producto.precioDescuento }} %</span><br />
+
+            <span style="background-color: rgba(255, 0, 0, 0.285)"
+              >Valor Antes: <del>{{ producto.precio | currency }}</del> </span
+            ><br />
+            <span> Valor Ahora: {{ valorConDescuento | currency }} </span>
+          </dd>
+          <dt><span class="font-size-entidades" jhiTranslate="mercaExtraApp.producto.descripcion">Descripcion</span></dt>
+          <dd>
+            <span>{{ producto.descripcion }}</span>
+          </dd>
+          <dt><span class="font-size-entidades" jhiTranslate="mercaExtraApp.producto.categoria">Categoria</span></dt>
+          <dd>
+            <span>{{ producto.categoria }}</span>
+          </dd>
+        </dl>
+      </div>
+
+      <div class="d-flex justify-content-start">
+        <div class="alert alert-info" role="alert">
+          <p class="mb-0 font-size-black2">Deseas adquir este producto?</p>
+          <p class="mb-0 font-size-black2">
+            Pulsa <button (click)="pasoParametroProducto(producto)" class="pulse btn-info">Aqui</button> y realiza tu compra con este y
+            mucho mas productos!
+          </p>
+        </div>
+
+        <div *ngIf="producto.precioDescuento === null" class="alert alert-info ms-5" role="alert">
+          <p class="mb-0">Sin Descuento</p>
+          <p class="mb-0">Hasta el momento el producto no cuenta con un descuento.</p>
+        </div>
+      </div>
+
+      <div class="row text-center mt-3">
+        <div class="mt-5 col-lg-3 col-md-6 mb-4" *ngFor="let productoSimilar of productosSimilares" style="margin-right: 70px">
+          <a class="a-productos" [routerLink]="['/producto', productoSimilar.id, 'view']">
+            <div class="card" style="width: 300px; height: 340px">
+              <img
+                [src]="'data:' + productoSimilar.imagenContentType + ';base64,' + productoSimilar.imagen"
+                style="max-height: 200px; padding: 10px"
+                alt="producto image"
+              />
+
+              <div class="card-body">
+                <h5 class="card-title">{{ productoSimilar.nombre }}</h5>
+                <p class="card-text"><span>Precio</span>{{ productoSimilar.precio | currency }}</p>
+                <p class="card-text"><span>Disponible</span> {{ productoSimilar.cantidad }}</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info mt-5" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" *ngSwitchCase="true" [routerLink]="['/producto', producto.id, 'edit']" class="btn btn-primary mt-5">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>
