@@ -149,25 +149,43 @@ public class ReembolsoServiceImpl implements ReembolsoService {
 
         String userName = userService.getUserWithAuthorities().get().getLogin();
 
-        DatosPedidoReembolsoDTO pedido = null;
-        List<DatosPedidoReembolsoDTO> pedidosExpirados = new ArrayList<>();
-
         List<Object[]> expirados = reembolsoRepository.pedidosReembolso(userName);
 
-        for (Object[] expirado : expirados) {
-            pedido = new DatosPedidoReembolsoDTO();
-            pedido.setIdPedido(Long.parseLong(expirado[0].toString()));
-            String fecha = expirado[1].toString().substring(0, expirado[1].toString().indexOf("T")).toString();
-            pedido.setFechaPedido(fecha);
-            pedido.setPedidoDireccion(expirado[2].toString());
-            pedido.setValorFactura(new BigDecimal(expirado[3].toString()));
-            pedido.setIdFactura(Long.parseLong(expirado[4].toString()));
-            pedido.setDomiciliario(expirado[5].toString());
-            pedido.setIdDomiciliario(Long.parseLong(expirado[6].toString()));
-            pedido.setFechaExpiPedido(expirado[7].toString().substring(0, expirado[7].toString().indexOf("T")).toString());
-            pedidosExpirados.add(pedido);
-        }
+        List<DatosPedidoReembolsoDTO> pedidosExpirados = new ArrayList<>();
 
+        expirados
+            .stream()
+            .map(element -> {
+                DatosPedidoReembolsoDTO pedido = new DatosPedidoReembolsoDTO();
+                pedido.setIdPedido(Long.parseLong(element[0].toString()));
+                pedido.setFechaPedido(element[1].toString().substring(0, element[1].toString().indexOf(("T"))).toString());
+                pedido.setPedidoDireccion(element[2].toString());
+                pedido.setValorFactura(new BigDecimal(element[3].toString()));
+                pedido.setIdFactura(Long.parseLong(element[4].toString()));
+                pedido.setDomiciliario(element[5].toString());
+                pedido.setIdDomiciliario(Long.parseLong(element[6].toString()));
+                pedido.setFechaExpiPedido(element[7].toString().substring(0, element[7].toString().indexOf("T")).toString());
+
+                return pedido;
+            })
+            .forEach(pedidosExpirados::add);
+
+        /*
+         * for (Object[] expirado : expirados) { pedido = new DatosPedidoReembolsoDTO();
+         * pedido.setIdPedido(Long.parseLong(expirado[0].toString()));
+         * String fecha =
+         * expirado[1].toString().substring(0,
+         * expirado[1].toString().indexOf("T")).toString();
+         * pedido.setFechaPedido(fecha);
+         * pedido.setPedidoDireccion(expirado[2].toString()); pedido.setValorFactura(new
+         * BigDecimal(expirado[3].toString()));
+         * pedido.setIdFactura(Long.parseLong(expirado[4].toString()));
+         * pedido.setDomiciliario(expirado[5].toString());
+         * pedido.setIdDomiciliario(Long.parseLong(expirado[6].toString()));
+         * pedido.setFechaExpiPedido(expirado[7].toString().substring(0,
+         * expirado[7].toString().indexOf("T")).toString());
+         * pedidosExpirados.add(pedido); }
+         */
         return pedidosExpirados.stream().collect(Collectors.toCollection(LinkedList::new));
     }
 

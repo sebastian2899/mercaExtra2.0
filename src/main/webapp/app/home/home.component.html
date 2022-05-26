@@ -127,7 +127,7 @@
   <div class="row mt-5 mb-5">
     <h2 class="titulos d-flex justify-content-center">Productos en oferta</h2>
     <div class="row justify-content-center mt-5">
-      <div *ngFor="let prodct of productosDescuento" class="card mb-3 ms-4" style="max-width: 450px">
+      <div *ngFor="let prodct of productosDescuento" class="card mb-3 ms-4" style="max-width: 580px">
         <div class="row g-0" style="padding: 15px">
           <div class="col-md-4">
             <img [src]="'data:' + prodct.imagenContentType + ';base64,' + prodct.imagen" class="img-fluid rounded-start" alt="..." />
@@ -208,28 +208,24 @@
       </div>
     </div>
 
-    <div class="row d-flex justify-content-between mt-5" style="border-width: 1%; border-style: solid; border-color: rgb(192, 192, 192);
-    padding: 10px;">
+    <div
+      class="row d-flex justify-content-between mt-5"
+      style="border-width: 1%; border-style: solid; border-color: rgb(192, 192, 192); padding: 10px"
+    >
       <div class="col-md-5 d-flex justify-content-start">
-        <img src="content/images/confianza.png" alt="confident" style="width: 100%;">
+        <img src="content/images/confianza.png" alt="confident" style="width: 100%" />
       </div>
-      <div class="col-md-5 d-flex justify-content-end ">  
-        <mat-icon class="me-2" style="color: rgb(0, 123, 255);">recommended</mat-icon>
-          <span class="font-size-small"> Ofrecemos confiabilidad y garantía en la entrega de los productos que adquieras, seleccionamos los mejores productos
-            día a día para ofrecer el mejor servicio.
-            <br><br>
-            Así mismo garantizamos el gran trabajo de nuestros domiciliarios al entregar tu 
-            pedido en el tiempo estimado de tu pedido.
-            <mat-icon style="color: rgb(0, 123, 255);">recommended</mat-icon>
-          </span>
-          
+      <div class="col-md-5 d-flex justify-content-end">
+        <mat-icon class="me-2" style="color: rgb(0, 123, 255)">recommended</mat-icon>
+        <span class="font-size-small">
+          Ofrecemos confiabilidad y garantía en la entrega de los productos que adquieras, seleccionamos los mejores productos día a día
+          para ofrecer el mejor servicio. <br /><br />
+          Así mismo garantizamos el gran trabajo de nuestros domiciliarios al entregar tu pedido en el tiempo estimado de tu pedido.
+          <mat-icon style="color: rgb(0, 123, 255)">recommended</mat-icon>
+        </span>
       </div>
+    </div>
   </div>
-
-
-  </div>
-
-  
 
   <ng-template #remember>
     <div class="modal-header">
