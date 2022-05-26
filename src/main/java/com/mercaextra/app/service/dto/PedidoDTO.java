@@ -37,12 +37,22 @@ public class PedidoDTO implements Serializable {
 
     private String horaDespacho;
 
+    private Instant fechaExpiReembolso;
+
     public String getDescripcionNotificacion() {
         return descripcionNotificacion;
     }
 
     public String getHoraDespacho() {
         return horaDespacho;
+    }
+
+    public Instant getFechaExpiReembolso() {
+        return fechaExpiReembolso;
+    }
+
+    public void setFechaExpiReembolso(Instant fechaExpiReembolso) {
+        this.fechaExpiReembolso = fechaExpiReembolso;
     }
 
     public void setHoraDespacho(String horaDespacho) {

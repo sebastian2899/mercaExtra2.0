@@ -28,6 +28,10 @@ public class ReembolsoDTO implements Serializable {
 
     private Instant fechaReembolso;
 
+    private String fechaPedido;
+
+    private String nombreDomiciliario;
+
     public Long getId() {
         return id;
     }
@@ -54,6 +58,22 @@ public class ReembolsoDTO implements Serializable {
 
     public Long getIdDomiciliario() {
         return idDomiciliario;
+    }
+
+    public String getFechaPedido() {
+        return fechaPedido;
+    }
+
+    public void setFechaPedido(String fechaPedido) {
+        this.fechaPedido = fechaPedido;
+    }
+
+    public String getNombreDomiciliario() {
+        return nombreDomiciliario;
+    }
+
+    public void setNombreDomiciliario(String nombreDomiciliario) {
+        this.nombreDomiciliario = nombreDomiciliario;
     }
 
     public void setIdDomiciliario(Long idDomiciliario) {

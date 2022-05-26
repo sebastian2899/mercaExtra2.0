@@ -53,7 +53,7 @@ export class AlertErrorComponent implements OnDestroy {
               // convert 'something[14].other[4].id' to 'something[].other[].id' so translations can be written to it
               const convertedField: string = fieldError.field.replace(/\[\d*\]/g, '[]');
               const fieldName: string = translateService.instant(`mercaExtraApp.${fieldError.objectName as string}.${convertedField}`);
-              this.addErrorAlert(`Error on field "${fieldName}"`, `error.${fieldError.message as string}`, { fieldName });
+              this.addErrorAlert(`Error on field "${fieldName}"`, `${fieldError.message as string}`, { fieldName });
             }
           } else if (httpErrorResponse.error !== '' && httpErrorResponse.error.message) {
             this.addErrorAlert(

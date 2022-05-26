@@ -1,4 +1,4 @@
-import dayjs from 'dayjs';
+import dayjs from 'dayjs/esm';
 
 export interface IReembolso {
   id?: number;
@@ -8,7 +8,6 @@ export interface IReembolso {
   descripcion?: string | null;
   estado?: string | null;
   fechaReembolso?: dayjs.Dayjs | null;
-  fechaExpiReembolso?: dayjs.Dayjs | null;
 }
 
 export class Reembolso implements IReembolso {
@@ -19,8 +18,7 @@ export class Reembolso implements IReembolso {
     public idFactura?: number | null,
     public descripcion?: string | null,
     public estado?: string | null,
-    public fechaReembolso?: dayjs.Dayjs | null,
-    public fechaExpiReembolso?: dayjs.Dayjs | null
+    public fechaReembolso?: dayjs.Dayjs | null
   ) {}
 }
 

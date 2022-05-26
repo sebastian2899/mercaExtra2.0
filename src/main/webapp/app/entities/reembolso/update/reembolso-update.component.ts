@@ -29,7 +29,6 @@ export class ReembolsoUpdateComponent implements OnInit {
     descripcion: [],
     estado: [],
     fechaReembolso: [],
-    fechaExpiReembolso: []
   });
 
   constructor(
@@ -41,15 +40,14 @@ export class ReembolsoUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ reembolso }) => {
-      const today = dayjs().startOf('day');
-      const todayFormat = dayjs(today,DATE_TIME_FORMAT).format(DATE_TIME_FORMAT);
-      const fechaFin = dayjs(todayFormat,DATE_TIME_FORMAT).add(30,'day');
-      const fechaFinFormat =  dayjs(fechaFin,DATE_TIME_FORMAT).format(DATE_TIME_FORMAT);
-      reembolso.fechaReembolso = todayFormat;
-      reembolso.fechaExpiReembolso = fechaFinFormat;
+      if (reembolso.id === undefined) {
+        const today = dayjs().startOf('day');
+        const todayFormat = dayjs(today, DATE_TIME_FORMAT).format(DATE_TIME_FORMAT);
+        reembolso.fechaReembolso = todayFormat;
+      }
       this.updateForm(reembolso);
     });
-    
+
     this.consultarPedidosExpirados();
   }
 
@@ -84,7 +82,7 @@ export class ReembolsoUpdateComponent implements OnInit {
     if (reembolso.id !== undefined) {
       this.subscribeToSaveResponse(this.reembolsoService.update(reembolso));
     } else {
-           this.subscribeToSaveResponse(this.reembolsoService.create(reembolso));
+      this.subscribeToSaveResponse(this.reembolsoService.create(reembolso));
     }
   }
 
@@ -116,7 +114,6 @@ export class ReembolsoUpdateComponent implements OnInit {
       descripcion: reembolso.descripcion,
       estado: reembolso.estado,
       fechaReembolso: reembolso.fechaReembolso,
-      fechaExpiReembolso: reembolso.fechaExpiReembolso
     });
   }
 
@@ -129,8 +126,9 @@ export class ReembolsoUpdateComponent implements OnInit {
       idFactura: this.editForm.get(['idFactura'])!.value,
       descripcion: this.editForm.get(['descripcion'])!.value,
       estado: this.editForm.get(['estado'])!.value,
-      fechaReembolso: this.editForm.get(['fechaReembolso'])!.value,
-      fechaExpiReembolso: this.editForm.get(['fechaExpiReembolso'])!.value
+      fechaReembolso: this.editForm.get(['fechaReembolso'])!.value
+        ? dayjs(this.editForm.get(['fechaReembolso'])!.value, DATE_TIME_FORMAT)
+        : undefined,
     };
   }
 }

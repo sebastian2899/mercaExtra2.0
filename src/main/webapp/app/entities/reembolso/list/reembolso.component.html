@@ -28,7 +28,7 @@
     <span jhiTranslate="mercaExtraApp.reembolso.home.notFound">No reembolsos found</span>
   </div>
 
-  <div class="table-responsive" id="entities" *ngIf="reembolsos && reembolsos.length > 0">
+  <!-- <div class="table-responsive" id="entities" *ngIf="reembolsos && reembolsos.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr>
@@ -82,5 +82,34 @@
         </tr>
       </tbody>
     </table>
+  </div> -->
+
+  <div class="row mb-5">
+    <div class="col-md-4 d-flex justify-content-around">
+      <a class="a-refund" (click)="loadAll()"><span class="font-size-small">Ver Todos</span></a>
+      <a class="a-refund"><span class="font-size-small" (click)="loadRefundStudy()">En proceso de estudio</span></a>
+      <a class="a-refund"><span class="font-size-small">Concluidos</span></a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-3" *ngFor="let reem of reembolsos">
+      <div class="card" style="width: 18rem; height: 13rem">
+        <ul class="list-group list-group-flush" style="border-color: rgb(180, 180, 180)">
+          <li class="list-group-item" style="background-color: white; color: black; border-color: rgb(180, 180, 180)">
+            <span class="font-size-small-blue">Fecha: </span>{{ reem.fechaReembolso | formatMediumDate }}
+          </li>
+          <li class="list-group-item" style="background-color: white; color: black; border-color: rgb(180, 180, 180)">
+            <span class="font-size-small-blue">Estádo: </span>{{ reem.estado }}
+          </li>
+          <li class="list-group-item" style="background-color: white; color: black; border-color: rgb(180, 180, 180)">
+            <span class="font-size-small-blue">Descripción: </span>{{ reem.descripcion }}
+          </li>
+        </ul>
+        <div class="card-footer">
+          <button class="btn btn-outline-warning">Ver Detalle</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

@@ -40,6 +40,7 @@ export class PedidoUpdateComponent implements OnInit {
     idDomiciliario: [],
     idNotificacion: [],
     idFactura: [],
+    fechaExpiReembolso: [],
   });
 
   constructor(
@@ -55,6 +56,9 @@ export class PedidoUpdateComponent implements OnInit {
       if (pedido.id === undefined) {
         const today = dayjs().startOf('day');
         pedido.fechaPedido = today;
+        const fechaFin = dayjs(today, DATE_TIME_FORMAT).add(30, 'day');
+        pedido.fechaExpiReembolso = fechaFin;
+
         this.titulo = 'Realizar Pedido';
         this.createOrder = true;
       } else {
@@ -158,6 +162,7 @@ export class PedidoUpdateComponent implements OnInit {
       idDomiciliario: pedido.idDomiciliario,
       idNotificacion: pedido.idNotificacion,
       idFactura: pedido.idFactura,
+      fechaExpiReembolso: pedido.fechaExpiReembolso,
     });
   }
 
@@ -174,6 +179,9 @@ export class PedidoUpdateComponent implements OnInit {
       idDomiciliario: this.editForm.get(['idDomiciliario'])!.value,
       idNotificacion: this.editForm.get(['idNotificacion'])!.value,
       idFactura: this.editForm.get(['idFactura'])!.value,
+      fechaExpiReembolso: this.editForm.get(['fechaExpiReembolso'])!.value
+        ? dayjs(this.editForm.get(['fechaExpiReembolso'])!.value, DATE_TIME_FORMAT)
+        : undefined,
     };
   }
 }

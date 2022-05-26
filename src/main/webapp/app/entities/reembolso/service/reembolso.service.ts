@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
-
+import dayjs from 'dayjs/esm';
 import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
 import { IReembolso, getReembolsoIdentifier } from '../reembolso.model';
 import { IPedido } from 'app/entities/pedido/pedido.model';
-import dayjs from 'dayjs';
 
 export type EntityResponseType = HttpResponse<IReembolso>;
 export type EntityArrayResponseType = HttpResponse<IReembolso[]>;
@@ -17,11 +16,18 @@ export type PedidoArrayResponseType = HttpResponse<IPedido[]>;
 export class ReembolsoService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/reembolsos');
   protected resourceReembolsoPedidosUrl = this.applicationConfigService.getEndpointFor('api/reembolsos-pedidos');
+  protected refundStudyUrl = this.applicationConfigService.getEndpointFor('api/refund-study');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
   create(reembolso: IReembolso): Observable<EntityResponseType> {
     return this.http.post<IReembolso>(this.resourceUrl, reembolso, { observe: 'response' });
+  }
+
+  refundStudy(): Observable<EntityArrayResponseType> {
+    return this.http
+      .get<IReembolso[]>(this.refundStudyUrl, { observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
   update(reembolso: IReembolso): Observable<EntityResponseType> {
@@ -42,7 +48,9 @@ export class ReembolsoService {
 
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
-    return this.http.get<IReembolso[]>(this.resourceUrl, { params: options, observe: 'response' });
+    return this.http
+      .get<IReembolso[]>(this.resourceUrl, { params: options, observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {

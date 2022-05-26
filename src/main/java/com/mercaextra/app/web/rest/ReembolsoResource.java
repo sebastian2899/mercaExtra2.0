@@ -7,6 +7,7 @@ import com.mercaextra.app.service.dto.ReembolsoDTO;
 import com.mercaextra.app.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -62,6 +63,7 @@ public class ReembolsoResource {
         if (reembolsoDTO.getId() != null) {
             throw new BadRequestAlertException("A new reembolso cannot already have an ID", ENTITY_NAME, "idexists");
         }
+
         ReembolsoDTO result = reembolsoService.save(reembolsoDTO);
         return ResponseEntity
             .created(new URI("/api/reembolsos/" + result.getId()))
@@ -143,6 +145,12 @@ public class ReembolsoResource {
     public List<DatosPedidoReembolsoDTO> pedidosExpirados() {
         log.debug("REST request to get all expired orders");
         return reembolsoService.pedidosExpirados();
+    }
+
+    @GetMapping("/refund-study")
+    public List<ReembolsoDTO> refundStudy() {
+        log.debug("REST request to get all refund in study state");
+        return reembolsoService.refoundInStudy();
     }
 
     /**
