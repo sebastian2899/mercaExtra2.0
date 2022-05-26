@@ -11,6 +11,7 @@ export interface IPedido {
   idFactura?: number | null;
   userName?: string | null;
   descripcionNotificacion?: string | null;
+  fechaExpiReembolso?: dayjs.Dayjs | null;
 }
 
 export class Pedido implements IPedido {
@@ -24,7 +25,8 @@ export class Pedido implements IPedido {
     public idNotificacion?: number | null,
     public idFactura?: number | null,
     public userName?: string | null,
-    public descripcionNotificacion?: string | null
+    public descripcionNotificacion?: string | null,
+    public fechaExpiReembolso?: dayjs.Dayjs | null
   ) {}
 }
 

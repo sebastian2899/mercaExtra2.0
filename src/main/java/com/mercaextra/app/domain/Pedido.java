@@ -58,7 +58,18 @@ public class Pedido implements Serializable {
     @Column(name = "hora_despacho")
     private String horaDespacho;
 
+    @Column(name = "fecha_expi_reembolso")
+    private Instant fechaExpiReembolso;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
+
+    public Instant getFechaExpiReembolso() {
+        return fechaExpiReembolso;
+    }
+
+    public void setFechaExpiReembolso(Instant fechaExpiReembolso) {
+        this.fechaExpiReembolso = fechaExpiReembolso;
+    }
 
     public String getDescripcionNotificacion() {
         return descripcionNotificacion;

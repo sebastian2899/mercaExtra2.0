@@ -1,10 +1,10 @@
 package com.mercaextra.app.repository;
 
-import com.mercaextra.app.domain.Domiciliario;
 import com.mercaextra.app.domain.Pedido;
 import com.mercaextra.app.domain.enumeration.EstadoDomiciliario;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -51,4 +51,8 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
 
     @Query("SELECT p.horaDespacho,p.id FROM Pedido p WHERE p.estado = 'Entregando'")
     List<Object[]> AllOrdersInComming();
+
+    @Modifying
+    @Query("UPDATE Pedido SET estado = 'Inactivo' WHERE id=:id")
+    void changeStateOrder(@Param("id") Long id);
 }

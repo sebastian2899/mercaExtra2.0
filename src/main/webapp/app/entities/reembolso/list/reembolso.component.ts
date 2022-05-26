@@ -10,7 +10,7 @@ import { ReembolsoDeleteDialogComponent } from '../delete/reembolso-delete-dialo
   selector: 'jhi-reembolso',
   templateUrl: './reembolso.component.html',
 })
-export class ReembolsoComponent implements OnInit {
+export class ReembolsoComponent {
   reembolsos?: IReembolso[];
   isLoading = false;
 
@@ -30,9 +30,20 @@ export class ReembolsoComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.loadAll();
+  loadRefundStudy(): void {
+    this.reembolsoService.refundStudy().subscribe({
+      next: (res: HttpResponse<IReembolso[]>) => {
+        this.reembolsos = res.body ?? [];
+      },
+      error: () => {
+        this.reembolsos = [];
+      },
+    });
   }
+
+  // ngOnInit(): void {
+
+  // }
 
   trackId(index: number, item: IReembolso): number {
     return item.id!;

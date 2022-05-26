@@ -391,4 +391,26 @@ public class PedidoServiceImpl implements PedidoService {
             }
         }
     }
+
+    // METODO PARA ELIMINAR LOS PEDIDOS EXPIRADOS POR FECHA DE LIMITE VENCIDO
+    @Scheduled(cron = "0 */5 * ? * *")
+    public void delelteExpiredOrders() {
+        log.debug("Request to delete all orders by date expired");
+        Instant fechaActual = Instant.now();
+
+        //TRAEMOS TODOS LOS PEDIDOS EXPIRADOS
+        Query q = entityManager.createQuery("SELECT p FROM Pedido p WHERE p.estado = 'Expirado'");
+
+        List<Pedido> pedidos = q.getResultList();
+
+        List<Long> idDelete = pedidos
+            .stream()
+            .filter(order -> order.getFechaExpiReembolso().isBefore(fechaActual))
+            .map(id -> id.getId())
+            .collect(Collectors.toCollection(LinkedList::new));
+
+        // CON LOS ID DE LOS PEDIDOS QUE YA SOBREPASARON EL LIMITE EN ESTADO EXPITADO, RECORREN Y SE ELIMINAN LOS PEDIDOS
+
+        idDelete.forEach(id -> pedidoRepository.changeStateOrder(id));
+    }
 }

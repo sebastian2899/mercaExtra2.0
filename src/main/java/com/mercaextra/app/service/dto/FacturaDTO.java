@@ -1,6 +1,5 @@
 package com.mercaextra.app.service.dto;
 
-import com.mercaextra.app.domain.ItemFacturaVenta;
 import com.mercaextra.app.domain.enumeration.MetodoPago;
 import com.mercaextra.app.domain.enumeration.TipoFactura;
 import java.io.Serializable;

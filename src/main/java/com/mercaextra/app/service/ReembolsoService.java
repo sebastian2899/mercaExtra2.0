@@ -48,4 +48,6 @@ public interface ReembolsoService {
     void delete(Long id);
 
     List<DatosPedidoReembolsoDTO> pedidosExpirados();
+
+    List<ReembolsoDTO> refoundInStudy();
 }

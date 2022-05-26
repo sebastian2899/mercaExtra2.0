@@ -29,6 +29,7 @@ h4 {
   text-align: center;
   vertical-align: middle;
   font-size: 20px;
+  color: white;
 }
 
 .main-menu:hover,
@@ -138,12 +139,28 @@ nav li {
   padding: 0;
 }
 
+.a-refund {
+  text-decoration: none;
+  color: rgb(109, 109, 109);
+}
+
+.a-refund:hover {
+  color: #000;
+}
+
+a.refund:visited {
+  color: rgb(182, 0, 0);
+}
+
 .main-menu:hover {
   background-color: white;
   li > a {
     color: #000;
   }
   li:hover > a {
+    color: #000;
+  }
+  .fa {
     color: #000;
   }
 }
@@ -415,6 +432,11 @@ nav.main-menu li.active > a,
 }
 
 .font-size-small {
+  font: 500 18px/24px Google Sans Text, Arial, Helvetica, sans-serif;
+}
+
+.font-size-small-blue {
+  color: rgb(79, 117, 255);
   font: 500 18px/24px Google Sans Text, Arial, Helvetica, sans-serif;
 }
 

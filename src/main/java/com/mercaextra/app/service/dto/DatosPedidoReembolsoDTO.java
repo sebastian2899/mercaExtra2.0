@@ -24,8 +24,18 @@ public class DatosPedidoReembolsoDTO implements Serializable {
 
     private Long idFactura;
 
+    private String fechaExpiPedido;
+
     public String getFechaPedido() {
         return fechaPedido;
+    }
+
+    public String getFechaExpiPedido() {
+        return fechaExpiPedido;
+    }
+
+    public void setFechaExpiPedido(String fechaExpiPedido) {
+        this.fechaExpiPedido = fechaExpiPedido;
     }
 
     public void setFechaPedido(String fechaPedido) {

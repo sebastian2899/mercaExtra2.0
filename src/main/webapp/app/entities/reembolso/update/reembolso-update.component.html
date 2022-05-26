@@ -41,6 +41,9 @@
       <p class="font-size-small">Domiciliario: {{ pedido.domiciliario }}</p>
       <button class="card-link btn btn-info" (click)="aisgnarDatosReembolso(pedido)" (click)="validateRefund()">Reembolzar</button>
     </div>
+    <div class="d-flex justify-content-end">
+      limite para reembolsar: <span style="color: red">{{ pedido.fechaExpiPedido }}</span>
+    </div>
   </div>
 </div>
 
