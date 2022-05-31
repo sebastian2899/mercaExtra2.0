@@ -7,17 +7,18 @@ import com.mercaextra.app.repository.ReembolsoRepository;
 import com.mercaextra.app.service.ReembolsoService;
 import com.mercaextra.app.service.UserService;
 import com.mercaextra.app.service.dto.DatosPedidoReembolsoDTO;
+import com.mercaextra.app.service.dto.DatosReembolsoAConcluirDTO;
 import com.mercaextra.app.service.dto.ReembolsoDTO;
 import com.mercaextra.app.service.mapper.ReembolsoMapper;
 import com.mercaextra.app.web.rest.errors.BadRequestAlertException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,9 @@ public class ReembolsoServiceImpl implements ReembolsoService {
 
     private UserService userService;
 
+    @PersistenceContext
+    private EntityManager entityManager;
+
     public ReembolsoServiceImpl(
         ReembolsoRepository reembolsoRepository,
         ReembolsoMapper reembolsoMapper,
@@ -60,32 +64,60 @@ public class ReembolsoServiceImpl implements ReembolsoService {
         Reembolso reembolso = reembolsoMapper.toEntity(reembolsoDTO);
         Pedido pedido = null;
 
+        if (reembolsoDTO.getId() != null) {
+            reembolso = reembolsoRepository.refundById(reembolso.getId());
+        }
+
         // Consultamos el pedido para cambiarlo de estado.
         if (reembolso.getIdPedido() != null) {
             pedido = pedidoRepository.getById(reembolso.getIdPedido());
-            pedido.setEstado("Reembolso en estudio");
-            pedidoRepository.save(pedido);
         }
 
+        // SE VUELVE A VALIDAR QUE LA FECHA LIMITE NO ESTE ANTES DE LA FECHA ACTUAL.
         if (pedido.getFechaExpiReembolso().isBefore(Instant.now())) {
             throw new BadRequestAlertException("Fecha expirada", ENTITY_NAME, "Fecha limite vencida");
         }
 
-        // SE VUELVE A VALIDAR QUE LA FECHA LIMITE NO ESTE ANTES DE LA FECHA ACTUAL.
-
         if (reembolsoDTO.getId() == null) {
             reembolso.setEstado("Reembolso en estudio");
+            pedido.setEstado("Reembolso en estudio");
+        } else {
+            pedido.setEstado("Reembolsado");
+            String estado = reembolso.getEstado().equals("Concluido") ? "Reembolsado" : "Concluido";
+            reembolso.setEstado(estado);
         }
 
+        pedidoRepository.save(pedido);
         reembolso = reembolsoRepository.save(reembolso);
         return reembolsoMapper.toDto(reembolso);
+    }
+
+    public List<ReembolsoDTO> reembolsosConcluidos() {
+        log.debug("Request to get all Reembolsos");
+        List<Object[]> reembolsos = reembolsoRepository.dataOrders("Concluido");
+
+        List<ReembolsoDTO> reembolsosDTO = reembolsos
+            .stream()
+            .map(element -> {
+                ReembolsoDTO reembolsoDTO = new ReembolsoDTO();
+                reembolsoDTO.setId(Long.parseLong(element[0].toString()));
+                reembolsoDTO.setFechaPedido(element[1].toString().substring(0, 10));
+                reembolsoDTO.setNombreDomiciliario(element[2].toString());
+                reembolsoDTO.setFechaReembolso(Instant.parse(element[3].toString()));
+                reembolsoDTO.setEstado(element[4].toString());
+                reembolsoDTO.setDescripcion(element[5].toString());
+                return reembolsoDTO;
+            })
+            .collect(Collectors.toList());
+
+        return reembolsosDTO;
     }
 
     public List<ReembolsoDTO> refoundInStudy() {
         log.debug("Request to get refund in study state");
 
         // SE RECUPERAN LOS DATOS
-        List<Object[]> dataSet = reembolsoRepository.dataOrders();
+        List<Object[]> dataSet = reembolsoRepository.dataOrders("Reembolso en estudio");
 
         List<ReembolsoDTO> dataSetDTO = new ArrayList<>();
 
@@ -94,16 +126,35 @@ public class ReembolsoServiceImpl implements ReembolsoService {
             .map(element -> {
                 ReembolsoDTO reembolsoDTO = new ReembolsoDTO();
                 reembolsoDTO.setId(Long.parseLong(element[0].toString()));
-                reembolsoDTO.setFechaPedido(element[1].toString().substring(element[1].toString().indexOf("T")));
+                reembolsoDTO.setFechaPedido(element[1].toString().substring(0, element[1].toString().indexOf("T")));
                 reembolsoDTO.setNombreDomiciliario(element[2].toString());
                 reembolsoDTO.setFechaReembolso(Instant.parse(element[3].toString()));
                 reembolsoDTO.setEstado(element[4].toString());
+                reembolsoDTO.setDescripcion(element[5].toString());
 
                 return reembolsoDTO;
             })
             .forEach(dataSetDTO::add);
 
         return dataSetDTO;
+    }
+
+    @Override
+    public List<ReembolsoDTO> refundByOption(Long option) {
+        log.debug("Request to get refund by option");
+
+        // SE RECUPERAN LOS DATOS SEGUN LA OPCION
+
+        switch (option.intValue()) {
+            case 1:
+                return findAll();
+            case 2:
+                return refoundInStudy();
+            case 3:
+                return reembolsosConcluidos();
+            default:
+                throw new BadRequestAlertException("Opcion invalida", ENTITY_NAME, "Opcion invalida");
+        }
     }
 
     @Override
@@ -132,7 +183,39 @@ public class ReembolsoServiceImpl implements ReembolsoService {
     @Transactional(readOnly = true)
     public Optional<ReembolsoDTO> findOne(Long id) {
         log.debug("Request to get Reembolso : {}", id);
-        return reembolsoRepository.findById(id).map(reembolsoMapper::toDto);
+
+        return Optional
+            .of(reembolsoRepository.findById(id))
+            .filter(Optional::isPresent)
+            .map(Optional::get)
+            .map(reembolso -> {
+                ReembolsoDTO reembolsoDTO = new ReembolsoDTO();
+                reembolsoDTO.setId(reembolso.getId());
+                reembolsoDTO.setDescripcion(reembolso.getDescripcion());
+                reembolsoDTO.setFechaReembolso(reembolso.getFechaReembolso());
+                reembolsoDTO.setIdPedido(reembolso.getIdPedido());
+                reembolsoDTO.setFechaPedido(fechaPedido(reembolso.getIdPedido()));
+                reembolsoDTO.setEstado(reembolso.getEstado());
+                reembolsoDTO.setNombreDomiciliario(nomDomiciliario(reembolso.getIdDomiciliario()));
+
+                return reembolsoDTO;
+            });
+    }
+
+    private String fechaPedido(Long id) {
+        Query q = entityManager.createQuery("SELECT p.fechaPedido FROM Pedido p " + "WHERE p.id=:id").setParameter("id", id);
+
+        String fecha = q.getSingleResult().toString().substring(0, q.getSingleResult().toString().indexOf("T")).toString();
+
+        return fecha;
+    }
+
+    private String nomDomiciliario(Long id) {
+        Query q = entityManager.createQuery("SELECT d.nombre FROM Domiciliario d " + "WHERE d.id=:id").setParameter("id", id);
+
+        String name = q.getSingleResult().toString();
+
+        return name;
     }
 
     @Override
@@ -170,27 +253,31 @@ public class ReembolsoServiceImpl implements ReembolsoService {
             })
             .forEach(pedidosExpirados::add);
 
-        /*
-         * for (Object[] expirado : expirados) { pedido = new DatosPedidoReembolsoDTO();
-         * pedido.setIdPedido(Long.parseLong(expirado[0].toString()));
-         * String fecha =
-         * expirado[1].toString().substring(0,
-         * expirado[1].toString().indexOf("T")).toString();
-         * pedido.setFechaPedido(fecha);
-         * pedido.setPedidoDireccion(expirado[2].toString()); pedido.setValorFactura(new
-         * BigDecimal(expirado[3].toString()));
-         * pedido.setIdFactura(Long.parseLong(expirado[4].toString()));
-         * pedido.setDomiciliario(expirado[5].toString());
-         * pedido.setIdDomiciliario(Long.parseLong(expirado[6].toString()));
-         * pedido.setFechaExpiPedido(expirado[7].toString().substring(0,
-         * expirado[7].toString().indexOf("T")).toString());
-         * pedidosExpirados.add(pedido); }
-         */
         return pedidosExpirados.stream().collect(Collectors.toCollection(LinkedList::new));
     }
 
-    // METODO PARA ELIMINAR TODOS LOS PEDIDOS QUE ESTAN EN ESTADO DE EXPIRADO. (SE ELIMINAN DESPUES DE 30 DIAS EN ESE ESTADO)
-    public void deleteOrderExpired() {
-        log.debug("Request to delete all expired orders");
+    @Override
+    @Transactional(readOnly = true)
+    public DatosReembolsoAConcluirDTO dataRefundInProcess(Long id) {
+        log.debug("Request to get data refund in process");
+
+        List<Object[]> datos = reembolsoRepository.dataRefundInProcess(id);
+
+        DatosReembolsoAConcluirDTO reembolsoTemp = datos
+            .stream()
+            .map(element -> {
+                DatosReembolsoAConcluirDTO reembolso = new DatosReembolsoAConcluirDTO();
+                reembolso.setValorFactura(new BigDecimal(element[0].toString()));
+                reembolso.setFechaPedido(element[1].toString().substring(0, element[1].toString().indexOf("T")).toString());
+                reembolso.setDescripcion(element[2].toString());
+                reembolso.setNombreUsuario(element[3].toString());
+                reembolso.setId(Long.parseLong(element[4].toString()));
+
+                return reembolso;
+            })
+            .collect(Collectors.toList())
+            .get(0);
+
+        return reembolsoTemp;
     }
 }

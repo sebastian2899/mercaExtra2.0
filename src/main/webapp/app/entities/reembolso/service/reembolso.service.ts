@@ -7,16 +7,19 @@ import { ApplicationConfigService } from 'app/core/config/application-config.ser
 import { createRequestOption } from 'app/core/request/request-util';
 import { IReembolso, getReembolsoIdentifier } from '../reembolso.model';
 import { IPedido } from 'app/entities/pedido/pedido.model';
+import { IDatosReembolso } from '../datosRemProces';
 
 export type EntityResponseType = HttpResponse<IReembolso>;
 export type EntityArrayResponseType = HttpResponse<IReembolso[]>;
 export type PedidoArrayResponseType = HttpResponse<IPedido[]>;
+export type DatoReembolsoResponseType = HttpResponse<IDatosReembolso>;
 
 @Injectable({ providedIn: 'root' })
 export class ReembolsoService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/reembolsos');
   protected resourceReembolsoPedidosUrl = this.applicationConfigService.getEndpointFor('api/reembolsos-pedidos');
-  protected refundStudyUrl = this.applicationConfigService.getEndpointFor('api/refund-study');
+  protected refundByOptionUrl = this.applicationConfigService.getEndpointFor('api/reembolsos-option');
+  protected refundProcessURL = this.applicationConfigService.getEndpointFor('api/reembolsos/refundInProcess');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
@@ -24,9 +27,19 @@ export class ReembolsoService {
     return this.http.post<IReembolso>(this.resourceUrl, reembolso, { observe: 'response' });
   }
 
-  refundStudy(): Observable<EntityArrayResponseType> {
+  dataRefundProcess(id: number): Observable<DatoReembolsoResponseType> {
+    return this.http.get<IDatosReembolso>(`${this.refundProcessURL}/${id}`, { observe: 'response' });
+  }
+
+  // refundStudy(): Observable<EntityArrayResponseType> {
+  //   return this.http
+  //     .get<IReembolso[]>(this.refundStudyUrl, { observe: 'response' })
+  //     .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+  // }
+
+  refundByOption(option: number): Observable<EntityArrayResponseType> {
     return this.http
-      .get<IReembolso[]>(this.refundStudyUrl, { observe: 'response' })
+      .get<IReembolso[]>(`${this.refundByOptionUrl}/${option}`, { observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
@@ -43,7 +56,9 @@ export class ReembolsoService {
   }
 
   find(id: number): Observable<EntityResponseType> {
-    return this.http.get<IReembolso>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+    return this.http
+      .get<IReembolso>(`${this.resourceUrl}/${id}`, { observe: 'response' })
+      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
   query(req?: any): Observable<EntityArrayResponseType> {
@@ -77,7 +92,7 @@ export class ReembolsoService {
     return reembolsoCollection;
   }
 
-  protected convertDateFromClient(reembolso: IReembolso): IPedido {
+  protected convertDateFromClient(reembolso: IReembolso): IReembolso {
     return Object.assign({}, reembolso, {
       fechaReembolso: reembolso.fechaReembolso?.isValid() ? reembolso.fechaReembolso.toJSON() : undefined,
     });
