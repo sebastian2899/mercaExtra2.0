@@ -1,7 +1,7 @@
 package com.mercaextra.app.repository;
 
-import com.mercaextra.app.domain.Pedido;
 import com.mercaextra.app.domain.Reembolso;
+import com.mercaextra.app.service.dto.DatosReembolsoAConcluirDTO;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -21,8 +21,17 @@ public interface ReembolsoRepository extends JpaRepository<Reembolso, Long> {
     List<Object[]> pedidosReembolso(@Param("userName") String userName);
 
     @Query(
-        "SELECT r.id,p.fechaPedido,d.nombre,r.fechaReembolso,r.estado FROM Reembolso r INNER JOIN Pedido p ON r.idPedido = p.id" +
-        " INNER JOIN Domiciliario d ON r.idDomiciliario = d.id WHERE r.estado = 'Reembolso en estudio'"
+        "SELECT r.id,p.fechaPedido,d.nombre,r.fechaReembolso,r.estado,r.descripcion FROM Reembolso r INNER JOIN Pedido p ON r.idPedido = p.id" +
+        " INNER JOIN Domiciliario d ON r.idDomiciliario = d.id WHERE r.estado = :estado"
     )
-    List<Object[]> dataOrders();
+    List<Object[]> dataOrders(@Param("estado") String estado);
+
+    @Query("SELECT r FROM Reembolso r WHERE r.id =:id")
+    Reembolso refundById(@Param("id") Long id);
+
+    @Query(
+        "SELECT f.valorFactura,p.fechaPedido,r.descripcion,p.userName,r.id FROM Reembolso r INNER JOIN Pedido p ON r.idPedido = p.id" +
+        " INNER JOIN Factura f ON p.idFactura = f.id WHERE r.id =:id"
+    )
+    List<Object[]> dataRefundInProcess(@Param("id") Long id);
 }

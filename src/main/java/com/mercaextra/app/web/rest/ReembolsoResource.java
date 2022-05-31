@@ -3,6 +3,7 @@ package com.mercaextra.app.web.rest;
 import com.mercaextra.app.repository.ReembolsoRepository;
 import com.mercaextra.app.service.ReembolsoService;
 import com.mercaextra.app.service.dto.DatosPedidoReembolsoDTO;
+import com.mercaextra.app.service.dto.DatosReembolsoAConcluirDTO;
 import com.mercaextra.app.service.dto.ReembolsoDTO;
 import com.mercaextra.app.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -147,21 +148,31 @@ public class ReembolsoResource {
         return reembolsoService.pedidosExpirados();
     }
 
-    @GetMapping("/refund-study")
-    public List<ReembolsoDTO> refundStudy() {
-        log.debug("REST request to get all refund in study state");
-        return reembolsoService.refoundInStudy();
-    }
-
     /**
      * {@code GET  /reembolsos} : get all the reembolsos.
      *
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of reembolsos in body.
      */
-    @GetMapping("/reembolsos")
-    public List<ReembolsoDTO> getAllReembolsos() {
+    @GetMapping("/reembolsos-option/{code}")
+    public List<ReembolsoDTO> getAllReembolsosByOption(@PathVariable Long code) {
         log.debug("REST request to get all Reembolsos");
-        return reembolsoService.findAll();
+
+        if (null == code) {
+            throw new BadRequestAlertException("Invalid code", ENTITY_NAME, "idnull");
+        }
+
+        return reembolsoService.refundByOption(code);
+    }
+
+    @GetMapping("/reembolsos/refundInProcess/{id}")
+    public ResponseEntity<DatosReembolsoAConcluirDTO> refundInProcess(@PathVariable Long id) {
+        log.debug("REST request to get refund in process");
+
+        if (null == id) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+
+        return ResponseEntity.ok(reembolsoService.dataRefundInProcess(id));
     }
 
     /**

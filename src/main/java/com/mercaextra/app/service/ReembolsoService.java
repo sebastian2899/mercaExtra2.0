@@ -1,9 +1,11 @@
 package com.mercaextra.app.service;
 
 import com.mercaextra.app.service.dto.DatosPedidoReembolsoDTO;
+import com.mercaextra.app.service.dto.DatosReembolsoAConcluirDTO;
 import com.mercaextra.app.service.dto.ReembolsoDTO;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Service Interface for managing {@link com.mercaextra.app.domain.Reembolso}.
@@ -16,6 +18,8 @@ public interface ReembolsoService {
      * @return the persisted entity.
      */
     ReembolsoDTO save(ReembolsoDTO reembolsoDTO);
+
+    List<ReembolsoDTO> refundByOption(Long option);
 
     /**
      * Partially updates a reembolso.
@@ -50,4 +54,7 @@ public interface ReembolsoService {
     List<DatosPedidoReembolsoDTO> pedidosExpirados();
 
     List<ReembolsoDTO> refoundInStudy();
+
+    @Transactional(readOnly = true)
+    DatosReembolsoAConcluirDTO dataRefundInProcess(Long id);
 }
