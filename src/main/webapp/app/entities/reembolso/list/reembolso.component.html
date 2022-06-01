@@ -85,10 +85,11 @@
   </div> -->
 
   <div class="row mb-5">
-    <div class="col-md-4 d-flex justify-content-around">
+    <div class="col-md-6 d-flex justify-content-around">
       <a class="a-refund" (click)="refundByOption(1)"><span class="font-size-small">Ver Todos</span></a>
       <a class="a-refund"><span class="font-size-small" (click)="refundByOption(2)">En proceso de estudio</span></a>
       <a class="a-refund"><span class="font-size-small" (click)="refundByOption(3)">Concluidos</span></a>
+      <a class="a-refund"><span class="font-size-small" (click)="refundByOption(4)">Reembolsados</span></a>
     </div>
   </div>
 
@@ -115,7 +116,9 @@
             class="list-group-item"
             style="background-color: white; color: black; border-color: rgb(180, 180, 180)"
           >
-            <span class="font-size-small-blue">Domiciliario: </span>{{ reem.nombreDomiciliario }}
+            <a [routerLink]="['/domiciliario', reem.idDomiciliario, 'view']">
+              <span class="font-size-small-blue">Domiciliario: </span>{{ reem.nombreDomiciliario }}
+            </a>
           </li>
           <li class="list-group-item" style="background-color: white; color: black; border-color: rgb(180, 180, 180)">
             <span class="font-size-small-blue">Descripción: </span>{{ reem.descripcion }}

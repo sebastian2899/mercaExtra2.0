@@ -47,6 +47,13 @@ export class ReembolsoComponent {
         this.completeState = false;
         this.isComplete = true;
         break;
+
+      case 4:
+        this.title = 'Reembolsados';
+        this.assigmentHeigth = true;
+        this.completeState = false;
+        this.isComplete = true;
+        break;
     }
 
     this.reembolsoService.refundByOption(option).subscribe({
@@ -144,7 +151,7 @@ export class ReembolsoComponent {
 
   concluirReembolso(refund: IReembolso): void {
     this.reembolsoService.update(refund).subscribe({
-      next: (res: HttpResponse<IReembolso>) => {
+      next: () => {
         this.alertService.addAlert({
           type: 'success',
           message: 'Reembolso concluido con exito.',

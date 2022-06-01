@@ -5,9 +5,10 @@ import { ReembolsoDetailComponent } from './detail/reembolso-detail.component';
 import { ReembolsoUpdateComponent } from './update/reembolso-update.component';
 import { ReembolsoDeleteDialogComponent } from './delete/reembolso-delete-dialog.component';
 import { ReembolsoRoutingModule } from './route/reembolso-routing.module';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
-  imports: [SharedModule, ReembolsoRoutingModule],
+  imports: [SharedModule, ReembolsoRoutingModule, MatIconModule],
   declarations: [ReembolsoComponent, ReembolsoDetailComponent, ReembolsoUpdateComponent, ReembolsoDeleteDialogComponent],
   entryComponents: [ReembolsoDeleteDialogComponent],
 })

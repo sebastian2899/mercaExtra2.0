@@ -106,6 +106,7 @@ public class ReembolsoServiceImpl implements ReembolsoService {
                 reembolsoDTO.setFechaReembolso(Instant.parse(element[3].toString()));
                 reembolsoDTO.setEstado(element[4].toString());
                 reembolsoDTO.setDescripcion(element[5].toString());
+                reembolsoDTO.setIdDomiciliario(Long.parseLong(element[6].toString()));
                 return reembolsoDTO;
             })
             .collect(Collectors.toList());
@@ -119,9 +120,7 @@ public class ReembolsoServiceImpl implements ReembolsoService {
         // SE RECUPERAN LOS DATOS
         List<Object[]> dataSet = reembolsoRepository.dataOrders("Reembolso en estudio");
 
-        List<ReembolsoDTO> dataSetDTO = new ArrayList<>();
-
-        dataSet
+        List<ReembolsoDTO> dataSetDTO = dataSet
             .stream()
             .map(element -> {
                 ReembolsoDTO reembolsoDTO = new ReembolsoDTO();
@@ -131,10 +130,11 @@ public class ReembolsoServiceImpl implements ReembolsoService {
                 reembolsoDTO.setFechaReembolso(Instant.parse(element[3].toString()));
                 reembolsoDTO.setEstado(element[4].toString());
                 reembolsoDTO.setDescripcion(element[5].toString());
+                reembolsoDTO.setIdDomiciliario(Long.parseLong(element[6].toString()));
 
                 return reembolsoDTO;
             })
-            .forEach(dataSetDTO::add);
+            .collect(Collectors.toCollection(LinkedList::new));
 
         return dataSetDTO;
     }
@@ -152,9 +152,36 @@ public class ReembolsoServiceImpl implements ReembolsoService {
                 return refoundInStudy();
             case 3:
                 return reembolsosConcluidos();
+            case 4:
+                return refundComplete();
             default:
                 throw new BadRequestAlertException("Opcion invalida", ENTITY_NAME, "Opcion invalida");
         }
+    }
+
+    private List<ReembolsoDTO> refundComplete() {
+        log.debug("Request to get refund complete");
+
+        // SE RECUPERAN LOS DATOS
+        List<Object[]> dataSet = reembolsoRepository.dataOrders("Reembolsado");
+
+        List<ReembolsoDTO> dataSetDTO = dataSet
+            .stream()
+            .map(element -> {
+                ReembolsoDTO reembolsoDTO = new ReembolsoDTO();
+                reembolsoDTO.setId(Long.parseLong(element[0].toString()));
+                reembolsoDTO.setFechaPedido(element[1].toString().substring(0, element[1].toString().indexOf("T")));
+                reembolsoDTO.setNombreDomiciliario(element[2].toString());
+                reembolsoDTO.setFechaReembolso(Instant.parse(element[3].toString()));
+                reembolsoDTO.setEstado(element[4].toString());
+                reembolsoDTO.setDescripcion(element[5].toString());
+                reembolsoDTO.setIdDomiciliario(Long.parseLong(element[6].toString()));
+
+                return reembolsoDTO;
+            })
+            .collect(Collectors.toCollection(LinkedList::new));
+
+        return dataSetDTO;
     }
 
     @Override
@@ -197,6 +224,7 @@ public class ReembolsoServiceImpl implements ReembolsoService {
                 reembolsoDTO.setFechaPedido(fechaPedido(reembolso.getIdPedido()));
                 reembolsoDTO.setEstado(reembolso.getEstado());
                 reembolsoDTO.setNombreDomiciliario(nomDomiciliario(reembolso.getIdDomiciliario()));
+                reembolsoDTO.setIdFactura(reembolso.getIdFactura());
 
                 return reembolsoDTO;
             });

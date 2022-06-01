@@ -38,8 +38,12 @@
         <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
       </button>
 
-      <button type="button" [routerLink]="['/reembolso', reembolso.id, 'edit']" class="btn btn-outline-info">
+      <!-- <button type="button" [routerLink]="['/reembolso', reembolso.id, 'edit']" class="btn btn-outline-info">
         <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button> -->
+
+      <button type="button" [routerLink]="['/factura', reembolso.idFactura, 'view']" class="btn btn-outline-info">
+        <mat-icon class="icon-config">plagiarism</mat-icon><span>Ver más detalle sobre el pedido.</span>
       </button>
     </div>
   </div>
