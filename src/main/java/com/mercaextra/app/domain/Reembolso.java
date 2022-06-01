@@ -44,6 +44,9 @@ public class Reembolso implements Serializable {
     @Column(name = "fecha_reembolso")
     private Instant fechaReembolso;
 
+    @Column(name = "metodo_reembolso")
+    private String metodoReembolso;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -130,6 +133,19 @@ public class Reembolso implements Serializable {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getMetodoReembolso() {
+        return this.metodoReembolso;
+    }
+
+    public Reembolso metodoReembolso(String metodoReembolso) {
+        this.setMetodoReembolso(metodoReembolso);
+        return this;
+    }
+
+    public void setMetodoReembolso(String metodoReembolso) {
+        this.metodoReembolso = metodoReembolso;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

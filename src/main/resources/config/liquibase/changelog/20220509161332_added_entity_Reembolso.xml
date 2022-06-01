@@ -32,6 +32,9 @@
              <column name="fecha_reembolso" type="${datetimeType}">
                 <constraints nullable="true" />
             </column>
+            <column name="metodo_reembolso" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
     </changeSet>

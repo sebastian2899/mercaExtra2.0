@@ -22,6 +22,8 @@ export class ReembolsoComponent {
   completeState?: boolean | null;
   isComplete?: boolean | null;
   dataRefundInProcess?: IDatosReembolso | null;
+  metodosReembolso = ['Transferencia', 'Cheque', 'Efectivo'];
+  metodoReembolso?: string | null;
 
   constructor(protected reembolsoService: ReembolsoService, protected modalService: NgbModal, protected alertService: AlertService) {}
 
@@ -52,7 +54,7 @@ export class ReembolsoComponent {
         this.title = 'Reembolsados';
         this.assigmentHeigth = true;
         this.completeState = false;
-        this.isComplete = true;
+        this.isComplete = false;
         break;
     }
 
@@ -92,6 +94,8 @@ export class ReembolsoComponent {
     if (id) {
       this.reembolsoService.find(id).subscribe({
         next: (res: HttpResponse<IReembolso>) => {
+          const reembolso = res.body;
+          reembolso!.metodoReembolso = this.metodoReembolso;
           this.reembolsoService.update(res.body!).subscribe({
             next: () => {
               this.alertService.addAlert({

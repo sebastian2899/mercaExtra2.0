@@ -10,6 +10,7 @@ export interface IReembolso {
   fechaReembolso?: dayjs.Dayjs | null;
   nombreDomiciliario?: string | null;
   fechaPedido?: string | null;
+  metodoReembolso?: string | null;
 }
 
 export class Reembolso implements IReembolso {
@@ -22,7 +23,8 @@ export class Reembolso implements IReembolso {
     public estado?: string | null,
     public fechaReembolso?: dayjs.Dayjs | null,
     public nombreDomiciliario?: string | null,
-    public fechaPedido?: string | null
+    public fechaPedido?: string | null,
+    public metodoReembolso?: string | null
   ) {}
 }
 

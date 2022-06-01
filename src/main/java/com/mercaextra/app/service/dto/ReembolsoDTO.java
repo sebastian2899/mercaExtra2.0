@@ -32,6 +32,8 @@ public class ReembolsoDTO implements Serializable {
 
     private String nombreDomiciliario;
 
+    private String metodoReembolso;
+
     public Long getId() {
         return id;
     }
@@ -102,6 +104,14 @@ public class ReembolsoDTO implements Serializable {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getMetodoReembolso() {
+        return metodoReembolso;
+    }
+
+    public void setMetodoReembolso(String metodoReembolso) {
+        this.metodoReembolso = metodoReembolso;
     }
 
     @Override

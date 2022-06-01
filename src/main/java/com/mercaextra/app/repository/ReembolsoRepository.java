@@ -21,7 +21,7 @@ public interface ReembolsoRepository extends JpaRepository<Reembolso, Long> {
     List<Object[]> pedidosReembolso(@Param("userName") String userName);
 
     @Query(
-        "SELECT r.id,p.fechaPedido,d.nombre,r.fechaReembolso,r.estado,r.descripcion,d.id FROM Reembolso r INNER JOIN Pedido p ON r.idPedido = p.id" +
+        "SELECT r.id,p.fechaPedido,d.nombre,r.fechaReembolso,r.estado,r.descripcion,d.id,r.metodoReembolso FROM Reembolso r INNER JOIN Pedido p ON r.idPedido = p.id" +
         " INNER JOIN Domiciliario d ON r.idDomiciliario = d.id WHERE r.estado = :estado"
     )
     List<Object[]> dataOrders(@Param("estado") String estado);

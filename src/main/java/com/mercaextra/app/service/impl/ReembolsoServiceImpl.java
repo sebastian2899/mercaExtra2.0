@@ -66,6 +66,7 @@ public class ReembolsoServiceImpl implements ReembolsoService {
 
         if (reembolsoDTO.getId() != null) {
             reembolso = reembolsoRepository.refundById(reembolso.getId());
+            reembolso.setMetodoReembolso(reembolsoDTO.getMetodoReembolso() != null ? reembolsoDTO.getMetodoReembolso() : null);
         }
 
         // Consultamos el pedido para cambiarlo de estado.
@@ -176,6 +177,7 @@ public class ReembolsoServiceImpl implements ReembolsoService {
                 reembolsoDTO.setEstado(element[4].toString());
                 reembolsoDTO.setDescripcion(element[5].toString());
                 reembolsoDTO.setIdDomiciliario(Long.parseLong(element[6].toString()));
+                reembolsoDTO.setMetodoReembolso(element[7].toString());
 
                 return reembolsoDTO;
             })
