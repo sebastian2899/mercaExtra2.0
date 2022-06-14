@@ -73,10 +73,10 @@ export class ProductoComponent implements OnInit {
     this.loadAll();
     this.consultarCategorias();
     this.consultarProductosAE();
-    const shopingCard = this.storageService.getCarrito();
-    if (shopingCard) {
+    const shopingCar = this.storageService.getCarrito();
+    if (shopingCar && shopingCar.length > 0) {
       this.existShoppingCar = true;
-      this.productosCarrito = shopingCard;
+      this.productosCarrito = shopingCar;
     } else {
       this.existShoppingCar = false;
       this.productosCarrito = null;

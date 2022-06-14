@@ -73,7 +73,7 @@ export class CompraComponent implements OnInit {
     this.compra.idProveedor = this.idProveedor;
     this.compra.numeroFactura = this.numeroFactura;
 
-    this.compraService.compraFilters(this.compra, this.fecha!.toString()).subscribe({
+    this.compraService.compraFilters(this.compra, this.fecha ? this.fecha.toString() : 'vacia').subscribe({
       next: (res: HttpResponse<ICompra[]>) => {
         this.compras = res.body ?? [];
       },
@@ -86,6 +86,10 @@ export class CompraComponent implements OnInit {
   ngOnInit(): void {
     this.loadAll();
     this.findProveedores();
+  }
+
+  refresh(): void {
+    window.location.reload();
   }
 
   trackId(index: number, item: ICompra): number {

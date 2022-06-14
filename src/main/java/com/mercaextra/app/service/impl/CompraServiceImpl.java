@@ -62,14 +62,14 @@ public class CompraServiceImpl implements CompraService {
         log.debug("Request to save Compra : {}", compraDTO);
         Compra compra = compraMapper.toEntity(compraDTO);
         compra.setFechaCreacion(Instant.now());
-        
-        if(null != compraDTO.getIdProveedor()) {
-        	Query q = entityManager.createQuery("SELECT p.nombre FROM Proveedor p "
-        			+ "WHERE p.id =:id")
-        			.setParameter("id", compraDTO.getIdProveedor());
-        	String name = (String) q.getSingleResult();
-        	
-        	compraDTO.setInformacionProovedor(name);
+
+        if (null != compraDTO.getIdProveedor()) {
+            Query q = entityManager
+                .createQuery("SELECT p.nombre FROM Proveedor p " + "WHERE p.id =:id")
+                .setParameter("id", compraDTO.getIdProveedor());
+            String name = (String) q.getSingleResult();
+
+            compraDTO.setInformacionProovedor(name);
         }
 
         compra = compraRepository.save(compra);
@@ -185,7 +185,7 @@ public class CompraServiceImpl implements CompraService {
             filtros.put("numeroFactura", compra.getNumeroFactura());
         }
 
-        if (fecha != null && !fecha.isEmpty()) {
+        if (!fecha.equalsIgnoreCase("vacia")) {
             String fechaFormat = fecha.substring(0, 10);
 
             sb.append(Constants.COMPRA_FECHA);

@@ -264,9 +264,9 @@ public class PedidoServiceImpl implements PedidoService {
     }
 
     /*
-     * metodo para consultar los factura que estan listas para poder realizae un
+     * metodo para consultar las factura que estan listas para poder realizae un
      * pedido en la seccion update de angular en la entidad pedido.
-     * Se crea un dto con los datos especififcos para no consultar todos los campos de la factuira
+     * Se crea un dto con los datos especififcos para no consultar todos los campos de la factura
      * si no slo los campos necesarios.
      */
     @Override
@@ -386,6 +386,11 @@ public class PedidoServiceImpl implements PedidoService {
             if (timeComparing - timeEntregaLong > 30) {
                 //SI SE CUMPLE LA CONDICION SE CAMBIA EL ESTADO AL PEDIDO CON EL ID QUE YA SE CONSULTO DE EL PEDIDO
                 Query q = entityManager.createQuery(Constants.CAMBIAR_ESTADO_PEDIDO_EXPIRADO).setParameter("id", idPedido);
+
+                // CONSULTAMOS EL DOMICILIARIO QUE ESTABA REPARTIENDO EL PEDIDO Y LO PASAMOS A ESTADO ESTUDIO REEMBOLSO.
+                Domiciliario domiciliario = domiciliarioRepository.domiciliarioPorId(Long.parseLong(entrega[2].toString()));
+                domiciliario.setEstado(EstadoDomiciliario.ESTUDIO_REEMBOLSO);
+                domiciliarioRepository.save(domiciliario);
 
                 q.executeUpdate();
             }

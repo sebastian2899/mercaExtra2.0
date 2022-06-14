@@ -1,5 +1,6 @@
 package com.mercaextra.app.service.impl;
 
+import com.mercaextra.app.config.Constants;
 import com.mercaextra.app.domain.Pedido;
 import com.mercaextra.app.domain.Reembolso;
 import com.mercaextra.app.repository.PedidoRepository;
@@ -86,6 +87,14 @@ public class ReembolsoServiceImpl implements ReembolsoService {
             pedido.setEstado("Reembolsado");
             String estado = reembolso.getEstado().equals("Concluido") ? "Reembolsado" : "Concluido";
             reembolso.setEstado(estado);
+
+            if (estado.equals("Reembolsado")) {
+                // CAMBIAMOS EL ESTADO DEL DOMICILIARIO
+                Query q = entityManager
+                    .createQuery("UPDATE Domiciliario d SET d.estado = 'Disponible' WHERE d.id = :idDomiciliario")
+                    .setParameter("idDomiciliario", pedido.getIdDomiciliario());
+                q.executeUpdate();
+            }
         }
 
         pedidoRepository.save(pedido);
