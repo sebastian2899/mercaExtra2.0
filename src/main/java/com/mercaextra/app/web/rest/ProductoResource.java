@@ -121,6 +121,19 @@ public class ProductoResource {
         return new ResponseEntity<List<ProductoDTO>>(productosSimilares, HttpStatus.OK);
     }
 
+    @GetMapping("/another-similar-products/{categoria}")
+    public ResponseEntity<List<ProductoDTO>> anotherPrroductos(@PathVariable String categoria) {
+        log.debug("REST request to get antoher similar products");
+
+        if (null == categoria || categoria.isEmpty()) {
+            throw new BadRequestAlertException("Categoria is null", "El producto no tiene una categoria", ENTITY_NAME);
+        }
+
+        List<ProductoDTO> products = productoService.otherSimilarProducts(categoria);
+
+        return new ResponseEntity<List<ProductoDTO>>(products, HttpStatus.OK);
+    }
+
     /**
      * {@code PATCH  /productos/:id} : Partial updates given fields of an existing producto, field will ignore if it is null
      *
