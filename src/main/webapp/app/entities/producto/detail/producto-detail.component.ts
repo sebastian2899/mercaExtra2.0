@@ -19,6 +19,7 @@ export class ProductoDetailComponent implements OnInit {
   account?: Account | null;
   valorConDescuento?: number | null;
   productosSimilares?: IProducto[] = [];
+  anotherSimilarProduct?: IProducto[] = [];
 
   constructor(
     protected dataUtils: DataUtils,
@@ -35,6 +36,7 @@ export class ProductoDetailComponent implements OnInit {
       this.producto = producto;
       if (this.producto) {
         this.asignateSimilarProducts(this.producto);
+        this.findAnotherSimilarProducts(producto.categoria);
       }
     });
 
@@ -64,6 +66,19 @@ export class ProductoDetailComponent implements OnInit {
         });
       },
     });
+  }
+
+  findAnotherSimilarProducts(categoria: string): void {
+    if (categoria) {
+      this.productoService.getAnotherSimilarProducts(categoria).subscribe({
+        next: (res: HttpResponse<IProducto[]>) => {
+          this.anotherSimilarProduct = res.body ?? [];
+        },
+        error: () => {
+          this.anotherSimilarProduct = [];
+        },
+      });
+    }
   }
 
   pasoParametroProducto(producto: IProducto): void {
