@@ -3,7 +3,9 @@
     "EstadoDomiciliario": {
       "null": "",
       "EN_ENTREGA": "EN_ENTREGA",
-      "DISPONIBLE": "DISPONIBLE"
+      "DISPONIBLE": "DISPONIBLE",
+      "ESTUDIO_REEMBOLSO": "ESTUDIO_REEMBOLSO",
+      "NO_DISPONIBLE": "NO_DISPONIBLE"
     }
   }
 }

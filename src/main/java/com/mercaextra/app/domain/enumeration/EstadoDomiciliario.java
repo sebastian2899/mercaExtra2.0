@@ -6,4 +6,6 @@ package com.mercaextra.app.domain.enumeration;
 public enum EstadoDomiciliario {
     EN_ENTREGA,
     DISPONIBLE,
+    ESTUDIO_REEMBOLSO,
+    NO_DISPONIBLE,
 }

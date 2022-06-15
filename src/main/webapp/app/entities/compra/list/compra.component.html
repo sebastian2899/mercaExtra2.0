@@ -102,7 +102,7 @@
 
   <h2 class="mb-3" id="page-heading" data-cy="CompraHeading">
     <div class="d-flex justify-content-start">
-      <button class="btn btn-outline-info me-2" (click)="loadAll()" [disabled]="isLoading">
+      <button class="btn btn-outline-info me-2" (click)="refresh()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
         <span jhiTranslate="mercaExtraApp.compra.home.refreshListLabel">Refresh List</span>
       </button>

@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
@@ -48,7 +48,8 @@ export class PedidoUpdateComponent implements OnInit {
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder,
     protected modalService: NgbModal,
-    protected alertService: AlertService
+    protected alertService: AlertService,
+    protected router: Router
   ) {}
 
   ngOnInit(): void {
@@ -126,6 +127,7 @@ export class PedidoUpdateComponent implements OnInit {
     } else {
       this.subscribeToSaveResponse(this.pedidoService.create(pedido));
     }
+    this.router.navigate(['/pedido']);
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IPedido>>): void {

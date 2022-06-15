@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { observable, Observable } from 'rxjs';
 
 import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
@@ -23,6 +23,7 @@ export class ProductoService {
   protected getSimilarProductsURL = this.applicationConfigService.getEndpointFor('api/productos-similares');
   protected getAllProductsURL = this.applicationConfigService.getEndpointFor('api/productos/all');
   protected getdisscountProductsURL = this.applicationConfigService.getEndpointFor('api/discount-products-aviable');
+  protected getAnotherSimilarProductsURL = this.applicationConfigService.getEndpointFor('api/another-similar-products');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
@@ -36,6 +37,10 @@ export class ProductoService {
 
   getSimilarProductos(producto: IProducto): Observable<EntityArrayResponseType> {
     return this.http.post<IProducto[]>(this.getSimilarProductsURL, producto, { observe: 'response' });
+  }
+
+  getAnotherSimilarProducts(categoria: string): Observable<EntityArrayResponseType> {
+    return this.http.get<IProducto[]>(`${this.getAnotherSimilarProductsURL}/${categoria}`, { observe: 'response' });
   }
 
   allProductos(): Observable<EntityArrayResponseType> {

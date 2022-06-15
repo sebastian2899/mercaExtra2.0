@@ -109,6 +109,13 @@ public class ProductoServiceImpl implements ProductoService {
         return productosAgotados.stream().map(productoMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
     }
 
+    @Override
+    public List<ProductoDTO> otherSimilarProducts(String categoria) {
+        log.debug("Request to get another similar products");
+        List<Producto> otrosProductos = productoRepository.anotherSimilarProducts(categoria);
+        return productoMapper.toDto(otrosProductos);
+    }
+
     /*
      * SE TRAEN TODOS LOS PRODUCTOS QUE TIENEN UNA CANTIDAD MAYOR A 0 PERO SU CANTIDAD ES MENOR A 10.
      * */

@@ -54,7 +54,7 @@ export class FacturaUpdateComponent implements OnInit {
   productoFiltro?: IProducto | null;
   numeroConsignacion = '111-222-333-444';
   contadorCarrito = 0;
-  totalFactura = 0;
+  totalFactura?: number = 0;
   carroCompStorage?: IItemFacturaVenta[] | null = [];
   disableAdd?: boolean | null;
 
@@ -92,6 +92,10 @@ export class FacturaUpdateComponent implements OnInit {
     if (carrito) {
       this.productosSeleccionados = carrito;
       this.productosSeleccionados.length > 0 ? this.ngbModal.open(this.content, { backdrop: 'static', size: 'lg' }) : undefined;
+
+      carrito.forEach(item => {
+        this.totalFactura! += item.precio!;
+      });
     }
 
     /* si el carrode compras al refrescar la pantalla tiene uno o mas productos,

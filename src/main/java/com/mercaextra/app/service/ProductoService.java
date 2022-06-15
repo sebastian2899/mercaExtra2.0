@@ -67,4 +67,6 @@ public interface ProductoService {
     List<ProductoDTO> allProducts();
 
     List<ProductoDTO> discountProductHome();
+
+    List<ProductoDTO> otherSimilarProducts(String categoria);
 }

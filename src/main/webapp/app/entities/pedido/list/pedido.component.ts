@@ -113,7 +113,6 @@ export class PedidoComponent implements OnInit {
         this.pedido = res.body;
         if (this.pedido) {
           this.consultarNotificacionPedido(this.pedido.idNotificacion!);
-          this.cronPedido();
         }
       },
       error: () => {
@@ -125,21 +124,17 @@ export class PedidoComponent implements OnInit {
   ngOnInit(): void {
     this.pedidoComming();
     this.loadAll();
+    this.cronPedido();
   }
 
   cronPedido(): void {
-    // let contador =0;
-    if (this.pedido) {
-      this.intervalId = setInterval(() => {
-        // contador++;
-        this.pedidoComming();
-        this.pedido === null ? (this.expired = true) : (this.expired = false);
-        if (this.expired) {
-          clearInterval(this.intervalId);
-          window.location.reload();
-        }
-      }, 300000);
-    }
+    this.intervalId = setTimeout(() => {
+      if (!this.pedido) {
+        clearInterval(this.intervalId);
+      } else {
+        window.location.reload();
+      }
+    }, 300000);
   }
 
   // 300000

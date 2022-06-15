@@ -49,7 +49,7 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
     @Query("SELECT n.descripcion FROM Notificacion n WHERE n.id =:idNotificacion")
     String descripcionNotificacion(@Param("idNotificacion") Long idNotificacion);
 
-    @Query("SELECT p.horaDespacho,p.id FROM Pedido p WHERE p.estado = 'Entregando'")
+    @Query("SELECT p.horaDespacho,p.id,p.idDomiciliario FROM Pedido p WHERE p.estado = 'Entregando'")
     List<Object[]> AllOrdersInComming();
 
     @Modifying
