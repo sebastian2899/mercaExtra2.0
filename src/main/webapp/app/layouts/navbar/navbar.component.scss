@@ -15,14 +15,16 @@ Navbar
   height: 1.75em;
   width: 1.75em;
 }
-
+span {
+  color: black;
+}
 .navbar {
   padding: 0.2rem 1rem;
   width: 100%;
   position: fixed;
   z-index: 100;
   margin-top: -22px;
-  background-color: #0b61c9ee;
+  background-color: #ffffffd6;
   a.nav-link {
     font-weight: 400;
   }
@@ -34,6 +36,7 @@ Navbar
 
   a.nav-link {
     font-weight: 400;
+    color: black;
   }
 
   .navbar-toggler {
@@ -47,10 +50,11 @@ Navbar
 Logo styles
 ========================================================================== */
 .logo-img {
-  height: 45px;
-  width: 45px;
+  height: 100px;
+  width: 180px;
+  text-align: center;
   display: inline-block;
-  vertical-align: middle;
-  background: url('../../../content/images/mercaextralogo.jpg') no-repeat center center;
+  // vertical-align: middle;
+  background: url('../../../content/images/logoMercaExtra.png') no-repeat center center;
   background-size: contain;
 }

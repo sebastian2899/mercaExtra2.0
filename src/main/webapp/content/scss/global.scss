@@ -16,7 +16,11 @@ h4 {
 
 @import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
 
-@import url(https://fonts.googleapis.com/css?family=Titillium+Web:300);
+// @import url(https://fonts.googleapis.com/css?family=Titillium+Web:300);
+@import url('https://fonts.googleapis.com/css2?family=Asap:ital,wght@1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Amaranth&family=Raleway:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap');
 
 .fa-2x {
   font-size: 2em;
@@ -39,7 +43,7 @@ nav.main-menu.expanded {
 }
 
 .main-menu {
-  background: #2961e4;
+  background: #8c52ff;
   border-right: 5px solid #e5e5e5;
   position: fixed;
   top: 0;
@@ -58,12 +62,16 @@ nav.main-menu.expanded {
   margin: 7px 0;
 }
 
+.carousel-inner {
+  margin-top: 80px;
+}
+
 .home-look-products {
   border-color: #aaaaaa;
   border-width: 1px;
   border-style: solid;
   padding: 10px;
-  background-color: rgb(248, 248, 248);
+  background-color: rgb(255, 255, 255);
 }
 
 .main-menu li {
@@ -426,21 +434,27 @@ nav.main-menu li.active > a,
 }
 
 .titulos {
-  color: rgb(79, 117, 255);
-  font: 500 29px/24px Google Sans Text, Arial, Helvetica, sans-serif;
+  color: #8c52ff;
+  font-size: 40px;
+  font-family: 'Amaranth', sans-serif;
 }
 
 .titulos-black {
   color: rgb(14, 14, 14);
   font: 500 29px/24px Google Sans Text, Arial, Helvetica, sans-serif;
 }
-
+.font-size-homeTitle {
+  font-size: 30px;
+  color: white;
+  font-family: 'Amaranth', sans-serif;
+}
 .font-size-new {
-  font: 500 23px/24px Google Sans Text, Arial, Helvetica, sans-serif;
+  font-family: 'Asap', sans-serif;
 }
 
 .font-size-small {
-  font: 500 18px/24px Google Sans Text, Arial, Helvetica, sans-serif;
+  font: 500 18px/24px;
+  font-family: 'Asap', sans-serif;
 }
 
 .font-size-small-blue {
@@ -456,6 +470,13 @@ nav.main-menu li.active > a,
 .font-size-black {
   color: rgb(83, 83, 83);
   font: 500 16px/24px Google Sans Text, Arial, Helvetica, sans-serif;
+}
+
+.ms-5 {
+  font-family: 'Asap', sans-serif;
+}
+.ms-6 {
+  font-family: 'Asap', sans-serif;
 }
 
 .alert-gray {
@@ -481,10 +502,23 @@ nav.main-menu li.active > a,
   font-size: 14px;
   color: #000;
 }
+.col-md-8 {
+  margin-top: 80px;
+  font-family: 'Raleway', sans-serif;
+}
 
+.titleRegister {
+  //titulo de registro
+  margin-top: 80px;
+}
+.col-lg-6 {
+  //contenedor login
+  background-color: rgb(157 153 153 / 63%);
+}
 .font-size-black2 {
+  text-align: center;
   color: rgb(0, 0, 0);
-  font: 500 16px/24px Google Sans Text, Arial, Helvetica, sans-serif;
+  font-family: 'Raleway', sans-serif;
 }
 
 .font-size-entidades {
@@ -518,7 +552,7 @@ nav.main-menu li.active > a,
 
 .font-size-home {
   color: rgb(255, 255, 255);
-  font-style: normal;
+  font-family: 'Raleway', sans-serif;
   font-weight: bold;
 }
 .boton-count {
@@ -528,7 +562,7 @@ nav.main-menu li.active > a,
 
 .font-size-home-white {
   color: rgb(255, 255, 255);
-  font-style: normal;
+  font-family: 'Raleway', sans-serif;
   font-weight: bold;
 }
 
@@ -547,6 +581,7 @@ nav.main-menu li.active > a,
 }
 
 .imagen-fondo {
+  margin-top: 80px;
   background: url('../../content/images/imagenfonfo.jpg');
   background-repeat: no-repeat;
 }
