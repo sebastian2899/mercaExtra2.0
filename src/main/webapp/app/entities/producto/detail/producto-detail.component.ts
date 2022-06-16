@@ -53,6 +53,10 @@ export class ProductoDetailComponent implements OnInit {
     }
   }
 
+  reload(): void {
+    window.location.reload();
+  }
+
   asignateSimilarProducts(producto: IProducto): void {
     this.productoService.getSimilarProductos(producto).subscribe({
       next: (res: HttpResponse<IProducto[]>) => {
