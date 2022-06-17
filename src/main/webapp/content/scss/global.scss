@@ -439,6 +439,12 @@ nav.main-menu li.active > a,
   font-family: 'Amaranth', sans-serif;
 }
 
+.titulos-white {
+  color: #ffffff;
+  font-size: 25px;
+  font-family: 'Amaranth', sans-serif;
+}
+
 .titulos-black {
   color: rgb(14, 14, 14);
   font: 500 29px/24px Google Sans Text, Arial, Helvetica, sans-serif;
@@ -955,7 +961,7 @@ angular-cli removes postcss-rtl processed inline css, processed rules must be ad
 }
 .slider-container::-webkit-scrollbar-thumb {
   border-radius: 5%;
-  background-color: rgb(0, 89, 255);
+  background-color: rgb(180, 95, 255);
   background-image: -webkit-linear-gradient(
     90deg,
     rgba(255, 255, 255, 0.2) 25%,
@@ -983,4 +989,40 @@ angular-cli removes postcss-rtl processed inline css, processed rules must be ad
 .slider-container img {
   /* Vamos a añadir esto 👇 */
   scroll-snap-align: center;
+}
+
+.a-product-home:hover {
+  img {
+    transform: scale(1.2);
+    width: 100%;
+  }
+  h5 {
+    color: #00bcd4;
+    font-size: 35px;
+  }
+  .info {
+    display: block;
+  }
+}
+
+.info {
+  display: none;
+  position: absolute;
+  bottom: 0;
+  z-index: 10;
+  background: rgba(1, 1, 1, 0.809);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#50000000,endColorstr=#50000000);
+  width: 95%;
+  height: 280px;
+  color: #fff;
+  padding: 10px;
+}
+
+.material-symbols-sharp {
+  color: rgb(141, 141, 141);
+}
+
+.material-symbols-sharp:hover {
+  color: #9b00de;
+  background-color: white;
 }
