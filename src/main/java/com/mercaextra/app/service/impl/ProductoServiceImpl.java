@@ -243,6 +243,16 @@ public class ProductoServiceImpl implements ProductoService {
         }
     }
 
+    // METODO PARA CONSULTAR SI EL PRODUCTO ESTA EN LA LISTA DE PRODUCTOS FAVORITOS PARA MOSTRASRLO EN LA PANTALLA DE DETAIL DESDE EL FRONT
+    @Override
+    public boolean isFavorite(Long idProduct) {
+        log.debug("Request to check if product is favorite");
+
+        Boolean resp = Boolean.parseBoolean(productoRepository.isFavorite(idProduct));
+
+        return resp;
+    }
+
     /*
      * METODO PARA CONSULTAR LOS PRODUCTOS SIMILARES AL VER EL DETALLE DE UN
      * PRODUCTO. SOLO SE CONSULTAN 3 PRODUCTOS QUE ESTEN DENTRO DE LA MISMA

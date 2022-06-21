@@ -69,4 +69,6 @@ public interface ProductoService {
     List<ProductoDTO> discountProductHome();
 
     List<ProductoDTO> otherSimilarProducts(String categoria);
+
+    boolean isFavorite(Long idProduct);
 }

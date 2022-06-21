@@ -37,4 +37,11 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
 
     @Query(value = "SELECT * FROM producto where categoria != :categoria  ORDER BY rand() limit 15", nativeQuery = true)
     List<Producto> anotherSimilarProducts(@Param("categoria") String categoria);
+
+    @Query(
+        value = "SELECT CASE WHEN EXISTS(SELECT nombre FROM producto as p INNER JOIN producto_favoritos as pf on p.id = pf.id_product WHERE p.id=:idProduct)" +
+        "THEN 'true' ELSE 'false' end",
+        nativeQuery = true
+    )
+    String isFavorite(@Param("idProduct") Long idProduct);
 }

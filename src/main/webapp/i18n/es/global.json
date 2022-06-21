@@ -20,6 +20,7 @@
         "egreso": "Egreso",
         "itemFacturaVenta": "Item Factura Venta",
         "reembolso": "Reembolso",
+        "productoFavoritos": "Producto Favoritos",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

@@ -14,6 +14,8 @@ import { AlertService } from 'app/core/util/alert.service';
 import { StateStorageService } from 'app/core/auth/state-storage.service';
 import { IItemFacturaVenta } from 'app/entities/item-factura-venta/item-factura-venta.model';
 import { Router } from '@angular/router';
+import { ProductoFavoritosService } from 'app/entities/producto-favoritos/service/producto-favoritos.service';
+import { IProductoFavoritos, ProductoFavoritos } from 'app/entities/producto-favoritos/producto-favoritos.model';
 
 @Component({
   selector: 'jhi-producto',
@@ -44,6 +46,7 @@ export class ProductoComponent implements OnInit {
   deshabilitarCambio?: boolean | null;
   existShoppingCar?: boolean | null;
   productosCarrito?: IItemFacturaVenta[] | null = [];
+  productosFavoritos?: IProductoFavoritos[] | null = [];
 
   constructor(
     protected productoService: ProductoService,
@@ -53,20 +56,84 @@ export class ProductoComponent implements OnInit {
     protected categoriaService: CategoriaProductoService,
     protected alertService: AlertService,
     protected storageService: StateStorageService,
-    protected router: Router
+    protected router: Router,
+    protected productoFavoritoService: ProductoFavoritosService
   ) {}
 
   loadAll(): void {
     this.isLoading = true;
+    // SE CONSULTAN LOS PRODUCTOS
     this.productoService.query().subscribe({
       next: (res: HttpResponse<IProducto[]>) => {
         this.isLoading = false;
         this.productos = res.body ?? [];
+
+        if (this.productos.length > 0) {
+          // SE CONSUTLAN LOS PRODUCTOS MARCADOS COMO FAVORTOS
+          this.productoFavoritoService.query().subscribe({
+            next: (res2: HttpResponse<IProductoFavoritos[]>) => {
+              this.productosFavoritos = res2.body ?? [];
+
+              if (this.productos!.length > 0 && this.productosFavoritos.length > 0) {
+                // SE COMPARAN LOS PRODUCTOS, SI EL ID DEL PRODUCTO, COINDICE CON EL ID DEL PRODUCTO MARCADO COMO FAVORITO, SE MARCA EN PANTALLA
+                this.productos!.forEach(element => {
+                  this.productosFavoritos?.forEach(element2 => {
+                    if (element.id === element2.idProduct) {
+                      element.isFavorite = true;
+                    } else {
+                      element.isFavorite = false;
+                    }
+                  });
+                });
+              }
+            },
+            error: () => {
+              this.productosFavoritos = [];
+            },
+          });
+        }
       },
       error: () => {
         this.isLoading = false;
       },
     });
+  }
+
+  addToFavorite(idProduct: number): void {
+    const favProduct = new ProductoFavoritos();
+    if (idProduct) {
+      this.productos?.forEach(element => {
+        if (element.id === idProduct && element.isFavorite === false) {
+          element.isFavorite = true;
+
+          favProduct.idProduct = idProduct;
+          this.productoFavoritoService.create(favProduct).subscribe({
+            next: () => {
+              this.alertService.addAlert({
+                message: 'Producto agregado a favoritos',
+                type: 'success',
+              });
+            },
+            error: () => {
+              this.alertService.addAlert({
+                message: 'Error al agregar producto a favoritos',
+                type: 'danger',
+              });
+            },
+          });
+        } else if (element.id === idProduct && element.isFavorite === true) {
+          element.isFavorite = false;
+          this.productoFavoritoService.delete(idProduct).subscribe({
+            next: () => {
+              this.alertService.addAlert({
+                message: 'Producto eliminado de favoritos',
+                type: 'success',
+              });
+            },
+          });
+        }
+      });
+    }
   }
 
   ngOnInit(): void {

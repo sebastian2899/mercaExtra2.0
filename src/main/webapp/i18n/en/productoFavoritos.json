@@ -1,0 +1,27 @@
+{
+  "mercaExtraApp": {
+    "productoFavoritos": {
+      "home": {
+        "title": "Producto Favoritos",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Producto Favoritos",
+        "createOrEditLabel": "Create or edit a Producto Favoritos",
+        "notFound": "No Producto Favoritos found"
+      },
+      "created": "A new Producto Favoritos is created with identifier {{ param }}",
+      "updated": "A Producto Favoritos is updated with identifier {{ param }}",
+      "deleted": "A Producto Favoritos is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Producto Favoritos {{ id }}?"
+      },
+      "detail": {
+        "title": "Producto Favoritos"
+      },
+      "id": "ID",
+      "idProduct": "Id Product",
+      "login": "Login",
+      "lastUpdate": "Last Update",
+      "estado": "Estado"
+    }
+  }
+}
