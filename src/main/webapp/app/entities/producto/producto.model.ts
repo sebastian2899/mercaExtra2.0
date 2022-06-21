@@ -11,6 +11,7 @@ export interface IProducto {
   cantidadSeleccionada?: number | null;
   precioConDescuento?: number | null;
   cantidadOriginal?: number | null;
+  isFavorite?: boolean | null;
 }
 
 export class Producto implements IProducto {
@@ -26,7 +27,8 @@ export class Producto implements IProducto {
     public descripcion?: string | null,
     public cantidadSeleccionada?: number | null,
     public precioConDescuento?: number | null,
-    public cantidadOriginal?: number | null
+    public cantidadOriginal?: number | null,
+    public isFavorite?: boolean | null
   ) {}
 }
 

@@ -205,6 +205,13 @@ public class ProductoResource {
         return productoService.discountProductHome();
     }
 
+    @GetMapping("/product-favorite/{idProduct}")
+    public ResponseEntity<Boolean> isFav(@PathVariable Long idProduct) {
+        log.debug("REST request to check if product is fav");
+        Boolean resp = productoService.isFavorite(idProduct);
+        return new ResponseEntity<Boolean>(resp, HttpStatus.OK);
+    }
+
     @PostMapping("/productos-filtros-categoria/{opcion}")
     public List<ProductoDTO> productosFiltrosCategoria(
         @PathVariable int opcion,

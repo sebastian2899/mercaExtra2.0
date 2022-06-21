@@ -128,21 +128,29 @@
     <h2 class="titulos d-flex justify-content-center">Productos en oferta</h2>
     <div class="row justify-content-center mt-5">
       <div *ngFor="let prodct of productosDescuento" class="card mb-3 ms-4" style="max-width: 580px">
-        <div class="row g-0" style="padding: 15px">
-          <div class="col-md-4">
-            <img [src]="'data:' + prodct.imagenContentType + ';base64,' + prodct.imagen" class="img-fluid rounded-start" alt="..." />
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title titulos mb-3">{{ prodct.nombre }}</h5>
-              <p class="card-text font-size-small">{{ prodct.descripcion }}</p>
-              <p class="card-text mb-4 font-size-small" style="color: red">{{ prodct.precioConDescuento | currency }}</p>
-              <p class="card-text font-size-small">
-                <small class="text-muted">Antes: {{ prodct.precio | currency }}</small>
-              </p>
+        <a class="a-product-home" [routerLink]="['/producto', prodct.id, 'view']" target="_top">
+          <div class="row g-0" style="padding: 15px">
+            <div class="col-md-4">
+              <img [src]="'data:' + prodct.imagenContentType + ';base64,' + prodct.imagen" class="img-fluid rounded-start" alt="..." />
+            </div>
+            <div class="col-md-8">
+              <div class="card-body ms-4">
+                <h5 class="card-title titulos mb-3">{{ prodct.nombre }}</h5>
+                <p class="card-text font-size-small">{{ prodct.descripcion }}</p>
+                <p class="card-text mb-4 font-size-small" style="color: red">{{ prodct.precioConDescuento | currency }}</p>
+                <p class="card-text font-size-small">
+                  <small class="text-muted">Antes: {{ prodct.precio | currency }}</small>
+                </p>
+              </div>
             </div>
           </div>
-        </div>
+
+          <div class="info">
+            <div class="d-flex justify-content-center">
+              <h3 class="titulos-white" style="margin-top: 20%">Visitar Producto</h3>
+            </div>
+          </div>
+        </a>
       </div>
     </div>
   </div>

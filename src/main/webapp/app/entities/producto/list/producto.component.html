@@ -226,38 +226,46 @@
 
         <div class="row text-center mt-3">
           <div
-            style="box-shadow: 10px 10px 30px rgb(54, 185, 255)"
-            class="col-lg-3 col-md-6 mb-4"
+            style="border-radius: 5%"
+            class="col-lg-3 col-md-8 mb-4"
             *ngFor="let producto of productos! | paginate: { itemsPerPage: 12, currentPage: pA }"
           >
-            <div class="card me-5" style="width: 16 rem">
+            <div class="card" style="width: 16 rem">
+              <div class="d-flex justify-content-end">
+                <button (click)="addToFavorite(producto.id!)" class="mt-1 menu-configProduct">
+                  <mat-icon [ngStyle]="{ color: producto.isFavorite === true ? '#9b00de' : '' }" class="material-symbols-sharp"
+                    >favorite</mat-icon
+                  >
+                </button>
+              </div>
               <a class="a-productos" [routerLink]="['/producto', producto.id, 'view']">
-                <a *ngIf="producto.imagen" (click)="openFile(producto.imagen, producto.imagenContentType)">
-                  <img
-                    [src]="'data:' + producto.imagenContentType + ';base64,' + producto.imagen"
-                    style="max-height: 200px"
-                    alt="producto image"
-                  />
-                </a>
+                <img
+                  [src]="'data:' + producto.imagenContentType + ';base64,' + producto.imagen"
+                  style="max-height: 200px"
+                  width="90%"
+                  height="500px;"
+                  alt="producto image"
+                />
+
                 <div class="card-body">
                   <h5 class="card-title titulo-entidades">{{ producto.nombre }}</h5>
                   <p class="card-text titulo-entidades">{{ producto.descripcion }}</p>
                   <p class="card-text titulo-entidades">Categoria: {{ producto.categoria }}</p>
                   <p *ngSwitchCase="true && isAdmin" class="card-text titulo-entidades">Cantidad: {{ producto.cantidad }}</p>
-                  <p class="card-text titulo-entidades">Precio: {{ producto.precio | currency }}</p>
-                  <div class="d-flex justify-content-around mt-2" style="background-color: rgba(0, 187, 255, 0.241); border-radius: 10px">
-                    <!-- <button *ngSwitchCase="true" class="menu-config2" [routerLink]="['/producto', producto.id, 'view']">
-                    <mat-icon class="icon-config">pageview</mat-icon>
-                  </button> -->
-                    <button *ngSwitchCase="true && isAdmin" class="menu-config2" [routerLink]="['/producto', producto.id, 'edit']">
-                      <mat-icon class="icon-config">edit</mat-icon>
-                    </button>
-                    <button *ngSwitchCase="true && isAdmin" class="menu-config-eliminar" (click)="delete(producto)">
-                      <mat-icon class="icon-config-eliminar2">delete_forever</mat-icon>
-                    </button>
-                  </div>
+                  <p class="card-text titulo-entidades">Precio: ${{ producto.precio }}</p>
                 </div>
               </a>
+              <div class="d-flex justify-content-around mt-2" style="background-color: rgba(126, 67, 253, 0.241); border-radius: 10px">
+                <!-- <button *ngSwitchCase="true" class="menu-config2" [routerLink]="['/producto', producto.id, 'view']">
+                <mat-icon class="icon-config">pageview</mat-icon>
+              </button> -->
+                <button *ngSwitchCase="true && isAdmin" class="menu-config2" [routerLink]="['/producto', producto.id, 'edit']">
+                  <mat-icon class="icon-config">edit</mat-icon>
+                </button>
+                <button *ngSwitchCase="true && isAdmin" class="menu-config-eliminar" (click)="delete(producto)">
+                  <mat-icon class="icon-config-eliminar2">delete_forever</mat-icon>
+                </button>
+              </div>
             </div>
           </div>
           <pagination-controls style="text-align: center" (pageChange)="pA = $event"></pagination-controls>

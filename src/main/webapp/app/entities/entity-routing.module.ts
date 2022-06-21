@@ -69,6 +69,11 @@ import { RouterModule } from '@angular/router';
         data: { pageTitle: 'mercaExtraApp.reembolso.home.title' },
         loadChildren: () => import('./reembolso/reembolso.module').then(m => m.ReembolsoModule),
       },
+      {
+        path: 'producto-favoritos',
+        data: { pageTitle: 'mercaExtraApp.productoFavoritos.home.title' },
+        loadChildren: () => import('./producto-favoritos/producto-favoritos.module').then(m => m.ProductoFavoritosModule),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],

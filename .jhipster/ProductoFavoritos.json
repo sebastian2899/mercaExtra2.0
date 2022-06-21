@@ -1,0 +1,28 @@
+{
+  "changelogDate": "20220617144517",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "idProduct",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "login",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "lastUpdate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "estado",
+      "fieldType": "String"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "ProductoFavoritos",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}
