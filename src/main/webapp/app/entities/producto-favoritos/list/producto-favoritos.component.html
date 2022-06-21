@@ -1,8 +1,8 @@
 <div>
-  <h2 id="page-heading" data-cy="ProductoFavoritosHeading">
-    <span jhiTranslate="mercaExtraApp.productoFavoritos.home.title">Producto Favoritos</span>
+  <h2 id="page-heading" data-cy="ProductoFavoritosHeading" class="mb-5">
+    <span class="titulos">Tu Lista de Productos Favoritos</span>
 
-    <div class="d-flex justify-content-end">
+    <!-- <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
         <span jhiTranslate="mercaExtraApp.productoFavoritos.home.refreshListLabel">Refresh List</span>
@@ -17,7 +17,7 @@
         <fa-icon icon="plus"></fa-icon>
         <span jhiTranslate="mercaExtraApp.productoFavoritos.home.createLabel"> Create a new Producto Favoritos </span>
       </button>
-    </div>
+    </div> -->
   </h2>
 
   <jhi-alert-error></jhi-alert-error>
@@ -28,7 +28,7 @@
     <span jhiTranslate="mercaExtraApp.productoFavoritos.home.notFound">No productoFavoritos found</span>
   </div>
 
-  <div class="table-responsive" id="entities" *ngIf="productoFavoritos && productoFavoritos.length > 0">
+  <!-- <div class="table-responsive" id="entities" *ngIf="productoFavoritos && productoFavoritos.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr>
@@ -80,5 +80,19 @@
         </tr>
       </tbody>
     </table>
+  </div> -->
+
+  <div class="row d-flex">
+    <div class="col-md-4">
+      <div class="card text-bg-light mb-3" style="max-width: 18rem">
+        <div class="card-header">Videos Favoritos Visibles</div>
+        <div class="card-body">
+          <h5 class="card-title">Ultima Actualizacion: 22/02/2022</h5>
+          <p class="card-text">Puedes agregar los productos que quieras a esta lista</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-8"></div>
   </div>
 </div>

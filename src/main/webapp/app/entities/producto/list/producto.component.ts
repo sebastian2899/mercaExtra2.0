@@ -70,27 +70,38 @@ export class ProductoComponent implements OnInit {
 
         if (this.productos.length > 0) {
           // SE CONSUTLAN LOS PRODUCTOS MARCADOS COMO FAVORTOS
-          this.productoFavoritoService.query().subscribe({
-            next: (res2: HttpResponse<IProductoFavoritos[]>) => {
-              this.productosFavoritos = res2.body ?? [];
 
-              if (this.productos!.length > 0 && this.productosFavoritos.length > 0) {
-                // SE COMPARAN LOS PRODUCTOS, SI EL ID DEL PRODUCTO, COINDICE CON EL ID DEL PRODUCTO MARCADO COMO FAVORITO, SE MARCA EN PANTALLA
-                this.productos!.forEach(element => {
-                  this.productosFavoritos?.forEach(element2 => {
-                    if (element.id === element2.idProduct) {
-                      element.isFavorite = true;
-                    } else {
-                      element.isFavorite = false;
-                    }
-                  });
-                });
-              }
-            },
-            error: () => {
-              this.productosFavoritos = [];
-            },
+          this.productos.forEach(element => {
+            this.productoService.validateIfItFavorite(element.id!).subscribe(res2 => (element.isFavorite = res2.body));
           });
+
+          // ESTE CODIGO SE REFACTORIZO CON Y SE REEMPLAZO POR LAS 2 LINEAS DE CODIGO 73,74
+          // |
+          // |
+          // |
+          // ↓
+
+          // this.productoFavoritoService.query().subscribe({
+          //   next: (res2: HttpResponse<IProductoFavoritos[]>) => {
+          //     this.productosFavoritos = res2.body ?? [];
+
+          //     if (this.productos!.length > 0 && this.productosFavoritos.length > 0) {
+          //       // SE COMPARAN LOS PRODUCTOS, SI EL ID DEL PRODUCTO, COINDICE CON EL ID DEL PRODUCTO MARCADO COMO FAVORITO, SE MARCA EN PANTALLA
+          //       this.productos!.forEach(element => {
+          //         this.productosFavoritos?.forEach(element2 => {
+          //           if (element.id === element2.idProduct) {
+          //             element.isFavorite = true;
+          //           } else {
+          //             element.isFavorite = false;
+          //           }
+          //         });
+          //       });
+          //     }
+          //   },
+          //   error: () => {
+          //     this.productosFavoritos = [];
+          //   },
+          // });
         }
       },
       error: () => {
@@ -103,7 +114,7 @@ export class ProductoComponent implements OnInit {
     const favProduct = new ProductoFavoritos();
     if (idProduct) {
       this.productos?.forEach(element => {
-        if (element.id === idProduct && element.isFavorite === false) {
+        if (element.id === idProduct && !element.isFavorite) {
           element.isFavorite = true;
 
           favProduct.idProduct = idProduct;
@@ -127,7 +138,7 @@ export class ProductoComponent implements OnInit {
             next: () => {
               this.alertService.addAlert({
                 message: 'Producto eliminado de favoritos',
-                type: 'success',
+                type: 'info',
               });
             },
           });

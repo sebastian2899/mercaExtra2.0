@@ -1,5 +1,5 @@
-<div [ngSwitch]="account" class="d-flex justify-content-center">
-  <div class="col-10">
+<div [ngSwitch]="account?.login === 'admin'" class="d-flex justify-content-center">
+  <div class="col-12">
     <div *ngIf="producto">
       <h2 data-cy="productoDetailsHeading"><span jhiTranslate="mercaExtraApp.producto.detail.title">Producto</span></h2>
 
@@ -10,6 +10,20 @@
       <jhi-alert></jhi-alert>
 
       <div class="d-flex me-5 mb-3">
+        <div class="col-md-1 me-5">
+          <button class="menu-configProduct2" (click)="managementFavoriteProducts(producto.id!)">
+            <mat-icon
+              [ngStyle]="{ color: producto.isFavorite === true ? '#9b00de' : '' }"
+              class="material-symbols-sharp"
+              style="font-size: 50px"
+              >favorite</mat-icon
+            >
+            <div class="info2">
+              <h6 *ngIf="producto.isFavorite">Quitar de favoritos</h6>
+              <h6 *ngIf="!producto.isFavorite">Agregar a favoritos</h6>
+            </div>
+          </button>
+        </div>
         <div *ngIf="producto.imagen" class="col-md-6">
           <a (click)="openFile(producto.imagen, producto.imagenContentType)">
             <img [src]="'data:' + producto.imagenContentType + ';base64,' + producto.imagen" style="max-width: 60%" alt="producto image" />

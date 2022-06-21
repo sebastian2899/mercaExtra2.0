@@ -193,9 +193,9 @@
         </a>
       </li>
       <li class="mb-3">
-        <a [routerLink]="['reembolso/new']">
-          <i class="fa fa-reply fa-2x"></i>
-          <span class="nav-text"> Reenvolsos </span>
+        <a [routerLink]="['/producto-favoritos']">
+          <i class="fa fa-heart-o" aria-hidden="true"></i>
+          <span class="nav-text"> Mis favoritos </span>
         </a>
       </li>
       <!-- <li class="mb-3">
@@ -226,10 +226,9 @@
 
     <ul class="logout">
       <li>
-        <a href="#">
-          <i class="fa fa-user" aria-hidden="true"></i>
-
-          <span class="nav-text"> Cerrar Sesion </span>
+        <a [routerLink]="['reembolso/new']">
+          <i class="fa fa-reply" aria-hidden="true"></i>
+          <span class="nav-text"> Gestion Reembolsos </span>
         </a>
       </li>
     </ul>
