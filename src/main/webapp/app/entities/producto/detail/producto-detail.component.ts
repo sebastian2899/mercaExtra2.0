@@ -9,6 +9,8 @@ import { StateStorageService } from 'app/core/auth/state-storage.service';
 import { ProductoService } from '../service/producto.service';
 import { HttpResponse } from '@angular/common/http';
 import { AlertService } from 'app/core/util/alert.service';
+import { ProductoFavoritosService } from 'app/entities/producto-favoritos/service/producto-favoritos.service';
+import { ProductoFavoritos } from 'app/entities/producto-favoritos/producto-favoritos.model';
 
 @Component({
   selector: 'jhi-producto-detail',
@@ -20,6 +22,7 @@ export class ProductoDetailComponent implements OnInit {
   valorConDescuento?: number | null;
   productosSimilares?: IProducto[] = [];
   anotherSimilarProduct?: IProducto[] = [];
+  isFavProduct?: boolean | null;
 
   constructor(
     protected dataUtils: DataUtils,
@@ -28,7 +31,8 @@ export class ProductoDetailComponent implements OnInit {
     protected storageService: StateStorageService,
     protected router: Router,
     protected productoService: ProductoService,
-    protected alertService: AlertService
+    protected alertService: AlertService,
+    protected productoFavoritosService: ProductoFavoritosService
   ) {}
 
   ngOnInit(): void {
@@ -37,6 +41,7 @@ export class ProductoDetailComponent implements OnInit {
       if (this.producto) {
         this.asignateSimilarProducts(this.producto);
         this.findAnotherSimilarProducts(producto.categoria);
+        this.isFavorite(this.producto.id!);
       }
     });
 
@@ -83,6 +88,51 @@ export class ProductoDetailComponent implements OnInit {
         },
       });
     }
+  }
+
+  managementFavoriteProducts(id: number): void {
+    const producFav = new ProductoFavoritos();
+    if (!this.producto?.isFavorite) {
+      producFav.idProduct = id;
+      this.productoFavoritosService.create(producFav).subscribe({
+        next: () => {
+          this.producto!.isFavorite = true;
+          this.alertService.addAlert({
+            type: 'success',
+            message: 'Producto Agregado a favoritos.',
+          });
+        },
+        error: () => {
+          this.alertService.addAlert({
+            type: 'danger',
+            message: 'No se pudo agregar el producto a favoritos.',
+          });
+        },
+      });
+    } else {
+      this.producto.isFavorite = false;
+      this.productoFavoritosService.delete(id).subscribe(() => {
+        this.alertService.addAlert({
+          type: 'info',
+          message: 'Producto eliminado de favoritos.',
+        });
+      });
+    }
+  }
+
+  isFavorite(id: number): void {
+    this.productoService.validateIfItFavorite(id).subscribe({
+      next: (res: HttpResponse<boolean>) => {
+        this.isFavProduct = res.body;
+        this.isFavProduct === true ? (this.producto!.isFavorite = true) : (this.producto!.isFavorite = false);
+      },
+      error: () => {
+        this.alertService.addAlert({
+          type: 'danger',
+          message: 'No se pudo hacer la validacion correctamente.',
+        });
+      },
+    });
   }
 
   pasoParametroProducto(producto: IProducto): void {

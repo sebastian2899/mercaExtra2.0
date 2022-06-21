@@ -158,7 +158,7 @@
         <div class="alert alert-warning" id="no-result" *ngIf="productos?.length === 0">
           <span jhiTranslate="mercaExtraApp.producto.home.notFound">No productos found</span>
         </div>
-        <!-- 
+        <!--
   <div class="table-responsive" id="entities" *ngIf="productos && productos.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
@@ -238,7 +238,7 @@
                   >
                 </button>
               </div>
-              <a class="a-productos" [routerLink]="['/producto', producto.id, 'view']">
+              <a class="a-productos" [routerLink]="['/producto', producto.id, 'view']" target="_top">
                 <img
                   [src]="'data:' + producto.imagenContentType + ';base64,' + producto.imagen"
                   style="max-height: 200px"
@@ -268,7 +268,7 @@
               </div>
             </div>
           </div>
-          <pagination-controls style="text-align: center" (pageChange)="pA = $event"></pagination-controls>
+          <pagination-controls style="text-align: center" (pageChange)="pA = $event" [directionLinks]="true"></pagination-controls>
         </div>
       </div>
     </div>

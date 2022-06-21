@@ -9,6 +9,7 @@ import { IProducto, getProductoIdentifier } from '../producto.model';
 
 export type EntityResponseType = HttpResponse<IProducto>;
 export type EntityArrayResponseType = HttpResponse<IProducto[]>;
+export type BooleanType = HttpResponse<boolean>;
 
 @Injectable({ providedIn: 'root' })
 export class ProductoService {
@@ -24,11 +25,16 @@ export class ProductoService {
   protected getAllProductsURL = this.applicationConfigService.getEndpointFor('api/productos/all');
   protected getdisscountProductsURL = this.applicationConfigService.getEndpointFor('api/discount-products-aviable');
   protected getAnotherSimilarProductsURL = this.applicationConfigService.getEndpointFor('api/another-similar-products');
+  protected validateIfItFavoriteURL = this.applicationConfigService.getEndpointFor('api/product-favorite');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
   create(producto: IProducto): Observable<EntityResponseType> {
     return this.http.post<IProducto>(this.resourceUrl, producto, { observe: 'response' });
+  }
+
+  validateIfItFavorite(id: number): Observable<BooleanType> {
+    return this.http.get<boolean>(`${this.validateIfItFavoriteURL}/${id}`, { observe: 'response' });
   }
 
   aplicarPorcentajeProducto(opcion: string, cantidad: number): Observable<HttpResponse<{}>> {

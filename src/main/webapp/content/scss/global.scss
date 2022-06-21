@@ -1024,6 +1024,24 @@ angular-cli removes postcss-rtl processed inline css, processed rules must be ad
   padding: 10px;
 }
 
+.info2 {
+  display: none;
+  position: absolute;
+  color: #9b00de;
+}
+
+.menu-configProduct2:hover {
+  .info2 {
+    display: block;
+  }
+}
+
+.menu-configProduct2 {
+  background: none;
+  border: none;
+  color: #c0c0c0;
+}
+
 .material-symbols-sharp:hover {
   color: #9b00de;
 }
