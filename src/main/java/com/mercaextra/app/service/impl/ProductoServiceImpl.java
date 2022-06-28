@@ -70,7 +70,7 @@ public class ProductoServiceImpl implements ProductoService {
     public List<ProductoDTO> findAll() {
         log.debug("Request to get all Productos");
 
-        Query q = entityManager.createQuery("SELECT p FROM" + " Producto p WHERE p.cantidad > 0 ORDER BY p.categoria ASC");
+        Query q = entityManager.createQuery("SELECT p FROM  Producto p WHERE p.cantidad > 0 ORDER BY RAND()");
 
         List<Producto> productos = q.getResultList();
 
