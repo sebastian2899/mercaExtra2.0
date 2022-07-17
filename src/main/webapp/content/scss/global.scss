@@ -323,7 +323,13 @@ nav.main-menu li.active > a,
 .menu-config2 {
   background: none;
   border: none;
-  color: #0016e0;
+  color: #005de0;
+}
+
+.menu-config3 {
+  background: none;
+  border: none;
+  color: #a400e0;
 }
 
 .menu-configProduct {
@@ -1044,4 +1050,14 @@ angular-cli removes postcss-rtl processed inline css, processed rules must be ad
 
 .material-symbols-sharp:hover {
   color: #9b00de;
+}
+
+.divOculto {
+  display: none;
+}
+
+.textO:hover + .divOculto {
+  display: block;
+  color: rgb(0, 23, 128);
+  font-size: 15px;
 }

@@ -2,6 +2,7 @@ package com.mercaextra.app.service;
 
 import com.mercaextra.app.service.dto.ProductoDTO;
 import com.mercaextra.app.service.dto.ProductoFavoritosDTO;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,4 +49,10 @@ public interface ProductoFavoritosService {
     void delete(Long id);
 
     List<ProductoDTO> favoriteProducts();
+
+    Instant lastUpdate();
+
+    List<ProductoDTO> goFirst(ProductoDTO productoDto);
+
+    List<ProductoDTO> productosOcultos();
 }

@@ -26,6 +26,9 @@
             <column name="estado" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+             <column name="id" type="int" >
+                <constraints nullable="false"/>
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
         <dropDefaultValue tableName="producto_favoritos" columnName="last_update" columnDataType="${datetimeType}"/>

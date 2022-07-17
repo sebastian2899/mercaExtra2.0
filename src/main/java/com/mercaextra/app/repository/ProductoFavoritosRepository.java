@@ -20,7 +20,13 @@ public interface ProductoFavoritosRepository extends JpaRepository<ProductoFavor
     Instant lastUpdate();
 
     @Query(
-        "SELECT p.id,p.nombre,p.precio,p.imagen,p.categoria FROM Producto p INNER JOIN ProductoFavoritos pf ON pf.idProduct = p.id AND pf.login =:login"
+        "SELECT p.id,p.nombre,p.precio,p.imagen,p.imagenContentType,p.categoria FROM Producto p INNER JOIN ProductoFavoritos pf ON pf.idProduct = p.id AND pf.login =:login AND pf.estado = :estado ORDER BY pf.puesto"
     )
-    List<Object[]> favoriteProduts(@Param("login") String login);
+    List<Object[]> favoriteProduts(@Param("login") String login, @Param("estado") String estado);
+
+    @Query("SELECT pf FROM ProductoFavoritos pf WHERE pf.login = :login ORDER BY puesto")
+    List<ProductoFavoritos> favPorLogin(@Param("login") String login);
+
+    @Query("SELECT pf FROM ProductoFavoritos pf WHERE pf.idProduct = :idProduct")
+    ProductoFavoritos productoFavPorIdProduc(@Param("idProduct") Long idProduct);
 }

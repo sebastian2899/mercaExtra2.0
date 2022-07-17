@@ -7,6 +7,8 @@ export interface IItemFacturaVenta {
   nombreProducto?: string | null;
   precioOriginal?: number | null;
   precioDesc?: number | null;
+  imagenContentType?: string | null;
+  imagen?: any | null;
 }
 
 export class ItemFacturaVenta implements IItemFacturaVenta {
@@ -18,7 +20,9 @@ export class ItemFacturaVenta implements IItemFacturaVenta {
     public precio?: number | null,
     public nombreProducto?: string | null,
     public precioOriginal?: number | null,
-    public precioDesc?: number | null
+    public precioDesc?: number | null,
+    public imagenContentType?: string | null,
+    public imagen?: any | null
   ) {}
 }
 

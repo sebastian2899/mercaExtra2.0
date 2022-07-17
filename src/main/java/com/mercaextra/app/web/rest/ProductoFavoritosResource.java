@@ -9,6 +9,7 @@ import com.mercaextra.app.service.dto.ProductoFavoritosDTO;
 import com.mercaextra.app.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -180,6 +181,25 @@ public class ProductoFavoritosResource {
         log.debug("REST request toi get all favorite products by login");
         List<ProductoDTO> favorites = productoFavoritosService.favoriteProducts();
         return new ResponseEntity<List<ProductoDTO>>(favorites, HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/producto-favoritos-loginOcultos")
+    public ResponseEntity<List<ProductoDTO>> favoriteProductsByLoginHidden() {
+        log.debug("REST request toi get all hidden favorite products by login");
+        List<ProductoDTO> favoritesHidden = productoFavoritosService.productosOcultos();
+        return new ResponseEntity<List<ProductoDTO>>(favoritesHidden, HttpStatus.ACCEPTED);
+    }
+
+    @PostMapping("/producto-favoritos-goFirst")
+    public List<ProductoDTO> productoFirst(@RequestBody ProductoDTO productoDto) {
+        log.debug("REST request to change position of product at first");
+        return productoFavoritosService.goFirst(productoDto);
+    }
+
+    @GetMapping("/producto-favoritos-last-update")
+    public Instant lastUpdate() {
+        log.debug("REST request to get last update favorites");
+        return productoFavoritosService.lastUpdate();
     }
 
     /**

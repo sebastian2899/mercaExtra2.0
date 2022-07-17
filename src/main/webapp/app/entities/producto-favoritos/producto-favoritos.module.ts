@@ -5,9 +5,10 @@ import { ProductoFavoritosDetailComponent } from './detail/producto-favoritos-de
 import { ProductoFavoritosUpdateComponent } from './update/producto-favoritos-update.component';
 import { ProductoFavoritosDeleteDialogComponent } from './delete/producto-favoritos-delete-dialog.component';
 import { ProductoFavoritosRoutingModule } from './route/producto-favoritos-routing.module';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
-  imports: [SharedModule, ProductoFavoritosRoutingModule],
+  imports: [SharedModule, ProductoFavoritosRoutingModule, MatIconModule],
   declarations: [
     ProductoFavoritosComponent,
     ProductoFavoritosDetailComponent,
