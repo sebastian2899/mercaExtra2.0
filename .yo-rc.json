@@ -33,14 +33,15 @@
       "Egreso",
       "ItemFacturaVenta",
       "Reembolso",
-      "ProductoFavoritos"
+      "ProductoFavoritos",
+      "Comentario"
     ],
     "entitySuffix": "",
     "jhiPrefix": "jhi",
     "jhipsterVersion": "7.7.0",
     "jwtSecretKey": "OGRjNGU5Y2QzZjAwZDViYjVjMjJiYjFkMGQzMWJjMzQ4NTc3MjBhYWZhMDE3ZDIxMTRjZDk3ZjcyODY1MWYyNjkxNWMzZTc0NGRkYmJlYzhjYmNiNTFkNjg1ZGEwZjZjMDE3NDk1OTUzOTYwZWU5MTZlYjhlYTViOWVjM2RiMmY=",
     "languages": ["es", "en"],
-    "lastLiquibaseTimestamp": 1655477117000,
+    "lastLiquibaseTimestamp": 1658078650000,
     "messageBroker": false,
     "nativeLanguage": "es",
     "otherModules": [],

@@ -21,6 +21,7 @@
         "itemFacturaVenta": "Item Factura Venta",
         "reembolso": "Reembolso",
         "productoFavoritos": "Producto Favoritos",
+        "comentario": "Comentario",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

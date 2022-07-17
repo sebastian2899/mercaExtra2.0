@@ -1,0 +1,32 @@
+{
+  "changelogDate": "20220717172410",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "idComentario",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "fechaComentario",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "login",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "like",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "descripcion",
+      "fieldType": "String"
+    }
+  ],
+  "jpaMetamodelFiltering": false,
+  "name": "Comentario",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}
