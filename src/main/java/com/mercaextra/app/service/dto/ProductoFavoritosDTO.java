@@ -19,8 +19,18 @@ public class ProductoFavoritosDTO implements Serializable {
 
     private String estado;
 
+    private int puesto;
+
     public Long getId() {
         return id;
+    }
+
+    public int getPuesto() {
+        return puesto;
+    }
+
+    public void setPuesto(int puesto) {
+        this.puesto = puesto;
     }
 
     public void setId(Long id) {

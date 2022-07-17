@@ -238,6 +238,8 @@ export class FacturaUpdateComponent implements OnInit {
         this.productoItem.nombreProducto = this.productoSeleccionado.nombre;
         this.productoItem.cantidad = this.productoSeleccionado.cantidadSeleccionada;
         this.productoItem.precioOriginal = this.productoSeleccionado.precio;
+        this.productoItem.imagenContentType = this.productoSeleccionado.imagenContentType;
+        this.productoItem.imagen = this.productoSeleccionado.imagen;
         if (this.productoSeleccionado.precioDescuento) {
           const desc = (Number(this.productoSeleccionado.precio) * Number(this.productoSeleccionado.precioDescuento)) / 100;
           const valueDiscount = Number(this.productoSeleccionado.precio) - desc;
@@ -284,6 +286,7 @@ export class FacturaUpdateComponent implements OnInit {
     this.calcularValores();
     this.totalFactura = 0;
     this.contadorCarrito = 0;
+    this.ngbModal.dismissAll();
   }
 
   verCarroCompras2(): void {
@@ -313,6 +316,10 @@ export class FacturaUpdateComponent implements OnInit {
 
   cancel(): void {
     this.ngbModal.dismissAll();
+  }
+
+  scroll(): void {
+    window.scrollTo(0, 0);
   }
 
   eliminarProducto(producto: IItemFacturaVenta): void {
@@ -354,21 +361,18 @@ export class FacturaUpdateComponent implements OnInit {
       } else {
         this.productosSeleccionados[index].precio! += Number(this.productosSeleccionados[index].precioOriginal!.toFixed(0));
       }
-
-      this.calcularValores();
-
-      this.storageService.storeCarrito(this.productosSeleccionados);
     } else if (opcion === 'subs') {
       this.productosSeleccionados[index].cantidad! -= 1;
 
       if (this.productosSeleccionados[index].precioDesc) {
         this.productosSeleccionados[index].precio! -= Number(this.productosSeleccionados[index].precioDesc!.toFixed(0));
       } else {
-        this.productosSeleccionados[index].precio! -= Number(this.productosSeleccionados[index].precioDesc?.toFixed(0));
+        this.productosSeleccionados[index].precio! -= Number(this.productosSeleccionados[index].precioOriginal!.toFixed(0));
       }
-      this.calcularValores();
-      this.storageService.storeCarrito(this.productosSeleccionados);
     }
+
+    this.calcularValores();
+    this.storageService.storeCarrito(this.productosSeleccionados);
   }
 
   refresh(): void {

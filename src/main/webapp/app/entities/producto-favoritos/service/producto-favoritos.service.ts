@@ -8,13 +8,20 @@ import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
 import { IProductoFavoritos, getProductoFavoritosIdentifier } from '../producto-favoritos.model';
+import { IProducto } from 'app/entities/producto/producto.model';
 
 export type EntityResponseType = HttpResponse<IProductoFavoritos>;
 export type EntityArrayResponseType = HttpResponse<IProductoFavoritos[]>;
+export type ProductoArrayResponseType = HttpResponse<IProducto[]>;
+export type StringType = HttpResponse<dayjs.Dayjs>;
 
 @Injectable({ providedIn: 'root' })
 export class ProductoFavoritosService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/producto-favoritos');
+  protected favoriteProductsUrl = this.applicationConfigService.getEndpointFor('api/producto-favoritos-login');
+  protected lastUpdateUrl = this.applicationConfigService.getEndpointFor('api/producto-favoritos-last-update');
+  protected changePositionFav = this.applicationConfigService.getEndpointFor('api/producto-favoritos-goFirst');
+  protected favoriteHiddenProductsUrl = this.applicationConfigService.getEndpointFor('api/producto-favoritos-loginOcultos');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
@@ -23,6 +30,22 @@ export class ProductoFavoritosService {
     return this.http
       .post<IProductoFavoritos>(this.resourceUrl, copy, { observe: 'response' })
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
+
+  favoriteProducts(): Observable<ProductoArrayResponseType> {
+    return this.http.get<IProducto[]>(this.favoriteProductsUrl, { observe: 'response' });
+  }
+
+  favoriteHiddenProducts(): Observable<ProductoArrayResponseType> {
+    return this.http.get<IProducto[]>(this.favoriteHiddenProductsUrl, { observe: 'response' });
+  }
+
+  lastUpdate(): Observable<StringType> {
+    return this.http.get<dayjs.Dayjs>(this.lastUpdateUrl, { observe: 'response' });
+  }
+
+  goFirst(producto: IProducto): Observable<ProductoArrayResponseType> {
+    return this.http.post<IProducto[]>(this.changePositionFav, producto, { observe: 'response' });
   }
 
   update(productoFavoritos: IProductoFavoritos): Observable<EntityResponseType> {
