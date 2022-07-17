@@ -136,7 +136,7 @@
           </div>
         </div>
       </div>
-      <pagination-controls style="text-align: center" (pageChange)="pA = $event"></pagination-controls>
+      <pagination-controls style="text-align: center" (pageChange)="pA = $event" (click)="scroll()"></pagination-controls>
     </div>
   </div>
 </div>
@@ -366,49 +366,49 @@
     <h4 class="text-pattern">Tu carrito de Compras hasta el momento</h4>
   </div>
   <div class="modal-body">
-    <h4>Productos:</h4>
-    <table class="table">
-      <thead class="">
-        <tr>
-          <th scope="col">Producto</th>
-          <th scope="col">Cantidad</th>
-          <th scope="col">Precio</th>
-          <th scope="col">Subtotal</th>
-          <th scope="col">Eliminar</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of productosSeleccionados">
-          <td>{{ item.nombreProducto }}</td>
-          <td>{{ item.cantidad }}</td>
-          <td>{{ item.precioOriginal | currency }}</td>
-          <td>{{ item.precio | currency }}</td>
-          <a class="a-delete" (click)="eliminarProducto(item)"><mat-icon class="icon-config-delete">remove_circle_outline</mat-icon></a>
-          <td>
-            <div class="d-flex">
-              <button class="menu-config2" (click)="ChangeValuesShopingCard('add', item)" [disabled]="item.cantidad === 10">
-                <mat-icon class="icon-config">add</mat-icon>
-              </button>
-              <button class="menu-config2" (click)="ChangeValuesShopingCard('subs', item)" [disabled]="item.cantidad === 1">
-                <mat-icon class="icon-config">remove</mat-icon>
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <h4 style="font-weight: bold">Carrito:</h4>
     <div class="d-flex justify-content-end">
-      <span><b>Total Factura: </b>{{ totalFactura | currency }}</span>
+      <span><b style="font-weight: bold">Total Factura: </b>{{ totalFactura | currency }}</span>
     </div>
-    <div class="d-flex justify-content-end">
+    <div class="d-flex justify-content-end mb-3">
       <button (click)="deleteAllElementsCarrito()" class="menu-buttons-delete">
         <mat-icon class="icon-config">delete_sweep</mat-icon><span>Vaciar carrito</span>
       </button>
     </div>
+    <div *ngFor="let item of productosSeleccionados">
+      <div class="card mb-3" style="width: 100%">
+        <div class="d-flex">
+          <div class="col-md-3 me-3">
+            <img [src]="'data:' + item.imagenContentType + ';base64,' + item.imagen" style="max-height: 140px" alt="producto image" />
+          </div>
+          <div class="col-md-6">
+            <div class="card-body">
+              <h5 class="card-title">Producto: {{ item.nombreProducto }}</h5>
+              <p class="card-text">Precio: {{ item.precioOriginal }}</p>
+              <p class="card-text">SubTotal: {{ item.precio }}</p>
+
+              <div class="d-flex" style="border-width: 1px; border-style: ridge; border-color: rgb(150, 150, 150); width: 96px">
+                <button class="menu-config2 me-2" (click)="ChangeValuesShopingCard('add', item)" [disabled]="item.cantidad === 10">
+                  <mat-icon class="icon-config">add</mat-icon>
+                </button>
+                <span style="margin-top: 3px">{{ item.cantidad }}</span>
+                <button class="menu-config2 ms-2" (click)="ChangeValuesShopingCard('subs', item)" [disabled]="item.cantidad === 1">
+                  <mat-icon class="icon-config">remove</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 d-flex justify-content around">
+            <a class="me-3" style="color: rgb(0, 119, 255); margin-bottom: 10px; height: 25px" (click)="eliminarProducto(item)">Eliminar</a>
+            <a style="color: rgb(0, 119, 255); margin-bottom: 10px; height: 25px" (click)="cancel()">Mas productos</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="modal-footer">
     <div class="d-flex justify-content-start">
-      <span style="color: rgb(0, 106, 255)"
+      <span style="color: rgb(0, 106, 255); font-weight: bold">
         >Si algún producto adquirido tiene un descuento, este se aplicara automáticamente al subtotal y al total de la factura.</span
       >
     </div>

@@ -82,17 +82,137 @@
     </table>
   </div> -->
 
-  <div class="row d-flex">
-    <div class="col-md-4">
-      <div class="card text-bg-light mb-3" style="max-width: 18rem">
-        <div class="card-header">Videos Favoritos Visibles</div>
-        <div class="card-body">
-          <h5 class="card-title">Ultima Actualizacion: 22/02/2022</h5>
-          <p class="card-text">Puedes agregar los productos que quieras a esta lista</p>
+  <div class="col-md-5">
+    <table class="table table-bordered">
+      <tr>
+        <th>
+          Ultima Actualizacion: <span style="font-size: 13px; color: rgb(104, 104, 104)">{{ lastUpdateV }}</span>
+        </th>
+        <th>
+          Favoritos: <span>{{ totalProductos }}</span>
+        </th>
+        <th>
+          Ocultos:
+          <span
+            ><a style="color: gray" (click)="seeHiddenProducts()">{{ totalOcultos }}</a></span
+          >
+        </th>
+      </tr>
+    </table>
+  </div>
+
+  <div class="row">
+    <div class="d-flex">
+      <div class="col-md-3 me-4">
+        <div class="card text-left">
+          <img
+            class="card-img-top"
+            [src]="'data:' + firstProduct!.imagenContentType + ';base64,' + firstProduct!.imagen"
+            style="max-width: 12rem; max-height: 12rem"
+            alt=""
+          />
+          <div class="card-body">
+            <h4 class="card-title">Nombre: {{ firstProduct!.nombre }}</h4>
+            <p class="card-text">Precio: {{ firstProduct!.precio }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-5">
+        <div class="card mb-3" style="width: 60rem" *ngFor="let producto of productos">
+          <div class="row">
+            <div class="col-md-2">
+              <a target="_top" [routerLink]="['/producto', producto.id, 'view']">
+                <img
+                  [src]="'data:' + producto.imagenContentType + ';base64,' + producto.imagen"
+                  style="max-width: 10rem; max-height: 10rem"
+                />
+              </a>
+            </div>
+            <div class="col-md-7">
+              <div class="card-body">
+                <h5 class="card-title">{{ producto.nombre }}</h5>
+                <p class="card-text">
+                  This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit
+                  longer.
+                </p>
+                <p class="card-text">{{ producto.precio }}</p>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+              </div>
+            </div>
+            <div class="col-md-3 d-flex justify-content-end">
+              <div class="dropdown" style="margin-bottom: 149px">
+                <button class="menu-config3" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li>
+                    <button class="menu-config3" (click)="changeStateProduct(producto.id!, 'Oculto')">
+                      <mat-icon class="icon-config">visibility_off</mat-icon>Ocultar
+                    </button>
+                  </li>
+                  <li>
+                    <button class="menu-config3" (click)="deleteFavorite(producto.id!)">
+                      <mat-icon class="icon-config">delete</mat-icon>Quitar
+                    </button>
+                  </li>
+                  <li>
+                    <button class="menu-config3" (click)="changeToFirst(producto)">
+                      <mat-icon class="icon-config">arrow_upward</mat-icon>Poner primero
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-
-    <div class="col-md-8"></div>
   </div>
 </div>
+
+<ng-template #openHiddenProducts>
+  <div class="modal-header">
+    <h3 class="titulos">Productos Ocultos</h3>
+  </div>
+  <div class="modal-body">
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+    <div *ngIf="productosOcultos">
+      <div
+        class="row d-flex mb-2"
+        *ngFor="let oculto of productosOcultos"
+        style="height: 8rem; border-width: 1px; border-color: rgb(199, 199, 199); border-style: ridge"
+      >
+        <div class="col-md-2">
+          <a target="_top" [routerLink]="['/producto', oculto.id, 'view']">
+            <img [src]="'data:' + oculto.imagenContentType + ';base64,' + oculto.imagen" style="max-width: 8rem; max-height: 7rem" />
+          </a>
+        </div>
+        <div class="col-md-7">
+          <div class="card-body">
+            <h5 class="card-title">Nombre: {{ oculto.nombre }}</h5>
+            <h6 class="card-title">
+              Descripción <span>{{ oculto.descripcion ? oculto.descripcion : 'Sin descripcion' }}</span>
+            </h6>
+            <h6 class="card-title">
+              Precio: <span>{{ oculto.precio }}</span>
+            </h6>
+          </div>
+        </div>
+        <div class="col-md-3 d-flex justify-content-end">
+          <div class="col-md-6">
+            <button (click)="changeStateProduct(oculto.id!, 'Visible')" title="Quitar de ocultos" class="menu-config2 textO">
+              <mat-icon class="icon-config">visibility_off</mat-icon>
+            </button>
+            <span class="divOculto">Quitar de oculto</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-info" (click)="cancel()">Salir</button>
+  </div>
+</ng-template>

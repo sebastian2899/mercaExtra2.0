@@ -33,6 +33,9 @@ public class ProductoFavoritos implements Serializable {
     @Column(name = "estado")
     private String estado;
 
+    @Column(name = "puesto")
+    private int puesto;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -59,6 +62,14 @@ public class ProductoFavoritos implements Serializable {
 
     public void setIdProduct(Long idProduct) {
         this.idProduct = idProduct;
+    }
+
+    public int getPuesto() {
+        return puesto;
+    }
+
+    public void setPuesto(int puesto) {
+        this.puesto = puesto;
     }
 
     public String getLogin() {
