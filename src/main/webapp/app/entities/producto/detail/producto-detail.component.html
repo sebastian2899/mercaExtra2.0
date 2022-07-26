@@ -107,10 +107,61 @@
               placeholder="Escribe aqui tu comentario..."
               id="comentario"
               name="comentario"
+              [(ngModel)]="descripcionComentario"
             ></textarea>
           </div>
           <div class="col-md-1 ms-3">
-            <button class="mt-5 btn btn-info">Comentar</button>
+            <button class="mt-5 btn btn-info" [disabled]="!descripcionComentario" (click)="createComent(producto.id!)">Comentar</button>
+          </div>
+        </div>
+        <jhi-alert></jhi-alert>
+      </div>
+      <hr />
+
+      <div *ngIf="loadWhitOutComments && loadWhitOutComments.length > 0" class="flex-row mb-3 mt-5 me-5">
+        <div class="mb-5" *ngFor="let comment of loadWhitOutComments">
+          <div class="text-left">
+            <div class="d-flex">
+              <h5 class="card-title me-2" style="font-weight: bold">{{ comment.login }}</h5>
+              <span>{{ comment.fechaComentario | formatMediumDate }}</span>
+            </div>
+            <p class="card-text">{{ comment.descripcion }}</p>
+            <button class="menu-white me-2"><mat-icon class="icon-config">thumb_up</mat-icon>1</button>
+            <a (click)="changeActionRespo(comment.id!)" class="mt-1" style="text-decoration: none; color: rgb(0, 174, 255)">Responder</a>
+          </div>
+          <div class="mt-2 col-md-7" *ngIf="actionResp && comment.id === idComment">
+            <textarea
+              class="form-control"
+              [(ngModel)]="descripcionComentarioRespuesta"
+              placeholder="Escribe tu respuesta"
+              cols="80"
+              style="border-top: none; border-right: none; border-left: none"
+            ></textarea>
+            <div class="d-flex justify-content-end">
+              <button class="me-2 btn btn-dark" (click)="changeActionRespo(null)">Cancelar</button>
+              <button
+                class="btn btn-primary"
+                [disabled]="!descripcionComentarioRespuesta"
+                (click)="createCommentResp(comment.id!, producto.id!)"
+              >
+                Comentar
+              </button>
+            </div>
+          </div>
+
+          <div class="mb-2 ms-5 mt-3" *ngIf="loadResponseComments">
+            <div *ngFor="let resp of loadResponseComments">
+              <div *ngIf="comment.id === resp.idComentario">
+                <div class="text-left">
+                  <div class="d-flex">
+                    <h5 class="card-title me-2" style="font-weight: bold">{{ resp.login }}</h5>
+                    <span>{{ resp.fechaComentario | formatMediumDate }}</span>
+                  </div>
+                  <p class="card-text">{{ resp.descripcion }}</p>
+                  <button class="menu-white me-2"><mat-icon class="icon-config">thumb_up</mat-icon>1</button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -57,4 +57,6 @@ public interface PedidoService {
     void pedidoFinalizado(PedidoDTO pedidoDTO);
 
     List<PedidoDTO> pedidosFecha(String fecha);
+
+    List<FacturaPedidoDTO> checkPendingInvoice();
 }

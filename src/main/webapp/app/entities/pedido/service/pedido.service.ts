@@ -27,6 +27,7 @@ export class PedidoService {
   protected pedidoFinalizadoUrl = this.applicationConfigService.getEndpointFor('api/pedido-finalizado');
   protected pedidosFechaUrl = this.applicationConfigService.getEndpointFor('api/pedidos-fecha');
   protected resourceReembolsoPedidosUrl = this.applicationConfigService.getEndpointFor('api/reembolsos-pedidos');
+  protected pendingInovicesUrl = this.applicationConfigService.getEndpointFor('api/pedidosPengindInvoices');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
@@ -41,6 +42,10 @@ export class PedidoService {
     return this.http
       .get<IPedido[]>(`${this.pedidosFechaUrl}/${fecha.toString()}`, { observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+  }
+
+  getAllPendingInvoices(): Observable<FacturaPedidoResponseType> {
+    return this.http.get<IFacturaPedido[]>(this.pendingInovicesUrl, { observe: 'response' });
   }
 
   reembolsosPedidos(): Observable<DatosReembolsoResponseType> {

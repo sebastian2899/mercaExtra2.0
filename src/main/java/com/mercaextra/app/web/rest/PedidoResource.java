@@ -104,6 +104,12 @@ public class PedidoResource {
             .body(result);
     }
 
+    @GetMapping("/pedidosPengindInvoices")
+    public List<FacturaPedidoDTO> pengingInvoices() {
+        log.debug("REST request to get all pending invoices");
+        return pedidoService.checkPendingInvoice();
+    }
+
     /**
      * {@code PATCH  /pedidos/:id} : Partial updates given fields of an existing pedido, field will ignore if it is null
      *

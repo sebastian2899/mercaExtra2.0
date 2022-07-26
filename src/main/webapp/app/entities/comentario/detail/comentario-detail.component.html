@@ -1,0 +1,48 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="comentario">
+      <h2 data-cy="comentarioDetailsHeading"><span jhiTranslate="mercaExtraApp.comentario.detail.title">Comentario</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ comentario.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="mercaExtraApp.comentario.idComentario">Id Comentario</span></dt>
+        <dd>
+          <span>{{ comentario.idComentario }}</span>
+        </dd>
+        <dt><span jhiTranslate="mercaExtraApp.comentario.fechaComentario">Fecha Comentario</span></dt>
+        <dd>
+          <span>{{ comentario.fechaComentario | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="mercaExtraApp.comentario.login">Login</span></dt>
+        <dd>
+          <span>{{ comentario.login }}</span>
+        </dd>
+        <dt><span jhiTranslate="mercaExtraApp.comentario.like">Like</span></dt>
+        <dd>
+          <span>{{ comentario.likes }}</span>
+        </dd>
+        <dt><span jhiTranslate="mercaExtraApp.comentario.descripcion">Descripcion</span></dt>
+        <dd>
+          <span>{{ comentario.descripcion }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/comentario', comentario.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,86 @@
+<div>
+  <h2 id="page-heading" data-cy="ComentarioHeading">
+    <span jhiTranslate="mercaExtraApp.comentario.home.title">Comentarios</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="mercaExtraApp.comentario.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-comentario"
+        [routerLink]="['/comentario/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="mercaExtraApp.comentario.home.createLabel"> Create a new Comentario </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="comentarios?.length === 0">
+    <span jhiTranslate="mercaExtraApp.comentario.home.notFound">No comentarios found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="comentarios && comentarios.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="mercaExtraApp.comentario.idComentario">Id Comentario</span></th>
+          <th scope="col"><span jhiTranslate="mercaExtraApp.comentario.fechaComentario">Fecha Comentario</span></th>
+          <th scope="col"><span jhiTranslate="mercaExtraApp.comentario.login">Login</span></th>
+          <th scope="col"><span jhiTranslate="mercaExtraApp.comentario.like">Like</span></th>
+          <th scope="col"><span jhiTranslate="mercaExtraApp.comentario.descripcion">Descripcion</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let comentario of comentarios; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/comentario', comentario.id, 'view']">{{ comentario.id }}</a>
+          </td>
+          <td>{{ comentario.idComentario }}</td>
+          <td>{{ comentario.fechaComentario | formatMediumDatetime }}</td>
+          <td>{{ comentario.login }}</td>
+          <td>{{ comentario.likes }}</td>
+          <td>{{ comentario.descripcion }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/comentario', comentario.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/comentario', comentario.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(comentario)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
