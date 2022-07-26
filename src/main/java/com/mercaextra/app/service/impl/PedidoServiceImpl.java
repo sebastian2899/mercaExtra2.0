@@ -17,14 +17,13 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
-import java.util.TimeZone;
 import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -32,7 +31,6 @@ import javax.persistence.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -292,6 +290,27 @@ public class PedidoServiceImpl implements PedidoService {
         }
 
         return facturasReturn.stream().collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    @Override
+    public List<FacturaPedidoDTO> checkPendingInvoice() {
+        log.debug("Request to get all pending Invoices");
+        List<Object[]> pending = pedidoRepository.facturaClientesPendiente();
+
+        List<FacturaPedidoDTO> pendingInovices = pending
+            .stream()
+            .map(element -> {
+                FacturaPedidoDTO factura = new FacturaPedidoDTO();
+                factura.setFecha(element[0].toString().substring(0, 10));
+                factura.setInfoCliente(element[1].toString());
+                factura.setValorFactura(new BigDecimal(element[2].toString()));
+                factura.setEstadoFactura(element[3].toString());
+
+                return factura;
+            })
+            .collect(Collectors.toCollection(LinkedList::new));
+
+        return pendingInovices;
     }
 
     @Override

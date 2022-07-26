@@ -2,7 +2,14 @@ package com.mercaextra.app.domain;
 
 import java.io.Serializable;
 import java.time.Instant;
-import javax.persistence.*;
+import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -24,22 +31,36 @@ public class Comentario implements Serializable {
     @Column(name = "id_comentario")
     private Long idComentario;
 
+    @Column(name = "id_producto")
+    private Long idProducto;
+
     @Column(name = "fecha_comentario")
     private Instant fechaComentario;
 
     @Column(name = "login")
     private String login;
 
-    @Column(name = "jhi_like")
-    private Long like;
+    @Column(name = "likes")
+    private Long likes;
 
     @Column(name = "descripcion")
     private String descripcion;
+
+    @Transient
+    public List<Comentario> comentariosRespuesta;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
         return this.id;
+    }
+
+    public List<Comentario> getComentariosRespuesta() {
+        return comentariosRespuesta;
+    }
+
+    public void setComentariosRespuesta(List<Comentario> comentariosRespuesta) {
+        this.comentariosRespuesta = comentariosRespuesta;
     }
 
     public Comentario id(Long id) {
@@ -90,17 +111,20 @@ public class Comentario implements Serializable {
         this.login = login;
     }
 
-    public Long getLike() {
-        return this.like;
+    public Long getIdProducto() {
+        return idProducto;
     }
 
-    public Comentario like(Long like) {
-        this.setLike(like);
-        return this;
+    public void setIdProducto(Long idProducto) {
+        this.idProducto = idProducto;
     }
 
-    public void setLike(Long like) {
-        this.like = like;
+    public Long getLikes() {
+        return likes;
+    }
+
+    public void setLikes(Long likes) {
+        this.likes = likes;
     }
 
     public String getDescripcion() {
@@ -143,8 +167,13 @@ public class Comentario implements Serializable {
             ", idComentario=" + getIdComentario() +
             ", fechaComentario='" + getFechaComentario() + "'" +
             ", login='" + getLogin() + "'" +
-            ", like=" + getLike() +
+            ", like=" + getLikes() +
             ", descripcion='" + getDescripcion() + "'" +
             "}";
+    }
+
+    public Comentario likes(Long defaultLikes) {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

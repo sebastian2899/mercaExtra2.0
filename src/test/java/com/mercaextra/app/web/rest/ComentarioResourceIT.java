@@ -42,8 +42,8 @@ class ComentarioResourceIT {
     private static final String DEFAULT_LOGIN = "AAAAAAAAAA";
     private static final String UPDATED_LOGIN = "BBBBBBBBBB";
 
-    private static final Long DEFAULT_LIKE = 1L;
-    private static final Long UPDATED_LIKE = 2L;
+    private static final Long DEFAULT_LIKES = 1L;
+    private static final Long UPDATED_LIKES = 2L;
 
     private static final String DEFAULT_DESCRIPCION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPCION = "BBBBBBBBBB";
@@ -79,7 +79,7 @@ class ComentarioResourceIT {
             .idComentario(DEFAULT_ID_COMENTARIO)
             .fechaComentario(DEFAULT_FECHA_COMENTARIO)
             .login(DEFAULT_LOGIN)
-            .like(DEFAULT_LIKE)
+            .likes(DEFAULT_LIKES)
             .descripcion(DEFAULT_DESCRIPCION);
         return comentario;
     }
@@ -95,7 +95,7 @@ class ComentarioResourceIT {
             .idComentario(UPDATED_ID_COMENTARIO)
             .fechaComentario(UPDATED_FECHA_COMENTARIO)
             .login(UPDATED_LOGIN)
-            .like(UPDATED_LIKE)
+            .likes(UPDATED_LIKES)
             .descripcion(UPDATED_DESCRIPCION);
         return comentario;
     }
@@ -122,7 +122,7 @@ class ComentarioResourceIT {
         assertThat(testComentario.getIdComentario()).isEqualTo(DEFAULT_ID_COMENTARIO);
         assertThat(testComentario.getFechaComentario()).isEqualTo(DEFAULT_FECHA_COMENTARIO);
         assertThat(testComentario.getLogin()).isEqualTo(DEFAULT_LOGIN);
-        assertThat(testComentario.getLike()).isEqualTo(DEFAULT_LIKE);
+        assertThat(testComentario.getLikes()).isEqualTo(DEFAULT_LIKES);
         assertThat(testComentario.getDescripcion()).isEqualTo(DEFAULT_DESCRIPCION);
     }
 
@@ -160,7 +160,7 @@ class ComentarioResourceIT {
             .andExpect(jsonPath("$.[*].idComentario").value(hasItem(DEFAULT_ID_COMENTARIO.intValue())))
             .andExpect(jsonPath("$.[*].fechaComentario").value(hasItem(DEFAULT_FECHA_COMENTARIO.toString())))
             .andExpect(jsonPath("$.[*].login").value(hasItem(DEFAULT_LOGIN)))
-            .andExpect(jsonPath("$.[*].like").value(hasItem(DEFAULT_LIKE.intValue())))
+            .andExpect(jsonPath("$.[*].like").value(hasItem(DEFAULT_LIKES.intValue())))
             .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION)));
     }
 
@@ -179,7 +179,7 @@ class ComentarioResourceIT {
             .andExpect(jsonPath("$.idComentario").value(DEFAULT_ID_COMENTARIO.intValue()))
             .andExpect(jsonPath("$.fechaComentario").value(DEFAULT_FECHA_COMENTARIO.toString()))
             .andExpect(jsonPath("$.login").value(DEFAULT_LOGIN))
-            .andExpect(jsonPath("$.like").value(DEFAULT_LIKE.intValue()))
+            .andExpect(jsonPath("$.like").value(DEFAULT_LIKES.intValue()))
             .andExpect(jsonPath("$.descripcion").value(DEFAULT_DESCRIPCION));
     }
 
@@ -206,7 +206,7 @@ class ComentarioResourceIT {
             .idComentario(UPDATED_ID_COMENTARIO)
             .fechaComentario(UPDATED_FECHA_COMENTARIO)
             .login(UPDATED_LOGIN)
-            .like(UPDATED_LIKE)
+            .likes(UPDATED_LIKES)
             .descripcion(UPDATED_DESCRIPCION);
         ComentarioDTO comentarioDTO = comentarioMapper.toDto(updatedComentario);
 
@@ -225,7 +225,7 @@ class ComentarioResourceIT {
         assertThat(testComentario.getIdComentario()).isEqualTo(UPDATED_ID_COMENTARIO);
         assertThat(testComentario.getFechaComentario()).isEqualTo(UPDATED_FECHA_COMENTARIO);
         assertThat(testComentario.getLogin()).isEqualTo(UPDATED_LOGIN);
-        assertThat(testComentario.getLike()).isEqualTo(UPDATED_LIKE);
+        assertThat(testComentario.getLikes()).isEqualTo(UPDATED_LIKES);
         assertThat(testComentario.getDescripcion()).isEqualTo(UPDATED_DESCRIPCION);
     }
 
@@ -306,7 +306,7 @@ class ComentarioResourceIT {
         Comentario partialUpdatedComentario = new Comentario();
         partialUpdatedComentario.setId(comentario.getId());
 
-        partialUpdatedComentario.idComentario(UPDATED_ID_COMENTARIO).like(UPDATED_LIKE).descripcion(UPDATED_DESCRIPCION);
+        partialUpdatedComentario.idComentario(UPDATED_ID_COMENTARIO).likes(UPDATED_LIKES).descripcion(UPDATED_DESCRIPCION);
 
         restComentarioMockMvc
             .perform(
@@ -323,7 +323,7 @@ class ComentarioResourceIT {
         assertThat(testComentario.getIdComentario()).isEqualTo(UPDATED_ID_COMENTARIO);
         assertThat(testComentario.getFechaComentario()).isEqualTo(DEFAULT_FECHA_COMENTARIO);
         assertThat(testComentario.getLogin()).isEqualTo(DEFAULT_LOGIN);
-        assertThat(testComentario.getLike()).isEqualTo(UPDATED_LIKE);
+        assertThat(testComentario.getLikes()).isEqualTo(UPDATED_LIKES);
         assertThat(testComentario.getDescripcion()).isEqualTo(UPDATED_DESCRIPCION);
     }
 
@@ -343,7 +343,7 @@ class ComentarioResourceIT {
             .idComentario(UPDATED_ID_COMENTARIO)
             .fechaComentario(UPDATED_FECHA_COMENTARIO)
             .login(UPDATED_LOGIN)
-            .like(UPDATED_LIKE)
+            .likes(UPDATED_LIKES)
             .descripcion(UPDATED_DESCRIPCION);
 
         restComentarioMockMvc
@@ -361,7 +361,7 @@ class ComentarioResourceIT {
         assertThat(testComentario.getIdComentario()).isEqualTo(UPDATED_ID_COMENTARIO);
         assertThat(testComentario.getFechaComentario()).isEqualTo(UPDATED_FECHA_COMENTARIO);
         assertThat(testComentario.getLogin()).isEqualTo(UPDATED_LOGIN);
-        assertThat(testComentario.getLike()).isEqualTo(UPDATED_LIKE);
+        assertThat(testComentario.getLikes()).isEqualTo(UPDATED_LIKES);
         assertThat(testComentario.getDescripcion()).isEqualTo(UPDATED_DESCRIPCION);
     }
 

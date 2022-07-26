@@ -79,7 +79,7 @@ export class ComentarioUpdateComponent implements OnInit {
       idComentario: comentario.idComentario,
       fechaComentario: comentario.fechaComentario ? comentario.fechaComentario.format(DATE_TIME_FORMAT) : null,
       login: comentario.login,
-      like: comentario.like,
+      like: comentario.likes,
       descripcion: comentario.descripcion,
     });
   }
@@ -93,7 +93,7 @@ export class ComentarioUpdateComponent implements OnInit {
         ? dayjs(this.editForm.get(['fechaComentario'])!.value, DATE_TIME_FORMAT)
         : undefined,
       login: this.editForm.get(['login'])!.value,
-      like: this.editForm.get(['like'])!.value,
+      likes: this.editForm.get(['likess'])!.value,
       descripcion: this.editForm.get(['descripcion'])!.value,
     };
   }

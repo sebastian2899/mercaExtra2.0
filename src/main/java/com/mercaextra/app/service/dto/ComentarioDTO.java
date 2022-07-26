@@ -2,12 +2,18 @@ package com.mercaextra.app.service.dto;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.List;
 import java.util.Objects;
 
 /**
  * A DTO for the {@link com.mercaextra.app.domain.Comentario} entity.
  */
 public class ComentarioDTO implements Serializable {
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
     private Long id;
 
@@ -17,9 +23,29 @@ public class ComentarioDTO implements Serializable {
 
     private String login;
 
-    private Long like;
+    private Long likes;
 
     private String descripcion;
+
+    private Long idProducto;
+
+    private List<ComentarioDTO> comentariosRespuesta;
+
+    public List<ComentarioDTO> getComentariosRespuesta() {
+        return comentariosRespuesta;
+    }
+
+    public void setComentariosRespuesta(List<ComentarioDTO> comentariosRespuesta) {
+        this.comentariosRespuesta = comentariosRespuesta;
+    }
+
+    public Long getIdProducto() {
+        return idProducto;
+    }
+
+    public void setIdProducto(Long idProducto) {
+        this.idProducto = idProducto;
+    }
 
     public Long getId() {
         return id;
@@ -53,12 +79,12 @@ public class ComentarioDTO implements Serializable {
         this.login = login;
     }
 
-    public Long getLike() {
-        return like;
+    public Long getLikes() {
+        return likes;
     }
 
-    public void setLike(Long like) {
-        this.like = like;
+    public void setLikes(Long likes) {
+        this.likes = likes;
     }
 
     public String getDescripcion() {
@@ -98,7 +124,7 @@ public class ComentarioDTO implements Serializable {
             ", idComentario=" + getIdComentario() +
             ", fechaComentario='" + getFechaComentario() + "'" +
             ", login='" + getLogin() + "'" +
-            ", like=" + getLike() +
+            ", like=" + getLikes() +
             ", descripcion='" + getDescripcion() + "'" +
             "}";
     }

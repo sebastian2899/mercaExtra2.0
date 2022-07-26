@@ -4,6 +4,13 @@
   </h2>
   <h2 *ngIf="facturasPedido === null || facturasPedido!.length === 0" class="titulos mb-5">Gestión de pedidos</h2>
   <jhi-alert></jhi-alert>
+
+  <div *ngIf="facturasPendientes && facturasPendientes.length > 0" class="d-flex justify-content-start mb-3">
+    <button style="border-radius: 5%" class="btn btn-outline-info" (click)="openPendingInvoices()">
+      Ver Facturas Pendientes Por Transacción
+    </button>
+  </div>
+
   <div *ngIf="!createOrder" class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
       <h2 id="jhi-pedido-heading" data-cy="PedidoCreateUpdateHeading" jhiTranslate="mercaExtraApp.pedido.home.createOrEditLabel">
@@ -292,5 +299,31 @@
   </div>
   <div class="modal-footer">
     <button class="btn btn-danger" (click)="cancel()">Volver</button>
+  </div>
+</ng-template>
+
+<ng-template #oPendingInvoices>
+  <div class="modal-header">
+    <h3 class="titulos">Facturas en estado (Transacción Pendiente)</h3>
+  </div>
+  <div class="modal-body">
+    <table class="table table-striped table-inverse table-responsive">
+      <thead class="thead-inverse">
+        <tr>
+          <th>Fecha Factura</th>
+          <th>Informacion Cliente</th>
+          <th>Valor Factura</th>
+          <th>Estado Factura</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let factura of facturasPendientes">
+          <td scope="row">{{ factura.fecha }}</td>
+          <td>{{ factura.infoCliente }}</td>
+          <td>{{ factura.valorFactura }}</td>
+          <td>{{ factura.estadoFactura }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </ng-template>

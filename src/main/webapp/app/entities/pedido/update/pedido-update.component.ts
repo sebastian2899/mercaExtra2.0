@@ -13,6 +13,8 @@ import { PedidoService } from '../service/pedido.service';
 import { IFacturaPedido } from '../factura-pedido';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AlertService } from 'app/core/util/alert.service';
+import { AccountService } from 'app/core/auth/account.service';
+import { Account } from 'app/core/auth/account.model';
 
 @Component({
   selector: 'jhi-pedido-update',
@@ -22,14 +24,17 @@ export class PedidoUpdateComponent implements OnInit {
   @ViewChild('datosPedido', { static: true }) content: ElementRef | undefined;
   @ViewChild('messageUnviableDomiciliary', { static: true }) content2: ElementRef | undefined;
   @ViewChild('messageAlreadyOrderComming', { static: true }) content3: ElementRef | undefined;
+  @ViewChild('oPendingInvoices', { static: true }) content4: ElementRef | undefined;
 
   isSaving = false;
   facturasPedido?: IFacturaPedido[] | null;
+  facturasPendientes?: IFacturaPedido[] | null;
   titulo?: string | null;
   mensajeFechaInvalida?: string | null;
   createOrder?: boolean | null;
   estadoPedido = ['Entregando', 'Finalizado'];
   pedidoEntregado?: boolean | null;
+  account?: Account | null;
 
   editForm = this.fb.group({
     id: [],
@@ -49,7 +54,8 @@ export class PedidoUpdateComponent implements OnInit {
     protected fb: FormBuilder,
     protected modalService: NgbModal,
     protected alertService: AlertService,
-    protected router: Router
+    protected router: Router,
+    protected accountService: AccountService
   ) {}
 
   ngOnInit(): void {
@@ -69,12 +75,24 @@ export class PedidoUpdateComponent implements OnInit {
 
       this.updateForm(pedido);
     });
+    this.accountService.getAuthenticationState().subscribe(account => (this.account = account));
+    if (this.account?.login === 'admin') {
+      this.getAllPendingInvoices();
+    }
 
     this.consultarFacturas();
   }
 
   previousState(): void {
     window.history.back();
+  }
+
+  getAllPendingInvoices(): void {
+    this.pedidoService.getAllPendingInvoices().subscribe({
+      next: (res: HttpResponse<IFacturaPedido[]>) => {
+        this.facturasPendientes = res.body;
+      },
+    });
   }
 
   consultarFacturas(): void {
@@ -91,6 +109,10 @@ export class PedidoUpdateComponent implements OnInit {
   ingresarDatos(idFactura: number): void {
     this.editForm.get(['idFactura'])?.setValue(idFactura);
     this.modalService.open(this.content, { size: 'lg' });
+  }
+
+  openPendingInvoices(): void {
+    this.modalService.open(this.content4, { backdrop: 'static', size: 'lg' });
   }
 
   cancel(): void {

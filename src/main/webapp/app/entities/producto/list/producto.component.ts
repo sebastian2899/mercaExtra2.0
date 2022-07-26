@@ -208,6 +208,9 @@ export class ProductoComponent implements OnInit {
     this.productoService.productosFiltro(this.producto).subscribe({
       next: (res: HttpResponse<IProducto[]>) => {
         this.productos = res.body ?? [];
+        this.productos.forEach(element =>
+          this.productoService.validateIfItFavorite(element.id!).subscribe(res2 => (element.isFavorite = res2.body))
+        );
       },
       error: () => {
         this.productos = [];

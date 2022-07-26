@@ -13,6 +13,8 @@ public class FacturaPedidoDTO implements Serializable {
 
     private Long idFactura;
 
+    private String fecha;
+
     private String infoCliente;
 
     private String numeroFactura;
@@ -64,6 +66,14 @@ public class FacturaPedidoDTO implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(estadoFactura, infoCliente, numeroFactura, valorFactura);
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 
     @Override

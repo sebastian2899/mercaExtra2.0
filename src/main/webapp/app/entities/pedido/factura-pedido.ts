@@ -1,5 +1,6 @@
 export interface IFacturaPedido {
   idFactura?: number | null;
+  fecha?: string | null;
   infoCliente?: string | null;
   numeroFactura?: string | null;
   valorFactura?: number | null;
@@ -12,6 +13,7 @@ export class FacturaPedido implements IFacturaPedido {
     public infoCliente?: string | null,
     public numeroFactura?: string | null,
     public valorFacutra?: number | null,
-    public estadoFactura?: string | null
+    public estadoFactura?: string | null,
+    public fecha?: string | null
   ) {}
 }

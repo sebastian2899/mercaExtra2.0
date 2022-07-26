@@ -236,7 +236,7 @@
                 id="field_valorPagado"
                 data-cy="valorPagado"
                 formControlName="valorPagado"
-                required
+                [required]="editForm.get('metodoPago')!.value === 'CONTRA_ENTREGA'"
               />
 
               <div
@@ -272,7 +272,7 @@
             <label class="form-label" for="field_valorDeuda">Numero a Consignar</label>
             <input readonly type="text" class="form-control" value="111-222-333-444" />
             <div class="alert alert-warning" role="alert">
-              <p class="mb-0">Tan pronto como la transaccion sea exitosa podra continuar y realizar el pedido.</p>
+              <p class="mb-0">Tan pronto como la transaccion sea exitosa podra continuar con la realización del pedido.</p>
             </div>
           </div>
 

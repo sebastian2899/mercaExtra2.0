@@ -45,4 +45,8 @@ public interface ComentarioService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    List<ComentarioDTO> uploadCommentsProduct(Long idProducto);
+
+    List<ComentarioDTO> responseComments(Long idProducto, Long idComentario);
 }

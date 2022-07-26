@@ -15,6 +15,8 @@ export type EntityArrayResponseType = HttpResponse<IComentario[]>;
 @Injectable({ providedIn: 'root' })
 export class ComentarioService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/comentarios');
+  protected uploadCommentProductsUrl = this.applicationConfigService.getEndpointFor('api/comentarioProductos');
+  protected uploadCommentRespoProductsUrl = this.applicationConfigService.getEndpointFor('api/comentariosRespuesta');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
@@ -25,11 +27,23 @@ export class ComentarioService {
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
+  uploadCommentResponse(idProducto: number, idComment: number): Observable<EntityArrayResponseType> {
+    return this.http
+      .get<IComentario[]>(`${this.uploadCommentRespoProductsUrl}/${idProducto}/${idComment}`, { observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+  }
+
   update(comentario: IComentario): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(comentario);
     return this.http
       .put<IComentario>(`${this.resourceUrl}/${getComentarioIdentifier(comentario) as number}`, copy, { observe: 'response' })
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
+
+  uploadCommentsProduct(idProduct: number): Observable<EntityArrayResponseType> {
+    return this.http
+      .get<IComentario[]>(`${this.uploadCommentProductsUrl}/${idProduct}`, { observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
   partialUpdate(comentario: IComentario): Observable<EntityResponseType> {

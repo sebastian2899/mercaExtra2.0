@@ -94,6 +94,12 @@ public class ComentarioResource {
             .body(result);
     }
 
+    @GetMapping("/comentariosRespuesta/{idProducto}/{idComentario}")
+    public List<ComentarioDTO> comentarioRespuesta(@PathVariable Long idProducto, @PathVariable Long idComentario) {
+        log.debug("Rest request to get comentarioRespuesta : {}", idProducto, idComentario);
+        return comentarioService.responseComments(idProducto, idComentario);
+    }
+
     /**
      * {@code PATCH  /comentarios/:id} : Partial updates given fields of an existing comentario, field will ignore if it is null
      *
@@ -139,6 +145,12 @@ public class ComentarioResource {
     public List<ComentarioDTO> getAllComentarios() {
         log.debug("REST request to get all Comentarios");
         return comentarioService.findAll();
+    }
+
+    @GetMapping("/comentarioProductos/{idProducto}")
+    public List<ComentarioDTO> uploadCommentsProduct(@PathVariable Long idProducto) {
+        log.debug("REST request to get all coments per product");
+        return comentarioService.uploadCommentsProduct(idProducto);
     }
 
     /**

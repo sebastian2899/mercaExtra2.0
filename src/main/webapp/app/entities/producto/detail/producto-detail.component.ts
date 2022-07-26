@@ -11,6 +11,9 @@ import { HttpResponse } from '@angular/common/http';
 import { AlertService } from 'app/core/util/alert.service';
 import { ProductoFavoritosService } from 'app/entities/producto-favoritos/service/producto-favoritos.service';
 import { ProductoFavoritos } from 'app/entities/producto-favoritos/producto-favoritos.model';
+import { ComentarioService } from 'app/entities/comentario/service/comentario.service';
+import { Comentario, IComentario } from 'app/entities/comentario/comentario.model';
+import dayjs from 'dayjs/esm';
 
 @Component({
   selector: 'jhi-producto-detail',
@@ -23,6 +26,14 @@ export class ProductoDetailComponent implements OnInit {
   productosSimilares?: IProducto[] = [];
   anotherSimilarProduct?: IProducto[] = [];
   isFavProduct?: boolean | null;
+  descripcionComentario?: string | null;
+  loadComments?: IComentario[] = [];
+  loadWhitOutComments?: IComentario[] = [];
+  loadResponseComments?: IComentario[] = [];
+  actionResp?: boolean | null;
+  idComment?: number | null;
+  descripcionComentarioRespuesta?: string | null;
+  allCommentsPerProduct?: IComentario[] = [];
 
   constructor(
     protected dataUtils: DataUtils,
@@ -32,7 +43,8 @@ export class ProductoDetailComponent implements OnInit {
     protected router: Router,
     protected productoService: ProductoService,
     protected alertService: AlertService,
-    protected productoFavoritosService: ProductoFavoritosService
+    protected productoFavoritosService: ProductoFavoritosService,
+    protected comentarioService: ComentarioService
   ) {}
 
   ngOnInit(): void {
@@ -42,6 +54,7 @@ export class ProductoDetailComponent implements OnInit {
         this.asignateSimilarProducts(this.producto);
         this.findAnotherSimilarProducts(producto.categoria);
         this.isFavorite(this.producto.id!);
+        this.loadCommentsMethod(producto.id!);
       }
     });
 
@@ -51,12 +64,61 @@ export class ProductoDetailComponent implements OnInit {
     this.calcularDescuentoProducto();
   }
 
+  // loadAllCommentDistincIdComment(){
+
+  // }
+
   calcularDescuentoProducto(): void {
     if (this.producto?.precioDescuento) {
       const descuento = (this.producto.precioDescuento * this.producto.precio!) / 100;
       this.valorConDescuento = this.producto.precio! - Number(descuento);
     }
   }
+
+  loadCommentsMethod(idProduct: number): void {
+    this.comentarioService.uploadCommentsProduct(idProduct).subscribe({
+      next: (res: HttpResponse<IComentario[]>) => {
+        this.loadComments = res.body ?? [];
+        if (this.loadComments.length > 0) {
+          this.loadWhitOutComments = this.loadComments.filter(comment => comment.idComentario === null);
+          this.loadResponseComments = this.loadComments.filter(comment => comment.idComentario !== null);
+        }
+      },
+      error: () => {
+        this.loadComments = [];
+        this.alertService.addAlert({
+          type: 'danger',
+          message: 'Error al cargar los comentarios.',
+        });
+      },
+    });
+  }
+
+  // loadCommentsMethod(idProduct:number):void{
+  //   this.comentarioService.uploadCommentsProduct(idProduct).subscribe({
+  //     next: (res: HttpResponse<IComentario[]>) => {
+  //       this.loadComments = res.body ?? [];
+  //       if(this.loadComments.length > 0){
+  //          this.loadComments.forEach(element => {
+  //           if(element.idProducto && element.idComentario){
+  //             this.comentarioService.uploadCommentResponse(Number(element.idProducto),Number(element.idComentario)).subscribe(
+  //              (res2: HttpResponse<IComentario[]>) => {
+  //                 element.commentsResp = res2.body ?? [];
+  //               }
+  //             );
+  //           }
+  //          });
+  //       }
+  //     },
+  //     error: () => {
+  //       this.loadComments = [];
+  //       this.alertService.addAlert({
+  //         type: 'danger',
+  //         message: 'Error al cargar los comentarios.',
+  //       });
+  //     }
+  //   });
+  // }
 
   reload(): void {
     window.location.reload();
@@ -90,6 +152,13 @@ export class ProductoDetailComponent implements OnInit {
     }
   }
 
+  changeActionRespo(idComment: number | null): void {
+    this.actionResp = !this.actionResp;
+    if (idComment !== null) {
+      this.idComment = idComment;
+    }
+  }
+
   managementFavoriteProducts(id: number): void {
     const producFav = new ProductoFavoritos();
     if (!this.producto?.isFavorite) {
@@ -120,6 +189,27 @@ export class ProductoDetailComponent implements OnInit {
     }
   }
 
+  createCommentResp(idComment: number, idProducto: number): void {
+    const comment = new Comentario();
+    comment.idProducto = idProducto;
+    comment.idComentario = idComment;
+    comment.descripcion = this.descripcionComentarioRespuesta;
+    comment.fechaComentario = dayjs(new Date());
+
+    this.comentarioService.create(comment).subscribe({
+      next: () => {
+        this.alertService.addAlert({
+          type: 'success',
+          message: 'Comentario respondido.',
+        });
+        this.descripcionComentarioRespuesta = null;
+        this.actionResp = false;
+        this.idComment = null;
+        this.loadCommentsMethod(idProducto);
+      },
+    });
+  }
+
   isFavorite(id: number): void {
     this.productoService.validateIfItFavorite(id).subscribe({
       next: (res: HttpResponse<boolean>) => {
@@ -130,6 +220,30 @@ export class ProductoDetailComponent implements OnInit {
         this.alertService.addAlert({
           type: 'danger',
           message: 'No se pudo hacer la validacion correctamente.',
+        });
+      },
+    });
+  }
+
+  createComent(idProducto: number): void {
+    const comentario = new Comentario();
+    comentario.idProducto = idProducto;
+    comentario.fechaComentario = dayjs(new Date());
+    comentario.descripcion = this.descripcionComentario;
+
+    this.comentarioService.create(comentario).subscribe({
+      next: () => {
+        this.alertService.addAlert({
+          type: 'success',
+          message: 'Has realizado un comentario.',
+        });
+        this.descripcionComentario = null;
+        this.loadCommentsMethod(idProducto);
+      },
+      error: () => {
+        this.alertService.addAlert({
+          type: 'danger',
+          message: 'No se pudo realizar el comentario.',
         });
       },
     });
