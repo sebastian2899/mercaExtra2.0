@@ -1,0 +1,26 @@
+{
+  "mercaExtraApp": {
+    "productoPromocionHome": {
+      "home": {
+        "title": "Producto Promocion Homes",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Producto Promocion Home",
+        "createOrEditLabel": "Crear o editar Producto Promocion Home",
+        "notFound": "Ningún Producto Promocion Homes encontrado"
+      },
+      "created": "Un nuevo Producto Promocion Home ha sido creado con el identificador {{ param }}",
+      "updated": "Un Producto Promocion Home ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Producto Promocion Home ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Producto Promocion Home {{ id }}?"
+      },
+      "detail": {
+        "title": "Producto Promocion Home"
+      },
+      "id": "ID",
+      "idProducto": "Id Producto",
+      "descripcion": "Descripcion",
+      "fechaAgregado": "Fecha Agregado"
+    }
+  }
+}
