@@ -48,4 +48,6 @@ public interface ProductoPromocionHomeService {
     void delete(Long id);
 
     List<ProductoDTO> productosDescuento();
+
+    List<ProductoDTO> productosEnListaHome();
 }

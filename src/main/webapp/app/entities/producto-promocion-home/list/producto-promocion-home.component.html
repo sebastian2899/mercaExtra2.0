@@ -94,18 +94,19 @@
           <h5 class="card-title">{{ producto.nombre }}</h5>
           <p class="card-text">Descuento: {{ producto.precioDescuento }}%</p>
           <p class="card-text">Descripcion: {{ producto.descripcion }}</p>
-          <button
-            *ngIf="producto.estado === 'sinmostrar' || !producto.estado"
-            class="btn btn-outline-info"
-            (click)="generarDescripcion(producto.id!)"
-          >
-            Mostrar en el inicio
-          </button>
+          <p class="card-text">estado: {{ producto.estado }}</p>
         </div>
-
+        <button
+          *ngIf="producto.estado === 'unchecked' || !producto.estado"
+          class="btn btn-outline-info"
+          (click)="generarDescripcion(producto.id!)"
+        >
+          Mostrar en el inicio
+        </button>
         <div *ngIf="crearDescripcion && idProducto === producto.id!">
           <input type="text" class="form-control" placeholder="descripcion" [(ngModel)]="descripcion" />
           <div class="d-flex justify-content-end">
+            <button class="btn btn-outline-danger me-2" (click)="cancel()">Cancelar</button>
             <button [disabled]="!descripcion" class="btn btn-outline-success" (click)="guardarProductoHome()">Confirmar</button>
           </div>
         </div>

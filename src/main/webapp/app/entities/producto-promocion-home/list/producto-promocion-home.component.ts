@@ -28,6 +28,15 @@ export class ProductoPromocionHomeComponent implements OnInit {
 
   loadAll(): void {
     this.isLoading = true;
+    this.productoPromocionHomeService.query().subscribe({
+      next: (res2: HttpResponse<IProductoPromocionHome[]>) => {
+        this.isLoading = false;
+        this.productoPromocionHomes = res2.body ?? [];
+      },
+      error: () => {
+        this.isLoading = false;
+      },
+    });
   }
 
   ngOnInit(): void {
@@ -39,6 +48,10 @@ export class ProductoPromocionHomeComponent implements OnInit {
     if (id !== null) {
       this.idProducto = id;
     }
+  }
+
+  cancel(): void {
+    this.crearDescripcion = false;
   }
 
   guardarProductoHome(): void {
@@ -67,27 +80,6 @@ export class ProductoPromocionHomeComponent implements OnInit {
     this.productoPromocionHomeService.recuperarProductoDescuento().subscribe({
       next: (res: HttpResponse<IProducto[]>) => {
         this.productos = res.body ?? [];
-        this.productoPromocionHomeService.query().subscribe({
-          next: (res2: HttpResponse<IProductoPromocionHome[]>) => {
-            this.isLoading = false;
-            this.productoPromocionHomes = res2.body ?? [];
-
-            for (let i = 0; i < this.productos!.length; i++) {
-              for (let j = 0; j < this.productoPromocionHomes.length; j++) {
-                if (this.productos![i].id === this.productoPromocionHomes[j].idProducto) {
-                  this.productos![i].estado = 'mostrado';
-                  break;
-                } else {
-                  this.productos![i].estado = 'sinmostrar';
-                  break;
-                }
-              }
-            }
-          },
-          error: () => {
-            this.isLoading = false;
-          },
-        });
       },
       error: () => {
         this.alerService.addAlert({

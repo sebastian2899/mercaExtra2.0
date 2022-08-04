@@ -18,6 +18,7 @@ export type EntityProductoResponseType = HttpResponse<IProducto[]>;
 export class ProductoPromocionHomeService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/producto-promocion-homes');
   protected resourceProductoDescuentoUrl = this.applicationConfigService.getEndpointFor('api/producto-home-all-disscount');
+  protected resourceProductoListHomeUrl = this.applicationConfigService.getEndpointFor('api/producto-promocion-lista-home');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
@@ -30,6 +31,10 @@ export class ProductoPromocionHomeService {
 
   recuperarProductoDescuento(): Observable<EntityProductoResponseType> {
     return this.http.get<IProducto[]>(this.resourceProductoDescuentoUrl, { observe: 'response' });
+  }
+
+  recuperarLiataProductoPromocionHome(): Observable<EntityProductoResponseType> {
+    return this.http.get<IProducto[]>(this.resourceProductoListHomeUrl, { observe: 'response' });
   }
 
   update(productoPromocionHome: IProductoPromocionHome): Observable<EntityResponseType> {

@@ -8,6 +8,7 @@ import com.mercaextra.app.service.dto.ProductoDTO;
 import com.mercaextra.app.service.dto.ProductoPromocionHomeDTO;
 import com.mercaextra.app.service.mapper.ProductoMapper;
 import com.mercaextra.app.service.mapper.ProductoPromocionHomeMapper;
+import com.mercaextra.app.web.rest.errors.BadRequestAlertException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -50,7 +51,18 @@ public class ProductoPromocionHomeServiceImpl implements ProductoPromocionHomeSe
     public ProductoPromocionHomeDTO save(ProductoPromocionHomeDTO productoPromocionHomeDTO) {
         log.debug("Request to save ProductoPromocionHome : {}", productoPromocionHomeDTO);
         ProductoPromocionHome productoPromocionHome = productoPromocionHomeMapper.toEntity(productoPromocionHomeDTO);
-        productoPromocionHome = productoPromocionHomeRepository.save(productoPromocionHome);
+
+        //        ANTES DE GUARDAR UN NUEVO PRODUCTO A LA LISTA DE FAVORITOS DEVEMOS EVALUAR PRIMERO QUE NO EXISTA ACTUALENTE
+        //       EL PRODUCTO EN LA LISTA DE PRODUCTOS GUARDADOS EN EL HOME.
+
+        // CASTEAMOS LA RESPUESTA
+        boolean resp = Boolean.parseBoolean(productoPromocionHomeRepository.resp(productoPromocionHome.getIdProducto()));
+        if (!resp) {
+            productoPromocionHome = productoPromocionHomeRepository.save(productoPromocionHome);
+        } else {
+            throw new BadRequestAlertException("Ya existe en la lista home", "Ya existe en la lista home", "Ya existe en la lista home");
+        }
+
         return productoPromocionHomeMapper.toDto(productoPromocionHome);
     }
 
@@ -99,6 +111,17 @@ public class ProductoPromocionHomeServiceImpl implements ProductoPromocionHomeSe
         log.debug("Request to get disscount products.");
         return productoRepository
             .productosConDescuento()
+            .stream()
+            .map(productoMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ProductoDTO> productosEnListaHome() {
+        log.debug("Request to get all producto in favorite list home");
+        return productoRepository
+            .productosEnListaHome()
             .stream()
             .map(productoMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));

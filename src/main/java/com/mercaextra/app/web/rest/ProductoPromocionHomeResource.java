@@ -155,6 +155,12 @@ public class ProductoPromocionHomeResource {
         return productoPromocionHomeService.findAll();
     }
 
+    @GetMapping("/producto-promocion-lista-home")
+    public List<ProductoDTO> productsInHomeList() {
+        log.debug("REST request to get all productos in home list");
+        return productoPromocionHomeService.productosEnListaHome();
+    }
+
     /**
      * {@code GET  /producto-promocion-homes/:id} : get the "id" productoPromocionHome.
      *
