@@ -10,6 +10,8 @@ import { ProductoService } from 'app/entities/producto/service/producto.service'
 import { HttpResponse } from '@angular/common/http';
 import { CajaService } from 'app/entities/caja/service/caja.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ProductoPromocionHomeService } from 'app/entities/producto-promocion-home/service/producto-promocion-home.service';
+import { IProductoPromocionHome } from 'app/entities/producto-promocion-home/producto-promocion-home.model';
 
 @Component({
   selector: 'jhi-home',
@@ -23,6 +25,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   productosDescuento?: IProducto[] | null;
   intervalId?: any;
   respNumber?: number | null;
+  productosDisscountHome?: IProducto[] | null;
 
   private readonly destroy$ = new Subject<void>();
 
@@ -31,7 +34,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     private router: Router,
     private productoService: ProductoService,
     protected cajaService: CajaService,
-    protected modalService: NgbModal
+    protected modalService: NgbModal,
+    private productoDescuentoService: ProductoPromocionHomeService
   ) {}
 
   ngOnInit(): void {
@@ -41,6 +45,19 @@ export class HomeComponent implements OnInit, OnDestroy {
       .subscribe(account => (this.account = account));
     this.rememberCreationCaja();
     this.findDissmidProduts();
+    this.getDisscountProduts();
+  }
+
+  getDisscountProduts(): void {
+    this.productoDescuentoService.recuperarLiataProductoPromocionHome().subscribe({
+      next: (res: HttpResponse<IProductoPromocionHome[]>) => {
+        this.productosDisscountHome = res.body ?? [];
+        this.productosDisscountHome.forEach(element => {
+          const discount = (Number(element.precioDescuento) * Number(element.precio)) / 100;
+          element.precioConDescuento = Number(element.precio) - Number(discount.toFixed(0));
+        });
+      },
+    });
   }
 
   isAuthenticated(): boolean {

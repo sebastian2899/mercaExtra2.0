@@ -44,4 +44,10 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
         nativeQuery = true
     )
     String isFavorite(@Param("idProduct") Long idProduct);
+
+    @Query(value = "SELECT * FROM producto WHERE precio_descuento IS NOT NULL", nativeQuery = true)
+    List<Producto> productosConDescuento();
+
+    @Query("SELECT p FROM Producto p INNER JOIN ProductoPromocionHome pp ON p.id = pp.idProducto")
+    List<Producto> productosEnListaHome();
 }

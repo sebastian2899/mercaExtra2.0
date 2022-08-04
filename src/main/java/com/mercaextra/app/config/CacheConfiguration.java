@@ -66,6 +66,7 @@ public class CacheConfiguration {
             createCache(cm, com.mercaextra.app.domain.Reembolso.class.getName());
             createCache(cm, com.mercaextra.app.domain.ProductoFavoritos.class.getName());
             createCache(cm, com.mercaextra.app.domain.Comentario.class.getName());
+            createCache(cm, com.mercaextra.app.domain.ProductoPromocionHome.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

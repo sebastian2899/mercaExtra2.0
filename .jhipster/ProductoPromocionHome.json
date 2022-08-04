@@ -1,0 +1,24 @@
+{
+  "changelogDate": "20220731175400",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "idProducto",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "descripcion",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fechaAgregado",
+      "fieldType": "Instant"
+    }
+  ],
+  "jpaMetamodelFiltering": false,
+  "name": "ProductoPromocionHome",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

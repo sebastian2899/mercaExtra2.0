@@ -34,14 +34,15 @@
       "ItemFacturaVenta",
       "Reembolso",
       "ProductoFavoritos",
-      "Comentario"
+      "Comentario",
+      "ProductoPromocionHome"
     ],
     "entitySuffix": "",
     "jhiPrefix": "jhi",
     "jhipsterVersion": "7.7.0",
     "jwtSecretKey": "OGRjNGU5Y2QzZjAwZDViYjVjMjJiYjFkMGQzMWJjMzQ4NTc3MjBhYWZhMDE3ZDIxMTRjZDk3ZjcyODY1MWYyNjkxNWMzZTc0NGRkYmJlYzhjYmNiNTFkNjg1ZGEwZjZjMDE3NDk1OTUzOTYwZWU5MTZlYjhlYTViOWVjM2RiMmY=",
     "languages": ["es", "en"],
-    "lastLiquibaseTimestamp": 1658078650000,
+    "lastLiquibaseTimestamp": 1659290040000,
     "messageBroker": false,
     "nativeLanguage": "es",
     "otherModules": [],

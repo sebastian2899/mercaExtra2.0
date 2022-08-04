@@ -30,6 +30,7 @@
     <include file="config/liquibase/changelog/20220509161332_added_entity_Reembolso.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220617144517_added_entity_ProductoFavoritos.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220717172410_added_entity_Comentario.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220731175400_added_entity_ProductoPromocionHome.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
