@@ -6,7 +6,8 @@
         "refreshListLabel": "Refrescar lista",
         "createLabel": "Crear nuevo Compra",
         "createOrEditLabel": "Crear o editar Compra",
-        "notFound": "Ningún Compras encontrado"
+        "notFound": "Ningún Compras encontrado",
+        "filtros: ": "Filtros"
       },
       "created": "Un nuevo Compra ha sido creado con el identificador {{ param }}",
       "updated": "Un Compra ha sido actualizado con el identificador {{ param }}",

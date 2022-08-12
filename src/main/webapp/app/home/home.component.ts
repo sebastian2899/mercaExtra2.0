@@ -12,6 +12,7 @@ import { CajaService } from 'app/entities/caja/service/caja.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProductoPromocionHomeService } from 'app/entities/producto-promocion-home/service/producto-promocion-home.service';
 import { IProductoPromocionHome } from 'app/entities/producto-promocion-home/producto-promocion-home.model';
+import { AlertService } from 'app/core/util/alert.service';
 
 @Component({
   selector: 'jhi-home',
@@ -35,7 +36,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     private productoService: ProductoService,
     protected cajaService: CajaService,
     protected modalService: NgbModal,
-    private productoDescuentoService: ProductoPromocionHomeService
+    private productoDescuentoService: ProductoPromocionHomeService,
+    private alertService: AlertService
   ) {}
 
   ngOnInit(): void {
@@ -58,6 +60,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         });
       },
     });
+  }
+
+  dleteProductHome(id: number): void {
+    this.productoDescuentoService.deleteProductoDesc(id).subscribe(() => window.location.reload());
   }
 
   isAuthenticated(): boolean {

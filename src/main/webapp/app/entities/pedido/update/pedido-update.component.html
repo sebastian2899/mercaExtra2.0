@@ -322,6 +322,13 @@
           <td>{{ factura.infoCliente }}</td>
           <td>{{ factura.valorFactura }}</td>
           <td>{{ factura.estadoFactura }}</td>
+          <td>
+            <div>
+              <button class="btn btn-info btn-sm" (click)="confirmActionTRansactionInvoice(factura.idFactura!)">
+                Confimar Transacción
+              </button>
+            </div>
+          </td>
         </tr>
       </tbody>
     </table>

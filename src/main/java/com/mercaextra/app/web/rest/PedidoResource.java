@@ -146,6 +146,18 @@ public class PedidoResource {
         );
     }
 
+    @GetMapping("/pedidoConfirmarTransaccion/{idFactura}")
+    public ResponseEntity<Void> confirmarTransaccion(@PathVariable Long idFactura) {
+        log.debug("REST request to confirm transaction");
+
+        if (null == idFactura) {
+            throw new BadRequestAlertException(applicationName, ENTITY_NAME, "idNull");
+        }
+
+        pedidoService.confirmarTranssacion(idFactura);
+        return ResponseEntity.ok().body(null);
+    }
+
     /**
      * {@code GET  /pedidos} : get all the pedidos.
      *
