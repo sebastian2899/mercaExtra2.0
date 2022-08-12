@@ -22,7 +22,7 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
     List<Object[]> facturasCliente(@Param("userName") String userName);
 
     @Query(
-        "SELECT f.fechaCreacion,f.infoCiente,f.valorFactura,f.estadoFactura FROM Factura f WHERE f.estadoFactura='Transaccion Pendiente'"
+        "SELECT f.id,f.fechaCreacion,f.infoCiente,f.valorFactura,f.estadoFactura FROM Factura f WHERE f.estadoFactura='Transaccion Pendiente'"
     )
     List<Object[]> facturaClientesPendiente();
 

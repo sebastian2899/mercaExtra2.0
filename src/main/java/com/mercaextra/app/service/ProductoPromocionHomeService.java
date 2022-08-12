@@ -50,4 +50,6 @@ public interface ProductoPromocionHomeService {
     List<ProductoDTO> productosDescuento();
 
     List<ProductoDTO> productosEnListaHome();
+
+    void deleteProductoDesc(Long id);
 }

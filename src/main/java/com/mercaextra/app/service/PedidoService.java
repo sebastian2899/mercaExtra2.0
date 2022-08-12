@@ -59,4 +59,6 @@ public interface PedidoService {
     List<PedidoDTO> pedidosFecha(String fecha);
 
     List<FacturaPedidoDTO> checkPendingInvoice();
+
+    void confirmarTranssacion(Long idFactura);
 }

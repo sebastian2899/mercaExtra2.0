@@ -89,6 +89,8 @@ export class DomiciliarioComponent implements OnInit {
   stateDomiciliary(estado: EstadoDomiciliario): string {
     if (estado === 'EN_ENTREGA') {
       return 'bg-warning';
+    } else if (estado === 'ESTUDIO_REEMBOLSO') {
+      return 'bg-danger';
     }
 
     return 'bg-success';

@@ -106,6 +106,19 @@ export class PedidoUpdateComponent implements OnInit {
     });
   }
 
+  confirmActionTRansactionInvoice(idFactura: number): void {
+    this.pedidoService.changeStateConfirm(idFactura).subscribe({
+      next: () => {
+        this.consultarFacturas();
+        this.modalService.dismissAll();
+        this.alertService.addAlert({
+          type: 'success',
+          message: 'Factura actualizada correctamente',
+        });
+      },
+    });
+  }
+
   ingresarDatos(idFactura: number): void {
     this.editForm.get(['idFactura'])?.setValue(idFactura);
     this.modalService.open(this.content, { size: 'lg' });

@@ -178,6 +178,10 @@
                 </div>
               </div>
             </a>
+            <button *ngIf="account!.login === 'admin'" class="btn btn-primary btn-sm" (click)="dleteProductHome(similar.id!)">
+              <mat-icon>delete</mat-icon>
+              <span>Eliminar</span>
+            </button>
           </div>
         </div>
       </div>
