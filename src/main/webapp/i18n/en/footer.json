@@ -1,0 +1,22 @@
+{
+  "mercaExtraApp": {
+    "footer": {
+      "mensajes": {
+        "contactenos": {
+          "contactenos": "Contact Us",
+          "viaGitHub": "Via GitHub",
+          "viaGmail": "Via Gmail"
+        },
+        "metodoPago": {
+          "metodoPago": "Payment methods ",
+          "contraEntrega": "Upon delivery",
+          "transaccionBancaria": "Banking transaction"
+        },
+        "ubicacion": {
+          "ubicacion": "location",
+          "empresaRemota": "Remote company"
+        }
+      }
+    }
+  }
+}

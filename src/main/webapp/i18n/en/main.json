@@ -1,0 +1,18 @@
+{
+  "mercaExtraApp": {
+    "main": {
+      "mensajes": {
+        "inicio": "beginning",
+        "informacionDomiciliosPedidos": "Information, Addresses and Orders",
+        "verProductos": "See products",
+        "hacerMercado": "Do market",
+        "contraEntrega": "Upon delivery",
+        "mercadosListosPedir": "Markets ready to order",
+        "misFacturas": "Mis Facturas",
+        "misPedidos": "My bills",
+        "misFavoritos": "My favourites",
+        "gestionRembolsos": "Refund Management"
+      }
+    }
+  }
+}
