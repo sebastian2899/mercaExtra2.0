@@ -1,0 +1,13 @@
+{
+  "mercaExtraApp": {
+    "footer": {
+      "mensajes": {
+        "contactenos": "asdasd",
+        "metodoPago": "asdt",
+        "ubicacion": "asd",
+        "createOrEditLabel": "asd",
+        "notFound": "d"
+      }
+    }
+  }
+}

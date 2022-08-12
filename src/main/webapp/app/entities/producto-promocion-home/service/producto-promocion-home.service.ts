@@ -19,6 +19,7 @@ export class ProductoPromocionHomeService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/producto-promocion-homes');
   protected resourceProductoDescuentoUrl = this.applicationConfigService.getEndpointFor('api/producto-home-all-disscount');
   protected resourceProductoListHomeUrl = this.applicationConfigService.getEndpointFor('api/producto-promocion-lista-home');
+  protected resourceProductoListDescUrl = this.applicationConfigService.getEndpointFor('api/producto-promocion-homes-delete-desc');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
@@ -27,6 +28,10 @@ export class ProductoPromocionHomeService {
     return this.http
       .post<IProductoPromocionHome>(this.resourceUrl, copy, { observe: 'response' })
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
+
+  deleteProductoDesc(id: number): Observable<HttpResponse<{}>> {
+    return this.http.delete(`${this.resourceProductoListDescUrl}/${id}`, { observe: 'response' });
   }
 
   recuperarProductoDescuento(): Observable<EntityProductoResponseType> {

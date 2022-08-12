@@ -28,6 +28,7 @@ export class PedidoService {
   protected pedidosFechaUrl = this.applicationConfigService.getEndpointFor('api/pedidos-fecha');
   protected resourceReembolsoPedidosUrl = this.applicationConfigService.getEndpointFor('api/reembolsos-pedidos');
   protected pendingInovicesUrl = this.applicationConfigService.getEndpointFor('api/pedidosPengindInvoices');
+  protected confirmTransactinUrl = this.applicationConfigService.getEndpointFor('api/pedidoConfirmarTransaccion');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
@@ -36,6 +37,10 @@ export class PedidoService {
     return this.http
       .post<IPedido>(this.resourceUrl, copy, { observe: 'response' })
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
+
+  changeStateConfirm(idFactura: number): Observable<any> {
+    return this.http.get<any>(`${this.confirmTransactinUrl}/${idFactura}`);
   }
 
   pedidosFecha(fecha: string): Observable<EntityArrayResponseType> {

@@ -301,10 +301,11 @@ public class PedidoServiceImpl implements PedidoService {
             .stream()
             .map(element -> {
                 FacturaPedidoDTO factura = new FacturaPedidoDTO();
-                factura.setFecha(element[0].toString().substring(0, 10));
-                factura.setInfoCliente(element[1].toString());
-                factura.setValorFactura(new BigDecimal(element[2].toString()));
-                factura.setEstadoFactura(element[3].toString());
+                factura.setIdFactura(Long.parseLong(element[0].toString()));
+                factura.setFecha(element[1].toString().substring(0, 10));
+                factura.setInfoCliente(element[2].toString());
+                factura.setValorFactura(new BigDecimal(element[3].toString()));
+                factura.setEstadoFactura(element[4].toString());
 
                 return factura;
             })
@@ -436,5 +437,13 @@ public class PedidoServiceImpl implements PedidoService {
         // CON LOS ID DE LOS PEDIDOS QUE YA SOBREPASARON EL LIMITE EN ESTADO EXPITADO, RECORREN Y SE ELIMINAN LOS PEDIDOS
 
         idDelete.forEach(id -> pedidoRepository.changeStateOrder(id));
+    }
+
+    @Override
+    public void confirmarTranssacion(Long idFactura) {
+        log.debug("Request to change state invoice");
+        Optional<Factura> factura = facturaRepositoty.findById(idFactura);
+        factura.get().setEstadoFactura("Lista");
+        facturaRepositoty.save(factura.orElse(null));
     }
 }

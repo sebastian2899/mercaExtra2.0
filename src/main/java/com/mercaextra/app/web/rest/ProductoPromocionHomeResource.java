@@ -195,4 +195,14 @@ public class ProductoPromocionHomeResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
     }
+
+    @DeleteMapping("/producto-promocion-homes-delete-desc/{id}")
+    public ResponseEntity<Void> deleteProductoDesc(@PathVariable Long id) {
+        log.debug("REST request to delete ProductoPromocionHome : {}", id);
+        productoPromocionHomeService.deleteProductoDesc(id);
+        return ResponseEntity
+            .noContent()
+            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
+            .build();
+    }
 }

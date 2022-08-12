@@ -2,7 +2,7 @@
   "mercaExtraApp": {
     "domiciliario": {
       "home": {
-        "title": "Domiciliarios",
+        "title": "Domiciliaries",
         "refreshListLabel": "Refresh list",
         "createLabel": "Create a new Domiciliario",
         "createOrEditLabel": "Create or edit a Domiciliario",
@@ -18,13 +18,13 @@
         "title": "Domiciliario"
       },
       "id": "ID",
-      "nombre": "Nombre",
-      "apellido": "Apellido",
-      "salario": "Salario",
-      "telefono": "Telefono",
-      "horario": "Horario",
-      "sueldo": "Sueldo",
-      "estado": "Estado"
+      "nombre": "Name",
+      "apellido": "Last Name",
+      "salario": "Salary",
+      "telefono": "Phone",
+      "horario": "Schedule",
+      "sueldo": "Salary",
+      "estado": "State"
     }
   }
 }

@@ -13,6 +13,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +36,9 @@ public class ProductoPromocionHomeServiceImpl implements ProductoPromocionHomeSe
     private final ProductoPromocionHomeMapper productoPromocionHomeMapper;
 
     private final ProductoRepository productoRepository;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Autowired
     private ProductoMapper productoMapper;
@@ -114,6 +120,14 @@ public class ProductoPromocionHomeServiceImpl implements ProductoPromocionHomeSe
             .stream()
             .map(productoMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    @Override
+    @Transactional
+    public void deleteProductoDesc(Long id) {
+        log.debug("Request to delete producto.");
+        Query q = entityManager.createQuery("DELETE FROM ProductoPromocionHome WHERE idProducto = :id").setParameter("id", id);
+        q.executeUpdate();
     }
 
     @Override
