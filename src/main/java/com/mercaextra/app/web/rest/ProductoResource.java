@@ -67,6 +67,7 @@ public class ProductoResource {
             throw new BadRequestAlertException("A new producto cannot already have an ID", ENTITY_NAME, "idexists");
         }
         ProductoDTO result = productoService.save(productoDTO);
+        System.out.println(productoDTO.getImagen() + "conten " + productoDTO.getImagenContentType());
         return ResponseEntity
             .created(new URI("/api/productos/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))

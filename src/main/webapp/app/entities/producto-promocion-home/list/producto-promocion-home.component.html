@@ -96,13 +96,17 @@
           <p class="card-text">Descripcion: {{ producto.descripcion }}</p>
           <p class="card-text">estado: {{ producto.estado }}</p>
         </div>
-        <button
-          *ngIf="producto.estado === 'unchecked' || !producto.estado"
-          class="btn btn-outline-info"
-          (click)="generarDescripcion(producto.id!)"
-        >
-          Mostrar en el inicio
-        </button>
+        <div class="card-footer">
+          <button
+            *ngIf="producto.estado === 'unchecked' || !producto.estado"
+            class="btn btn-outline-info"
+            (click)="generarDescripcion(producto.id!)"
+          >
+            Mostrar en el inicio
+          </button>
+          <button class="btn btn-outline-danger">Eliminar de inicio</button>
+        </div>
+
         <div *ngIf="crearDescripcion && idProducto === producto.id!">
           <input type="text" class="form-control" placeholder="descripcion" [(ngModel)]="descripcion" />
           <div class="d-flex justify-content-end">

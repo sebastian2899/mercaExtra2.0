@@ -50,7 +50,7 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:mysql://localhost:3306/merca_extra?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
     username: root
-    password: admin
+    password: password
     hikari:
       poolName: Hikari
       auto-commit: false
@@ -68,6 +68,7 @@ spring:
     port: 25
     username:
     password:
+
   messages:
     cache-duration: PT1S # 1 second, see the ISO 8601 standard
   thymeleaf:
