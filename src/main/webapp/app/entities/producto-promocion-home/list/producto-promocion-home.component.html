@@ -79,7 +79,10 @@
       </tbody>
     </table>
   </div> -->
-  <div class="row mt-5">
+  <div class="alert alert-info" role="alert">
+    <h6>Debes de agregar como minimo 4 productos al home para poder visualizarlos</h6>
+  </div>
+  <!-- <div class="row mt-5">
     <div class="col-md-3" *ngFor="let producto of productos">
       <div class="card" style="width: 18rem">
         <img
@@ -113,6 +116,48 @@
             <button [disabled]="!descripcion" class="btn btn-outline-success" (click)="guardarProductoHome()">Confirmar</button>
           </div>
         </div>
+      </div>
+    </div> 
+  </div> -->
+
+  <div class="row">
+    <div class="col-md-4" *ngFor="let producto of productos">
+      <div class="card mb-3 animated bounce">
+        <h3 class="card-header">{{ producto.nombre }}</h3>
+
+        <div class="card-body text-center">
+          <img
+            [src]="'data:' + producto.imagenContentType + ';base64,' + producto.imagen"
+            style="max-height: 200px"
+            width="90%"
+            height="500px;"
+            alt="producto image"
+            class="card-img-top"
+          />
+        </div>
+        <div class="card-body">
+          <p class="card-text">Descuento: {{ producto.precioDescuento }}%</p>
+          <p class="card-text">Descripcion: {{ producto.descripcion }}</p>
+          <p class="card-text">estado: {{ producto.estado }}</p>
+        </div>
+
+        <div class="card-body d-flex justify-content-between">
+          <button
+            *ngIf="producto.estado === 'unchecked' || !producto.estado"
+            class="btn btn-outline-info"
+            (click)="generarDescripcion(producto.id!)"
+          >
+            Mostrar en el inicio
+          </button>
+        </div>
+        <div *ngIf="crearDescripcion && idProducto === producto.id!">
+          <input type="text" class="form-control" placeholder="descripcion" [(ngModel)]="descripcion" />
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-outline-danger me-2" (click)="cancel()">Cancelar</button>
+            <button [disabled]="!descripcion" class="btn btn-outline-success" (click)="guardarProductoHome()">Confirmar</button>
+          </div>
+        </div>
+        <div class="card-footer text-center">&copy; marca producto</div>
       </div>
     </div>
   </div>

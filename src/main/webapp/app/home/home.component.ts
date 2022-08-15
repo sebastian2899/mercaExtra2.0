@@ -13,7 +13,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProductoPromocionHomeService } from 'app/entities/producto-promocion-home/service/producto-promocion-home.service';
 import { IProductoPromocionHome } from 'app/entities/producto-promocion-home/producto-promocion-home.model';
 import { AlertService } from 'app/core/util/alert.service';
-
+import { ProductoPromocionHomeDeleteDialogComponent } from 'app/entities/producto-promocion-home/delete/producto-promocion-home-delete-dialog.component';
 @Component({
   selector: 'jhi-home',
   templateUrl: './home.component.html',
@@ -62,8 +62,19 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  dleteProductHome(id: number): void {
-    this.productoDescuentoService.deleteProductoDesc(id).subscribe(() => window.location.reload());
+  dleteProductHome(productoPromocionHome: IProductoPromocionHome): void {
+    const modalRef = this.modalService.open(ProductoPromocionHomeDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.productoPromocionHome = productoPromocionHome;
+    // unsubscribe not needed because closed completes on modal close
+    modalRef.closed.subscribe(reason => {
+      if (reason === 'deleted') {
+        window.location.reload();
+        //this.loadAll();
+      }
+    });
+  }
+  trackId(index: number, item: IProductoPromocionHome): number {
+    return item.id!;
   }
 
   isAuthenticated(): boolean {

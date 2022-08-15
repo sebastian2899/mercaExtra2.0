@@ -17,8 +17,6 @@ export class ProductoPromocionHomeDeleteDialogComponent {
   }
 
   confirmDelete(id: number): void {
-    this.productoPromocionHomeService.delete(id).subscribe(() => {
-      this.activeModal.close('deleted');
-    });
+    this.productoPromocionHomeService.deleteProductoDesc(id).subscribe(() => this.activeModal.close('deleted'));
   }
 }
