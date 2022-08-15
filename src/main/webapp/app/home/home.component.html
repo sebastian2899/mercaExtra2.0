@@ -2,19 +2,15 @@
   <!-- <div class="col-md-3">
     <span class="hipster img-fluid rounded"></span>
   </div>
-
   <div class="col-md-9">
     <h1 class="display-4"><span jhiTranslate="home.title">Welcome, Java Hipster!</span> (Merca Extra)</h1>
-
     <p class="lead" jhiTranslate="home.subtitle">This is your homepage</p>
-
     <div [ngSwitch]="account !== null">
       <div class="alert alert-success" *ngSwitchCase="true">
         <span id="home-logged-message" *ngIf="account" jhiTranslate="home.logged.message" [translateValues]="{ username: account.login }"
           >You are logged in as user "{{ account.login }}".</span
         >
       </div>
-
       <div class="alert alert-warning" *ngSwitchCase="false">
         <span jhiTranslate="global.messages.info.authenticated.prefix">If you want to </span>
         <a class="alert-link" (click)="login()" jhiTranslate="global.messages.info.authenticated.link">sign in</a
@@ -23,15 +19,12 @@
           password="user").</span
         >
       </div>
-
       <div class="alert alert-warning" *ngSwitchCase="false">
         <span jhiTranslate="global.messages.info.register.noaccount">You don't have an account yet?</span>&nbsp;
         <a class="alert-link" routerLink="account/register" jhiTranslate="global.messages.info.register.link">Register a new account</a>
       </div>
     </div>
-
     <p jhiTranslate="home.question">If you have any question on JHipster:</p>
-
     <ul>
       <li>
         <a href="https://www.jhipster.tech/" target="_blank" rel="noopener noreferrer" jhiTranslate="home.link.homepage"
@@ -67,7 +60,6 @@
         >
       </li>
     </ul>
-
     <p>
       <span jhiTranslate="home.like">If you like JHipster, don't forget to give us a star on</span>
       <a href="https://github.com/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer" jhiTranslate="home.github"
@@ -156,7 +148,10 @@
   </div>
 
   <div [ngSwitch]="isAuthenticated()">
-    <div class="row d-flex justify-content-between mt-5 home-look-products" *ngIf="productosDisscountHome!.length >= 4">
+    <div
+      class="row d-flex justify-content-between mt-5 home-look-products"
+      *ngIf="productosDisscountHome != null && productosDisscountHome.length >= 4"
+    >
       <div class="col-md-12 mt-5">
         <h4 class="font-size-new mb-4">¡Conoce todos nuestro productos en oferta del dia de hoy!</h4>
         <div class="slider-container">
@@ -168,11 +163,9 @@
                   style="max-height: 200px; padding: 10px"
                   alt="producto image"
                 /> </a>
-
                 <div class="card-body">
                   <h5 class="card-title">{{ similar.nombre }}</h5>
                   <p class="card-text"><span>Precio: </span>{{ similar.precio | currency }}</p>
-
                   <p class="card-text"><span>Descuento: </span>{{ similar.precioConDescuento | currency }}</p>
                   <p class="card-text"><span>Disponible</span> {{ similar.cantidad }}</p>
                 </div>
