@@ -156,32 +156,55 @@
   </div>
 
   <div [ngSwitch]="isAuthenticated()">
-    <div class="row d-flex justify-content-between mt-5 home-look-products">
+    <div
+      class="row d-flex justify-content-between mt-5 home-look-products"
+      *ngIf="productosDisscountHome != null && productosDisscountHome.length >= 4"
+    >
       <div class="col-md-12 mt-5">
         <h4 class="font-size-new mb-4">¡Conoce todos nuestro productos en oferta del dia de hoy!</h4>
         <div class="slider-container">
           <div class="mt-4 col-lg-3 mb-4" *ngFor="let similar of productosDisscountHome" style="margin-right: 70px">
-            <a class="a-productos" [routerLink]="['/producto', similar.id, 'view']" target="_top">
-              <div class="card" style="width: 300px; height: 360px">
+            <!-- <div class="card" style="width: 300px; height: 360px" >
+                <a class="a-productos" [routerLink]="['/producto', similar.id, 'view']" target="_top">
                 <img
                   [src]="'data:' + similar.imagenContentType + ';base64,' + similar.imagen"
                   style="max-height: 200px; padding: 10px"
                   alt="producto image"
-                />
-
+                /> </a>
                 <div class="card-body">
                   <h5 class="card-title">{{ similar.nombre }}</h5>
                   <p class="card-text"><span>Precio: </span>{{ similar.precio | currency }}</p>
-
                   <p class="card-text"><span>Descuento: </span>{{ similar.precioConDescuento | currency }}</p>
                   <p class="card-text"><span>Disponible</span> {{ similar.cantidad }}</p>
                 </div>
               </div>
-            </a>
-            <button *ngIf="account!.login === 'admin'" class="btn btn-primary btn-sm" (click)="dleteProductHome(similar.id!)">
-              <mat-icon>delete</mat-icon>
-              <span>Eliminar</span>
-            </button>
+              <div class="card card-footer">
+                <button *ngIf="account!.login === 'admin'" class="btn btn-primary btn-sm" (click)="dleteProductHome(similar)">
+                  <mat-icon>delete</mat-icon>
+                  <span>Eliminar</span>
+                </button>
+              </div> -->
+            <div class="card" style="width: 18rem">
+              <a class="a-productos" [routerLink]="['/producto', similar.id, 'view']" target="_top">
+                <img
+                  [src]="'data:' + similar.imagenContentType + ';base64,' + similar.imagen"
+                  style="max-height: 200px; padding: 10px"
+                  alt="producto image"
+                  class="card-img-top"
+                />
+              </a>
+              <div class="card-body">
+                <h5 class="card-title">{{ similar.nombre }}</h5>
+                <p class="card-text"><span>Precio: </span>{{ similar.precio | currency }}</p>
+
+                <p class="card-text"><span>Descuento: </span>{{ similar.precioConDescuento | currency }}</p>
+                <p class="card-text"><span>Disponible</span> {{ similar.cantidad }}</p>
+                <button *ngIf="account!.login === 'admin'" class="btn btn-primary" (click)="dleteProductHome(similar)">
+                  <mat-icon>delete</mat-icon>
+                  <span>Eliminar</span>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

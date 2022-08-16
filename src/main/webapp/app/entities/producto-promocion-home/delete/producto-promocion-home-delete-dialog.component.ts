@@ -10,15 +10,17 @@ import { ProductoPromocionHomeService } from '../service/producto-promocion-home
 export class ProductoPromocionHomeDeleteDialogComponent {
   productoPromocionHome?: IProductoPromocionHome;
 
-  constructor(protected productoPromocionHomeService: ProductoPromocionHomeService, protected activeModal: NgbActiveModal) {}
+  constructor(
+    protected productoPromocionHomeService: ProductoPromocionHomeService,
+    protected activeModal: NgbActiveModal,
+    private productoDescuentoService: ProductoPromocionHomeService
+  ) {}
 
   cancel(): void {
     this.activeModal.dismiss();
   }
 
   confirmDelete(id: number): void {
-    this.productoPromocionHomeService.delete(id).subscribe(() => {
-      this.activeModal.close('deleted');
-    });
+    this.productoDescuentoService.deleteProductoDesc(id).subscribe(() => window.location.reload());
   }
 }

@@ -1,0 +1,17 @@
+{
+  "mercaExtraApp": {
+    "main": {
+      "mensajes": {
+        "inicio": "Inicio",
+        "informacionDomiciliosPedidos": "Información, Domicilios y Pedidos",
+        "verProductos": "Ver Productos",
+        "hacerMercado": "Hacer Mercado",
+        "mercadosListosPedir": "Mercados listos para pedir",
+        "misFacturas": "Mis Facturas",
+        "misPedidos": "Mis pedidos",
+        "misFavoritos": "Mis favoritos",
+        "gestionRembolsos": "Gestion rembolsos"
+      }
+    }
+  }
+}
