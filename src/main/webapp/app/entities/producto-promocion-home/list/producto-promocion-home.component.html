@@ -124,14 +124,7 @@
         <h3 class="card-header">{{ producto.nombre }}</h3>
 
         <div class="card-body text-center">
-          <img
-            [src]="'data:' + producto.imagenContentType + ';base64,' + producto.imagen"
-            style="max-height: 200px"
-            width="90%"
-            height="500px;"
-            alt="producto image"
-            class="card-img-top"
-          />
+          <img [src]="'data:' + producto.imagenContentType + ';base64,' + producto.imagen" alt="producto image" class="card-img-top" />
         </div>
         <div class="card-body">
           <p class="card-text">Descuento: {{ producto.precioDescuento }}%</p>
