@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
+
+.imgUser {
+  width: 130px;
+  height: 130px;
+  display: block;
+  margin: auto;
+}
+
+.containerRegister {
+  margin-top: -12px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  color: #000;
+}
+
+#titleRegister {
+  margin-top: 20px;
+  font-family: 'Acme', sans-serif;
+  color: #000;
+  text-align: center;
+  width: 10rem;
+}
+#formRegister {
+  font-family: 'Acme', sans-serif;
+  width: 48rem;
+}
