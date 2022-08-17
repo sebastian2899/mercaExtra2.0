@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
+
+#containerLogin {
+  font-family: 'Acme', sans-serif;
+  color: black;
+  margin-top: -12px;
+}
+#titleRegister {
+  text-align: center;
+}
+
+.imgUser {
+  width: 130px;
+  height: 130px;
+  display: block;
+  margin: auto;
+}
+
+.username-label {
+  text-align: left;
+  color: rgb(0, 0, 0);
+}
+.links {
+  text-align: center;
+  margin: 0px;
+}
