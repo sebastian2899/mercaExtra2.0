@@ -16,6 +16,21 @@
     "like": "Si te gusta JHipster, danos una estrella en",
     "github": "GitHub",
     "variety": "Variedad",
-    "amount": "Contamos con una gran variedad de productos"
+    "amount": "Contamos con una gran variedad de productos",
+    "inicio": {
+      "title": "Productos en oferta",
+      "subtitle": "¡Inicia sesión y visita los productos que tenemos para ti!",
+      "variedades": "¡Variedad y calidad de carnes frescas!",
+      "variedadesDos": "¡También contamos con variedad en frutas y verduras!",
+      "titulos": "¿Aún no tienes cuenta?",
+      "infRegistro": "¡Regístrate y actualiza tus datos en las configuraciones de cuenta de usuario!",
+      "registro": "Registrate Aquí",
+      "sinCuenta": "Regístrate con una dirección de correo que uses frecuentemente.",
+      "metodoPago": "Metodos de pago",
+      "metodoPago-subtitle": "Contamos con metodos de pago opcionales para ti.",
+      "servicio": "Servicio de domicilios",
+      "servicio-subtitle": "Llevamos nuestros productos hasta la puerta de tu casa.",
+      "confianzaConsumidor": "Ofrecemos confiabilidad y garantía en la entrega de los productos que adquieras, seleccionamos los mejores productos día a día para ofrecer el mejor servicio. Así mismo garantizamos el gran trabajo de nuestros domiciliarios al entregar tu pedido en el tiempo estimado de tu pedido."
+    }
   }
 }
