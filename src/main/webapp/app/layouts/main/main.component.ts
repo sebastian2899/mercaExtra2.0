@@ -13,6 +13,7 @@ import { LoginService } from 'app/login/login.service';
 @Component({
   selector: 'jhi-main',
   templateUrl: './main.component.html',
+  styleUrls: ['./main.component.css'],
 })
 export class MainComponent implements OnInit {
   account?: Account | null;
