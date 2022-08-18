@@ -1,8 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display+SC&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap'); */
+/* @import url('https://fonts.googleapis.com/css2?family=Cutive+Mono&display=swap');
+.card-body{
+  font-family: 'Cutive Mono', monospace;
+} */
+@import url('https://fonts.googleapis.com/css2?family=Arya:wght@700&display=swap');
 .card-body img {
-  width: 40%;
+  width: 80%;
 }
 
 .col-md-4 {
   flex: 0 0 auto;
-  width: 24.333333%;
+  width: 20rem;
+}
+
+.title {
+  font-family: 'Arya', sans-serif;
+  color: #8c52ff;
+}
+.card-header {
+  font-family: 'Fira Sans Condensed', sans-serif;
+  color: #ffffff;
+  font-size: 22px;
+  background-color: #8c52ff;
+}
+
+#button {
+  border-color: #024387;
+  color: #024387;
 }
