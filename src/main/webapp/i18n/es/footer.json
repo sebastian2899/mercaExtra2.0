@@ -2,11 +2,20 @@
   "mercaExtraApp": {
     "footer": {
       "mensajes": {
-        "contactenos": "asdasd",
-        "metodoPago": "asdt",
-        "ubicacion": "asd",
-        "createOrEditLabel": "asd",
-        "notFound": "d"
+        "contactenos": {
+          "contactenos": "Contactenos",
+          "viaGitHub": "Via GitHub",
+          "viaGmail": "Via Gmail"
+        },
+        "metodoPago": {
+          "metodoPago": "Metodos de pago ",
+          "contraEntrega": "Contra entrega",
+          "transaccionBancaria": "Transaccion bancaria"
+        },
+        "ubicacion": {
+          "ubicacion": "Ubicacion",
+          "empresaRemota": "Empresa remota"
+        }
       }
     }
   }

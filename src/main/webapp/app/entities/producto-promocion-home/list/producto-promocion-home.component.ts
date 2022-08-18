@@ -11,6 +11,7 @@ import { AlertService } from 'app/core/util/alert.service';
 @Component({
   selector: 'jhi-producto-promocion-home',
   templateUrl: './producto-promocion-home.component.html',
+  styleUrls: ['./producto-promocion-home.component.css'],
 })
 export class ProductoPromocionHomeComponent implements OnInit {
   productoPromocionHomes?: IProductoPromocionHome[];

@@ -428,15 +428,12 @@ public class PedidoServiceImpl implements PedidoService {
 
         List<Pedido> pedidos = q.getResultList();
 
-        List<Long> idDelete = pedidos
+        pedidos
             .stream()
             .filter(order -> order.getFechaExpiReembolso().isBefore(fechaActual))
             .map(id -> id.getId())
-            .collect(Collectors.toCollection(LinkedList::new));
-
+            .forEach(element -> pedidoRepository.deleteById(element));
         // CON LOS ID DE LOS PEDIDOS QUE YA SOBREPASARON EL LIMITE EN ESTADO EXPITADO, RECORREN Y SE ELIMINAN LOS PEDIDOS
-
-        idDelete.forEach(id -> pedidoRepository.changeStateOrder(id));
     }
 
     @Override

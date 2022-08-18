@@ -12,6 +12,7 @@ import { ICaja, getCajaIdentifier } from '../caja.model';
 export type EntityResponseType = HttpResponse<ICaja>;
 export type EntityArrayResponseType = HttpResponse<ICaja[]>;
 export type NumberResponseType = HttpResponse<number>;
+export type BooleanResponseType = HttpResponse<boolean>;
 
 @Injectable({ providedIn: 'root' })
 export class CajaService {
@@ -28,8 +29,8 @@ export class CajaService {
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
-  rememberCreationCaja(): Observable<NumberResponseType> {
-    return this.http.get<number>(this.rememberCreationCajaUrl, { observe: 'response' });
+  rememberCreationCaja(): Observable<BooleanResponseType> {
+    return this.http.get<boolean>(this.rememberCreationCajaUrl, { observe: 'response' });
   }
 
   update(caja: ICaja): Observable<EntityResponseType> {

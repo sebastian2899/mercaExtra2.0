@@ -1,3 +1,6 @@
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css" />
+</head>
 <nav data-cy="navbar" class="navbar navbar-dark navbar-expand-md">
   <div class="container-fluid" [ngSwitch]="isAuthenticated()">
     <a class="navbar-brand logo ms-5" routerLink="/" (click)="collapseNavbar()">
@@ -51,7 +54,7 @@
                 [routerLinkActiveOptions]="{ exact: true }"
                 (click)="collapseNavbar()"
               >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                <i class="bi bi-cart-check-fill"></i>
                 <span jhiTranslate="global.menu.entities.pedido">Pedido</span>
               </a>
             </li>
@@ -63,7 +66,7 @@
                 [routerLinkActiveOptions]="{ exact: true }"
                 (click)="collapseNavbar()"
               >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                <i class="bi bi-receipt"></i>
                 <span jhiTranslate="global.menu.entities.factura">Factura</span>
               </a>
             </li>
@@ -75,11 +78,11 @@
                 [routerLinkActiveOptions]="{ exact: true }"
                 (click)="collapseNavbar()"
               >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                <i class="bi bi-bell-fill"></i>
                 <span jhiTranslate="global.menu.entities.notificacion">Notificacion</span>
               </a>
             </li>
-            <li>
+            <!-- <li>
               <a
                 class="dropdown-item"
                 routerLink="empleado"
@@ -90,7 +93,7 @@
                 <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
                 <span jhiTranslate="global.menu.entities.empleado">Empleado</span>
               </a>
-            </li>
+            </li> -->
             <li>
               <a
                 class="dropdown-item"
@@ -99,7 +102,7 @@
                 [routerLinkActiveOptions]="{ exact: true }"
                 (click)="collapseNavbar()"
               >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                <i class="bi bi-person-fill"></i>
                 <span jhiTranslate="global.menu.entities.domiciliario">Domiciliario</span>
               </a>
             </li>
@@ -111,7 +114,7 @@
                 [routerLinkActiveOptions]="{ exact: true }"
                 (click)="collapseNavbar()"
               >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                <i class="bi bi-coin"></i>
                 <span jhiTranslate="global.menu.entities.caja">Caja</span>
               </a>
             </li>
@@ -123,7 +126,7 @@
                 [routerLinkActiveOptions]="{ exact: true }"
                 (click)="collapseNavbar()"
               >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                <i class="bi bi-list" style="color: black"></i>
                 <span jhiTranslate="global.menu.entities.categoriaProducto">Categoria Producto</span>
               </a>
             </li>
@@ -135,7 +138,7 @@
                 [routerLinkActiveOptions]="{ exact: true }"
                 (click)="collapseNavbar()"
               >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                <i class="bi bi-cash"></i>
                 <span jhiTranslate="global.menu.entities.compra">Compra</span>
               </a>
             </li>
@@ -147,7 +150,7 @@
                 [routerLinkActiveOptions]="{ exact: true }"
                 (click)="collapseNavbar()"
               >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                <i class="bi bi-people-fill"></i>
                 <span jhiTranslate="global.menu.entities.proveedor">Proveedor</span>
               </a>
             </li>
@@ -159,7 +162,7 @@
                 [routerLinkActiveOptions]="{ exact: true }"
                 (click)="collapseNavbar()"
               >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                <i class="bi bi-reception-4"></i>
                 <span jhiTranslate="global.menu.entities.egreso">Egreso</span>
               </a>
             </li>
@@ -171,7 +174,7 @@
                 [routerLinkActiveOptions]="{ exact: true }"
                 (click)="collapseNavbar()"
               >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                <i class="bi bi-basket3-fill"></i>
                 <span jhiTranslate="global.menu.entities.producto">Producto</span>
               </a>
             </li>
@@ -183,7 +186,7 @@
                 [routerLinkActiveOptions]="{ exact: true }"
                 (click)="collapseNavbar()"
               >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                <i class="bi bi-clipboard2-data-fill"></i>
                 <span jhiTranslate="global.menu.entities.itemFacturaVenta">Item Factura Venta</span>
               </a>
             </li>
@@ -195,7 +198,7 @@
                 [routerLinkActiveOptions]="{ exact: true }"
                 (click)="collapseNavbar()"
               >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                <i class="bi bi-cash-coin"></i>
                 <span jhiTranslate="global.menu.entities.reembolso">Reembolso</span>
               </a>
             </li>
@@ -207,7 +210,7 @@
                 [routerLinkActiveOptions]="{ exact: true }"
                 (click)="collapseNavbar()"
               >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                <i class="bi bi-heart-fill"></i>
                 <span jhiTranslate="global.menu.entities.productoFavoritos">Producto Favoritos</span>
               </a>
             </li>
@@ -219,7 +222,7 @@
                 [routerLinkActiveOptions]="{ exact: true }"
                 (click)="collapseNavbar()"
               >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                <i class="bi bi-chat-left-text-fill"></i>
                 <span jhiTranslate="global.menu.entities.comentario">Comentario</span>
               </a>
             </li>
@@ -231,7 +234,7 @@
                 [routerLinkActiveOptions]="{ exact: true }"
                 (click)="collapseNavbar()"
               >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                <i class="bi bi-tag-fill"></i>
                 <span jhiTranslate="global.menu.entities.productoPromocionHome">Producto Promocion Home</span>
               </a>
             </li>

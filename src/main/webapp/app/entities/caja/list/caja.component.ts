@@ -14,7 +14,7 @@ export class CajaComponent implements OnInit {
   @ViewChild('remember', { static: true }) content: ElementRef | undefined;
   cajas?: ICaja[];
   isLoading = false;
-  respNumber?: number | null;
+  respNumber?: boolean | null;
   intervalId?: any;
 
   constructor(protected cajaService: CajaService, protected modalService: NgbModal) {}
@@ -41,9 +41,9 @@ export class CajaComponent implements OnInit {
   rememberCreationCaja(): void {
     this.intervalId = setInterval(() => {
       this.cajaService.rememberCreationCaja().subscribe({
-        next: (res: HttpResponse<number>) => {
+        next: (res: HttpResponse<boolean>) => {
           this.respNumber = res.body;
-          this.respNumber === 1 ? clearInterval(this.intervalId) : this.modalService.open(this.content);
+          this.respNumber ? clearInterval(this.intervalId) : this.modalService.open(this.content);
         },
       });
     }, 3600000);

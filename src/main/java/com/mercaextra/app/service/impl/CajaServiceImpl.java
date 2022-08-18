@@ -1,12 +1,15 @@
 package com.mercaextra.app.service.impl;
 
+import com.mercaextra.app.config.Utilities;
 import com.mercaextra.app.domain.Caja;
 import com.mercaextra.app.repository.CajaRepository;
 import com.mercaextra.app.service.CajaService;
 import com.mercaextra.app.service.dto.CajaDTO;
 import com.mercaextra.app.service.mapper.CajaMapper;
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,7 +17,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -82,20 +84,25 @@ public class CajaServiceImpl implements CajaService {
     @Override
     // Tarea programada para recordar la creacino de una caja diaria en caso de que se haya registrado una o mas compras durante el dia
     // @Scheduled(cron = "0 */1 * ? * *")
-    public int RememberCreationCaja() {
+    public Boolean RememberCreationCaja() {
         log.debug("Request to  remember create  caja ");
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = new Date();
-        String fechaFormat = format.format(date);
 
+        String fecha = Utilities.validateDate(Instant.now());
+        Date date;
+        boolean resp = false;
+        try {
+            date = format.parse(fecha);
+            String fechaFormat = format.format(date);
+            resp = Boolean.parseBoolean(cajaRepository.booleanResult(fechaFormat));
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return resp;
         // VALIDAMOS QUE EXISTAN FACTURAS CREADAS EN EL DIA.
-        boolean resp = Boolean.parseBoolean(cajaRepository.booleanResult(fechaFormat));
 
-        int respNumber;
-
-        respNumber = (resp) ? 2 : 1;
-
-        return respNumber;
     }
 
     // Metodo para traer el valor total de todo lo que se ha vendido en el dia (Facturas).

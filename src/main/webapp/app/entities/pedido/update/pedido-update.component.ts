@@ -162,7 +162,11 @@ export class PedidoUpdateComponent implements OnInit {
     } else {
       this.subscribeToSaveResponse(this.pedidoService.create(pedido));
     }
-    this.router.navigate(['/pedido']);
+
+    // SE REFRESCA LA PAGINA UNA VEZ SE NAVEGUE AL PEDIDO.
+    this.router.navigate(['/pedido']).then(() => {
+      window.location.reload();
+    });
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IPedido>>): void {

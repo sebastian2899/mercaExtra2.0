@@ -16,6 +16,22 @@
     "like": "If you like JHipster, don't forget to give us a star on",
     "github": "GitHub",
     "variety": "Variety",
-    "amount": "we have great amount of products"
+    "amount": "we have great amount of products",
+    "inicio": {
+      "title": "Products offer",
+      "subtitle": "Sign in and visit the products we have for you!",
+      "subtitle2": "See products",
+      "variedades": "Variety and quality of fresh meats!",
+      "variedadesDos": "We also have variety in fruits and vegetables!",
+      "titulos": "Don't have an account yet?",
+      "infRegistro": "Sign up and update your data in the user account settings!",
+      "registro": "Sign up here",
+      "sinCuenta": "Sign up with an email address you use frequently.",
+      "metodoPago": "Payment methods",
+      "metodoPago-subtitle": "We have optional payment methods for you.",
+      "servicio": "Home service",
+      "servicio-subtitle": "We take our products to the door of your house.",
+      "confianzaConsumidor": "We offer reliability and guarantee in the delivery of the products you purchase, we select the best products day by day to offer the best service. Likewise, we guarantee the great work of our homes by delivering your order in the estimated time of your order."
+    }
   }
 }

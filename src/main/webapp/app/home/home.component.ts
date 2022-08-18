@@ -13,6 +13,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProductoPromocionHomeService } from 'app/entities/producto-promocion-home/service/producto-promocion-home.service';
 import { IProductoPromocionHome } from 'app/entities/producto-promocion-home/producto-promocion-home.model';
 import { AlertService } from 'app/core/util/alert.service';
+import { ProductoPromocionHomeDeleteDialogComponent } from 'app/entities/producto-promocion-home/delete/producto-promocion-home-delete-dialog.component';
 
 @Component({
   selector: 'jhi-home',
@@ -25,7 +26,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   productos?: IProducto[] | null;
   productosDescuento?: IProducto[] | null;
   intervalId?: any;
-  respNumber?: number | null;
+  respNumber?: boolean | null;
   productosDisscountHome?: IProducto[] | null;
 
   private readonly destroy$ = new Subject<void>();
@@ -41,13 +42,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.accountService
-      .getAuthenticationState()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(account => (this.account = account));
-    this.rememberCreationCaja();
+    // this.accountService
+    //   .getAuthenticationState()
+    //   .pipe(takeUntil(this.destroy$))
+    //   .subscribe(account => (this.account = account));
     this.findDissmidProduts();
     this.getDisscountProduts();
+    this.rememberCreationCaja();
   }
 
   getDisscountProduts(): void {
@@ -62,8 +63,19 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  dleteProductHome(id: number): void {
-    this.productoDescuentoService.deleteProductoDesc(id).subscribe(() => window.location.reload());
+  dleteProductHome(productoPromocionHome: IProductoPromocionHome): void {
+    const modalRef = this.modalService.open(ProductoPromocionHomeDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.productoPromocionHome = productoPromocionHome;
+    // unsubscribe not needed because closed completes on modal close
+    modalRef.closed.subscribe(reason => {
+      if (reason === 'deleted') {
+        window.location.reload();
+        // this.loadAll();
+      }
+    });
+  }
+  trackId(index: number, item: IProductoPromocionHome): number {
+    return item.id!;
   }
 
   isAuthenticated(): boolean {
@@ -71,16 +83,22 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   rememberCreationCaja(): void {
-    this.intervalId = setInterval(() => {
-      if (this.account?.login === 'admin') {
-        this.cajaService.rememberCreationCaja().subscribe({
-          next: (res: HttpResponse<number>) => {
-            this.respNumber = res.body;
-            this.respNumber === 1 ? clearInterval(this.intervalId) : this.modalService.open(this.content);
-          },
-        });
-      }
-    }, 3600000);
+    this.accountService
+      .getAuthenticationState()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(account => {
+        this.account = account;
+        if (this.account?.login === 'admin') {
+          this.cajaService.rememberCreationCaja().subscribe({
+            next: (res: HttpResponse<boolean>) => {
+              this.respNumber = res.body;
+              this.intervalId = setInterval(() => {
+                !this.respNumber ? clearInterval(this.intervalId) : this.modalService.open(this.content);
+              }, 3000);
+            },
+          });
+        }
+      });
   }
 
   findDissmidProduts(): void {
