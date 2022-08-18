@@ -103,12 +103,17 @@
           <label class="form-label" jhiTranslate="mercaExtraApp.reembolso.descripcion" for="field_descripcion">Descripcion</label>
           <textarea
             type="text"
+            rows="5"
             class="form-control"
             name="descripcion"
             id="field_descripcion"
             data-cy="descripcion"
             formControlName="descripcion"
             required="true"
+            placeholder="Ingresa el motivo por el cual deseas reembolsar este pedido.
+            Tambien puedes adjuntar informacion sobre como quieres recibir el reembolso:
+            'Deseo recibir el reembolso en una cuenta bancaria (Numero cuenta bancaria.)'.
+            'Reclamare el valor de el reembolso en el punto fisico de la tienda.'"
           ></textarea>
         </div>
 

@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   productos?: IProducto[] | null;
   productosDescuento?: IProducto[] | null;
   intervalId?: any;
-  respNumber?: number | null;
+  respNumber?: boolean | null;
   productosDisscountHome?: IProducto[] | null;
 
   private readonly destroy$ = new Subject<void>();
@@ -42,13 +42,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.accountService
-      .getAuthenticationState()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(account => (this.account = account));
-    this.rememberCreationCaja();
+    // this.accountService
+    //   .getAuthenticationState()
+    //   .pipe(takeUntil(this.destroy$))
+    //   .subscribe(account => (this.account = account));
     this.findDissmidProduts();
     this.getDisscountProduts();
+    this.rememberCreationCaja();
   }
 
   getDisscountProduts(): void {
@@ -70,7 +70,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     modalRef.closed.subscribe(reason => {
       if (reason === 'deleted') {
         window.location.reload();
-        //this.loadAll();
+        // this.loadAll();
       }
     });
   }
@@ -83,16 +83,22 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   rememberCreationCaja(): void {
-    this.intervalId = setInterval(() => {
-      if (this.account?.login === 'admin') {
-        this.cajaService.rememberCreationCaja().subscribe({
-          next: (res: HttpResponse<number>) => {
-            this.respNumber = res.body;
-            this.respNumber === 1 ? clearInterval(this.intervalId) : this.modalService.open(this.content);
-          },
-        });
-      }
-    }, 3600000);
+    this.accountService
+      .getAuthenticationState()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(account => {
+        this.account = account;
+        if (this.account?.login === 'admin') {
+          this.cajaService.rememberCreationCaja().subscribe({
+            next: (res: HttpResponse<boolean>) => {
+              this.respNumber = res.body;
+              this.intervalId = setInterval(() => {
+                !this.respNumber ? clearInterval(this.intervalId) : this.modalService.open(this.content);
+              }, 3000);
+            },
+          });
+        }
+      });
   }
 
   findDissmidProduts(): void {

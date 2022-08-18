@@ -159,9 +159,9 @@ public class CajaResource {
     }
 
     @GetMapping("/cajas-remember-creation")
-    public ResponseEntity<Integer> RememberCreationCaja() {
+    public ResponseEntity<Boolean> RememberCreationCaja() {
         log.debug("REST request to remember creation caja");
-        int resp = cajaService.RememberCreationCaja();
+        boolean resp = cajaService.RememberCreationCaja();
         return ResponseEntity.ok().body(resp);
     }
 
