@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { IFactura } from '../factura.model';
+import { Factura, IFactura } from '../factura.model';
 import { FacturaService } from '../service/factura.service';
 import { FacturaDeleteDialogComponent } from '../delete/factura-delete-dialog.component';
 import { AccountService } from 'app/core/auth/account.service';
@@ -10,22 +10,23 @@ import { Account } from 'app/core/auth/account.model';
 import { AlertService } from 'app/core/util/alert.service';
 import { finalize, Observable } from 'rxjs';
 import { MetodoPago } from 'app/entities/enumerations/metodo-pago.model';
-import dayjs from 'dayjs';
+import dayjs from 'dayjs/esm';
 
 @Component({
   selector: 'jhi-factura',
   templateUrl: './factura.component.html',
 })
 export class FacturaComponent implements OnInit {
-  @ViewChild('recomprar', { static: true }) content: ElementRef | undefined
-  @ViewChild('valueInvoice',{static:true}) content2 : ElementRef | undefined;
+  @ViewChild('recomprar', { static: true }) content: ElementRef | undefined;
+  @ViewChild('valueInvoice', { static: true }) content2: ElementRef | undefined;
 
   facturas?: IFactura[];
   isLoading = false;
   account?: Account | null;
   accountAdmin?: boolean | null;
-  metodoPago = ['Contra entrega', 'Transaccion Bancaria', 'Tarjeta de credito'];
+  metodoPago = Object.keys(MetodoPago);
   metodoPagoSelect?: string | null;
+  metodoPagoConsulta?: MetodoPago | null;
   factura?: IFactura | null;
   valorFactura?: number | null;
   valorPagado?: number | null;
@@ -34,6 +35,7 @@ export class FacturaComponent implements OnInit {
   valueInvoiceDates?: number | null;
   fechaInicio?: dayjs.Dayjs | null;
   fechaFin?: dayjs.Dayjs | null;
+  fechaConsultar?: dayjs.Dayjs | null;
 
   constructor(
     protected facturaService: FacturaService,
@@ -73,28 +75,42 @@ export class FacturaComponent implements OnInit {
     this.accountService.isAuthenticated();
   }
 
-  valueInvoices():void{
-    if(this.fechaInicio && this.fechaFin){
-        this.facturaService.valueInoviceDates(this.fechaInicio.toString(),this.fechaFin.toString()).subscribe({
-          next:
-          (res:HttpResponse<number>) => {
-            this.valueInvoiceDates = res.body;
-           
-          },
-          error:
-          () => {
-            this.closeModal();
-              this.alertService.addAlert({
-                type: 'danger',
-                message: 'Error al consultar el valor de las facturas por fechas'
-              });
-          }
-        });
+  valueInvoices(): void {
+    if (this.fechaInicio && this.fechaFin) {
+      this.facturaService.valueInoviceDates(this.fechaInicio.toString(), this.fechaFin.toString()).subscribe({
+        next: (res: HttpResponse<number>) => {
+          this.valueInvoiceDates = res.body;
+        },
+        error: () => {
+          this.closeModal();
+          this.alertService.addAlert({
+            type: 'danger',
+            message: 'Error al consultar el valor de las facturas por fechas',
+          });
+        },
+      });
     }
   }
 
-  openValueInvoice():void{
-    this.modalService.open(this.content2,{size:'lg'});
+  buscarPorFiltros(): void {
+    const factura = new Factura();
+    factura.fechaCreacion = this.fechaConsultar;
+    factura.metodoPago = this.metodoPagoConsulta;
+    this.facturaService.findByFilter(factura).subscribe({
+      next: (res: HttpResponse<IFactura[]>) => {
+        this.facturas = res.body ?? [];
+      },
+      error: () => {
+        this.alertService.addAlert({
+          type: 'danger',
+          message: 'Error al consultar las facturas por filtros',
+        });
+      },
+    });
+  }
+
+  openValueInvoice(): void {
+    this.modalService.open(this.content2, { size: 'lg' });
   }
 
   openModal(idFactura: number): void {

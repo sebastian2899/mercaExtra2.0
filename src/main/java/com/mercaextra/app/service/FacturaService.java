@@ -2,7 +2,6 @@ package com.mercaextra.app.service;
 
 import com.mercaextra.app.service.dto.FacturaDTO;
 import com.mercaextra.app.service.dto.ProductoDTO;
-
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
@@ -63,5 +62,7 @@ public interface FacturaService {
      */
     FacturaDTO repurcharseInvoice(FacturaDTO facturaDto);
 
-	BigDecimal valuePerDates(String fechaInicio, String fechaFin);
+    BigDecimal valuePerDates(String fechaInicio, String fechaFin);
+
+    List<FacturaDTO> invoiicesByFilters(FacturaDTO facturaDto);
 }

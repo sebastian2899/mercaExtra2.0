@@ -1,5 +1,10 @@
 package com.mercaextra.app.web.rest;
 
+import com.mercaextra.app.repository.FacturaRepository;
+import com.mercaextra.app.service.FacturaService;
+import com.mercaextra.app.service.dto.FacturaDTO;
+import com.mercaextra.app.service.dto.ProductoDTO;
+import com.mercaextra.app.web.rest.errors.BadRequestAlertException;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -9,7 +14,6 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,13 +28,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.mercaextra.app.repository.FacturaRepository;
-import com.mercaextra.app.service.FacturaService;
-import com.mercaextra.app.service.dto.FacturaDTO;
-import com.mercaextra.app.service.dto.ProductoDTO;
-import com.mercaextra.app.web.rest.errors.BadRequestAlertException;
-
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
@@ -123,31 +120,36 @@ public class FacturaResource {
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, facturaDTO.getId().toString()))
             .body(result);
     }
-    
-    
+
+    @PostMapping("/facturas/find-by-filters")
+    public List<FacturaDTO> facturasPorFiltros(@RequestBody FacturaDTO facturaDto) {
+        log.debug("REST request to get invoices per filters resource");
+        return facturaService.invoiicesByFilters(facturaDto);
+    }
+
     @GetMapping("/facturas/value-per-dates/{fechaInicio}/{fechaFin}")
-    public ResponseEntity<BigDecimal>valuePerDAte(@PathVariable String fechaInicio, @PathVariable String fechaFin){
-    	log.debug("REST request to get value of invoice per dates");
-    	SimpleDateFormat format= new SimpleDateFormat("yyyy-MM-dd");
-    	
-    	if((fechaInicio == null  || fechaInicio.isEmpty()) || (fechaFin == null || fechaFin.isEmpty())) {
-    		throw new BadRequestAlertException("Campo fecha vacio", ENTITY_NAME, "fechavacia");
-    	}
-    	
-    	try {
-			Instant fechaIni = format.parse(fechaInicio.substring(0, fechaInicio.indexOf("T"))).toInstant();
-			Instant fechaFn = format.parse(fechaFin.substring(0, fechaFin.indexOf("T"))).toInstant();
-			
-			if(fechaIni.isAfter(fechaFn)) {
-				throw new BadRequestAlertException("Formato de fechas incorrecto!", ENTITY_NAME, "Formato de fechas incorrecto!");
-			}
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-    	
-    	BigDecimal resp = facturaService.valuePerDates(fechaInicio, fechaFin);
-    	
-    	return new ResponseEntity<BigDecimal>(resp,HttpStatus.OK);
+    public ResponseEntity<BigDecimal> valuePerDAte(@PathVariable String fechaInicio, @PathVariable String fechaFin) {
+        log.debug("REST request to get value of invoice per dates");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+        if ((fechaInicio == null || fechaInicio.isEmpty()) || (fechaFin == null || fechaFin.isEmpty())) {
+            throw new BadRequestAlertException("Campo fecha vacio", ENTITY_NAME, "fechavacia");
+        }
+
+        try {
+            Instant fechaIni = format.parse(fechaInicio.substring(0, fechaInicio.indexOf("T"))).toInstant();
+            Instant fechaFn = format.parse(fechaFin.substring(0, fechaFin.indexOf("T"))).toInstant();
+
+            if (fechaIni.isAfter(fechaFn)) {
+                throw new BadRequestAlertException("Formato de fechas incorrecto!", ENTITY_NAME, "Formato de fechas incorrecto!");
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        BigDecimal resp = facturaService.valuePerDates(fechaInicio, fechaFin);
+
+        return new ResponseEntity<BigDecimal>(resp, HttpStatus.OK);
     }
 
     /**

@@ -23,6 +23,7 @@ export class FacturaService {
   protected productosCategoriaUrl = this.applicationConfigService.getEndpointFor('api/factura-productos-categoria');
   protected rePurcharseInvoiceUrl = this.applicationConfigService.getEndpointFor('api/factura-rePurcharse');
   protected valueInvoiceDatesUrl = this.applicationConfigService.getEndpointFor('api/facturas/value-per-dates');
+  protected filterUrl = this.applicationConfigService.getEndpointFor('api/facturas/find-by-filters');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
@@ -33,8 +34,15 @@ export class FacturaService {
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
-  valueInoviceDates(fechaInicio:string,fechaFin:string): Observable<NumberType> {
-    return this.http.get<number>(`${this.valueInvoiceDatesUrl}/${fechaInicio}/${fechaFin}`,{observe:'response'});
+  findByFilter(factura: IFactura): Observable<EntityArrayResponseType> {
+    const copy = this.convertDateFromClient(factura);
+    return this.http
+      .post<IFactura[]>(this.filterUrl, copy, { observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+  }
+
+  valueInoviceDates(fechaInicio: string, fechaFin: string): Observable<NumberType> {
+    return this.http.get<number>(`${this.valueInvoiceDatesUrl}/${fechaInicio}/${fechaFin}`, { observe: 'response' });
   }
 
   productosDisponibles(): Observable<ProductoArrayResponseType> {
