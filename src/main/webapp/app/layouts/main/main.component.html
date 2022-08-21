@@ -164,9 +164,9 @@
         </a>
       </li>
 
-      <li class="mb-3">
+      <li class="has-subnav mb-3">
         <a (click)="categoriaProductos()">
-          <mat-icon class="iconos"> perm_device_information</mat-icon>
+          <mat-icon class="iconos"> visibility</mat-icon>
           <span class="nav-text" jhiTranslate="mercaExtraApp.main.mensajes.verProductos"> Ver Productos </span>
         </a>
       </li>
@@ -191,7 +191,7 @@
       </li>
       <li class="mb-3">
         <a [routerLink]="['pedido']">
-          <i class="fa fa-cutlery fa-2x"></i>
+          <mat-icon class="iconos"> cases</mat-icon>
           <span class="nav-text" jhiTranslate="mercaExtraApp.main.mensajes.misPedidos"> Mis pedidos </span>
         </a>
       </li>
@@ -230,7 +230,7 @@
     <ul class="logout">
       <li>
         <a [routerLink]="['reembolso/new']">
-          <i class="fa fa-reply" aria-hidden="true"></i>
+          <mat-icon class="iconos">monetization_on</mat-icon>
           <span class="nav-text" jhiTranslate="mercaExtraApp.main.mensajes.gestionRembolsos"> Gestion Reembolsos </span>
         </a>
       </li>

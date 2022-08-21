@@ -70,7 +70,7 @@
                 <span jhiTranslate="global.menu.entities.factura">Factura</span>
               </a>
             </li>
-            <li>
+            <li *ngIf="account!.login === 'admin'">
               <a
                 class="dropdown-item"
                 routerLink="notificacion"
@@ -94,7 +94,7 @@
                 <span jhiTranslate="global.menu.entities.empleado">Empleado</span>
               </a>
             </li> -->
-            <li>
+            <li *ngIf="account!.login === 'admin'">
               <a
                 class="dropdown-item"
                 routerLink="domiciliario"
@@ -106,7 +106,7 @@
                 <span jhiTranslate="global.menu.entities.domiciliario">Domiciliario</span>
               </a>
             </li>
-            <li>
+            <li *ngIf="account!.login === 'admin'">
               <a
                 class="dropdown-item"
                 routerLink="caja"
@@ -118,7 +118,7 @@
                 <span jhiTranslate="global.menu.entities.caja">Caja</span>
               </a>
             </li>
-            <li>
+            <li *ngIf="account!.login === 'admin'">
               <a
                 class="dropdown-item"
                 routerLink="categoria-producto"
@@ -130,7 +130,7 @@
                 <span jhiTranslate="global.menu.entities.categoriaProducto">Categoria Producto</span>
               </a>
             </li>
-            <li>
+            <li *ngIf="account!.login === 'admin'">
               <a
                 class="dropdown-item"
                 routerLink="compra"
@@ -142,7 +142,7 @@
                 <span jhiTranslate="global.menu.entities.compra">Compra</span>
               </a>
             </li>
-            <li>
+            <li *ngIf="account!.login === 'admin'">
               <a
                 class="dropdown-item"
                 routerLink="proveedor"
@@ -154,7 +154,7 @@
                 <span jhiTranslate="global.menu.entities.proveedor">Proveedor</span>
               </a>
             </li>
-            <li>
+            <li *ngIf="account!.login === 'admin'">
               <a
                 class="dropdown-item"
                 routerLink="egreso"
@@ -178,7 +178,7 @@
                 <span jhiTranslate="global.menu.entities.producto">Producto</span>
               </a>
             </li>
-            <li>
+            <li *ngIf="account!.login === 'admin'">
               <a
                 class="dropdown-item"
                 routerLink="item-factura-venta"
@@ -190,7 +190,7 @@
                 <span jhiTranslate="global.menu.entities.itemFacturaVenta">Item Factura Venta</span>
               </a>
             </li>
-            <li>
+            <li *ngIf="account!.login === 'admin'">
               <a
                 class="dropdown-item"
                 routerLink="reembolso"
@@ -202,7 +202,7 @@
                 <span jhiTranslate="global.menu.entities.reembolso">Reembolso</span>
               </a>
             </li>
-            <li>
+            <li *ngIf="account!.login === 'admin'">
               <a
                 class="dropdown-item"
                 routerLink="producto-favoritos"
@@ -214,7 +214,7 @@
                 <span jhiTranslate="global.menu.entities.productoFavoritos">Producto Favoritos</span>
               </a>
             </li>
-            <li>
+            <li *ngIf="account!.login === 'admin'">
               <a
                 class="dropdown-item"
                 routerLink="comentario"
@@ -226,7 +226,7 @@
                 <span jhiTranslate="global.menu.entities.comentario">Comentario</span>
               </a>
             </li>
-            <li>
+            <li *ngIf="account!.login === 'admin'">
               <a
                 class="dropdown-item"
                 routerLink="producto-promocion-home"
