@@ -12,6 +12,7 @@ import { EventManager, EventWithContent } from 'app/core/util/event-manager.serv
 import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
 import { ICategoriaProducto } from 'app/entities/categoria-producto/categoria-producto.model';
 import { CategoriaProductoService } from 'app/entities/categoria-producto/service/categoria-producto.service';
+import { AlertService } from 'app/core/util/alert.service';
 
 @Component({
   selector: 'jhi-producto-update',
@@ -21,6 +22,8 @@ export class ProductoUpdateComponent implements OnInit {
   isSaving = false;
   titulo?: string | null;
   categorias?: ICategoriaProducto[] | null;
+  bytes?: number | null;
+  validateImageSize?: boolean;
 
   editForm = this.fb.group({
     id: [],
@@ -41,7 +44,8 @@ export class ProductoUpdateComponent implements OnInit {
     protected elementRef: ElementRef,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder,
-    protected categoriaService: CategoriaProductoService
+    protected categoriaService: CategoriaProductoService,
+    protected alertService: AlertService
   ) {}
 
   ngOnInit(): void {
@@ -64,7 +68,21 @@ export class ProductoUpdateComponent implements OnInit {
   }
 
   byteSize(base64String: string): string {
+    const bytes = String(this.dataUtils.byteSize(base64String));
+
+    const sizeImage = Number(this.recursividadReplace(bytes));
+    sizeImage > 300000 ? (this.validateImageSize = true) : (this.validateImageSize = false);
+    // bytes.toString().substring(0, bytes.toString().indexOf('b')).trim().replace(' ','').replace(' ', '');
+
     return this.dataUtils.byteSize(base64String);
+  }
+
+  recursividadReplace(message: string): string {
+    do {
+      message = message.replace(' ', '');
+    } while (message.indexOf(' ') > 0);
+
+    return message.substring(0, message.indexOf('b'));
   }
 
   openFile(base64String: string, contentType: string | null | undefined): void {
@@ -95,10 +113,17 @@ export class ProductoUpdateComponent implements OnInit {
   save(): void {
     this.isSaving = true;
     const producto = this.createFromForm();
-    if (producto.id !== undefined) {
-      this.subscribeToSaveResponse(this.productoService.update(producto));
+    if (this.validateImageSize) {
+      this.alertService.addAlert({
+        type: 'danger',
+        message: `La imagen no puede superar los 300kb`,
+      });
     } else {
-      this.subscribeToSaveResponse(this.productoService.create(producto));
+      if (producto.id !== undefined) {
+        this.subscribeToSaveResponse(this.productoService.update(producto));
+      } else {
+        this.subscribeToSaveResponse(this.productoService.create(producto));
+      }
     }
   }
 

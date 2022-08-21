@@ -17,7 +17,7 @@ export type DatoReembolsoResponseType = HttpResponse<IDatosReembolso>;
 @Injectable({ providedIn: 'root' })
 export class ReembolsoService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/reembolsos');
-  protected resourceReembolsoPedidosUrl = this.applicationConfigService.getEndpointFor('api/reembolsos-pedidos');
+  //protected resourceReembolsoPedidosUrl = this.applicationConfigService.getEndpointFor('api/reembolsos-pedidos');
   protected refundByOptionUrl = this.applicationConfigService.getEndpointFor('api/reembolsos-option');
   protected refundProcessURL = this.applicationConfigService.getEndpointFor('api/reembolsos/refundInProcess');
 
