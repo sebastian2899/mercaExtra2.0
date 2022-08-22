@@ -314,7 +314,8 @@ public class FacturaServiceImpl implements FacturaService {
 
         if (facturaDto.getFechaCreacion() != null) {
             sb.append(Constants.FACTURA_FECHA);
-            filtros.put("fecha", facturaDto.getFechaCreacion());
+            String fechaFormat = facturaDto.getFechaCreacion().toString().substring(0, 10);
+            filtros.put("fecha", fechaFormat);
         }
 
         if (facturaDto.getMetodoPago() != null) {
@@ -327,6 +328,7 @@ public class FacturaServiceImpl implements FacturaService {
             q.setParameter(filtro.getKey(), filtro.getValue());
         }
 
-        return q.getResultList();
+        List<Factura> productsFiltro = q.getResultList();
+        return productsFiltro.stream().map(facturaMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
     }
 }

@@ -29,7 +29,7 @@ public final class Constants {
     public static final String TRAER_FACTURA_POR_USUARIO = "SELECT f FROM Factura f WHERE f.userName =:userName AND f.id=:id";
     public static final String TRAER_FACTURAS_POR_USUARIO = "SELECT f FROM Factura f WHERE f.userName =:userName";
     public static final String FACTURA_BASE = "SELECT f FROM Factura f WHERE f.id IS NOT NULL";
-    public static final String FACTURA_FECHA = " AND f.fecha =:fecha";
+    public static final String FACTURA_FECHA = " AND DATE_FORMAT(f.fechaCreacion, '%Y-%m-%d') =:fecha";
     public static final String FACTURA_METODOPAGO = " AND f.metodoPago =:metodoPago";
 
     //CONSULTAR LOGIN
