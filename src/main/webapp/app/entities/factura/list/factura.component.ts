@@ -11,6 +11,7 @@ import { AlertService } from 'app/core/util/alert.service';
 import { finalize, Observable } from 'rxjs';
 import { MetodoPago } from 'app/entities/enumerations/metodo-pago.model';
 import dayjs from 'dayjs/esm';
+import { DATE_FORMAT, DATE_TIME_FORMAT } from 'app/config/input.constants';
 
 @Component({
   selector: 'jhi-factura',
@@ -94,19 +95,24 @@ export class FacturaComponent implements OnInit {
 
   buscarPorFiltros(): void {
     const factura = new Factura();
-    factura.fechaCreacion = this.fechaConsultar;
-    factura.metodoPago = this.metodoPagoConsulta;
-    this.facturaService.findByFilter(factura).subscribe({
-      next: (res: HttpResponse<IFactura[]>) => {
-        this.facturas = res.body ?? [];
-      },
-      error: () => {
-        this.alertService.addAlert({
-          type: 'danger',
-          message: 'Error al consultar las facturas por filtros',
-        });
-      },
-    });
+    (factura.fechaCreacion = this.fechaConsultar ? dayjs(this.fechaConsultar, DATE_FORMAT) : undefined),
+      (factura.metodoPago = this.metodoPagoConsulta);
+
+    if (this.fechaConsultar === undefined && this.metodoPagoConsulta?.toString() === '') {
+      this.facturasUsuarios();
+    } else {
+      this.facturaService.findByFilter(factura).subscribe({
+        next: (res: HttpResponse<IFactura[]>) => {
+          this.facturas = res.body ?? [];
+        },
+        error: () => {
+          this.alertService.addAlert({
+            type: 'danger',
+            message: 'Error al consultar las facturas por filtros',
+          });
+        },
+      });
+    }
   }
 
   openValueInvoice(): void {
