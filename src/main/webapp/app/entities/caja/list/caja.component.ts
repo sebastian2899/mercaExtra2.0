@@ -42,14 +42,11 @@ export class CajaComponent implements OnInit {
   ngOnInit(): void {
     this.loadAll();
     this.rememberCreationCaja();
+    this.alertService.clear();
   }
 
   printInvoice(): void {
     if (this.fechaInicio && this.fechaFin) {
-      this.alertService.addAlert({
-        type: 'warning',
-        message: 'La fecha inicio no puede ser superior a la fecha Fin.',
-      });
       this.cajaService.printInvoice(this.fechaInicio.toString(), this.fechaFin.toString()).subscribe((response: any) => {
         const file = new Blob([response], { type: 'application/pdf' });
         const fileURL = URL.createObjectURL(file);

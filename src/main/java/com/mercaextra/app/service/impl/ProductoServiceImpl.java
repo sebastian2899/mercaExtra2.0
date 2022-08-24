@@ -4,6 +4,7 @@ import com.mercaextra.app.config.Constants;
 import com.mercaextra.app.domain.Producto;
 import com.mercaextra.app.repository.ProductoRepository;
 import com.mercaextra.app.service.ProductoService;
+import com.mercaextra.app.service.UserService;
 import com.mercaextra.app.service.dto.ProductoDTO;
 import com.mercaextra.app.service.mapper.ProductoMapper;
 import java.math.BigDecimal;
@@ -34,12 +35,15 @@ public class ProductoServiceImpl implements ProductoService {
 
     private final ProductoMapper productoMapper;
 
+    private final UserService userService;
+
     @PersistenceContext
     private EntityManager entityManager;
 
-    public ProductoServiceImpl(ProductoRepository productoRepository, ProductoMapper productoMapper) {
+    public ProductoServiceImpl(ProductoRepository productoRepository, ProductoMapper productoMapper, UserService userService) {
         this.productoRepository = productoRepository;
         this.productoMapper = productoMapper;
+        this.userService = userService;
     }
 
     @Override
@@ -248,7 +252,8 @@ public class ProductoServiceImpl implements ProductoService {
     public boolean isFavorite(Long idProduct) {
         log.debug("Request to check if product is favorite");
 
-        Boolean resp = Boolean.parseBoolean(productoRepository.isFavorite(idProduct));
+        String login = userService.getUserWithAuthorities().get().getLogin();
+        Boolean resp = Boolean.parseBoolean(productoRepository.isFavorite(idProduct, login));
 
         return resp;
     }
