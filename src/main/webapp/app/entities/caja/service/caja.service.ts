@@ -13,12 +13,14 @@ export type EntityResponseType = HttpResponse<ICaja>;
 export type EntityArrayResponseType = HttpResponse<ICaja[]>;
 export type NumberResponseType = HttpResponse<number>;
 export type BooleanResponseType = HttpResponse<boolean>;
+export type AnyResponseType = HttpResponse<any>;
 
 @Injectable({ providedIn: 'root' })
 export class CajaService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/cajas');
   protected valorVendidoDiaUrl = this.applicationConfigService.getEndpointFor('api/cajas-valor-dia');
   protected rememberCreationCajaUrl = this.applicationConfigService.getEndpointFor('api/cajas-remember-creation');
+  protected reportUrl = this.applicationConfigService.getEndpointFor('api/cajas/exportInvoice');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
@@ -27,6 +29,14 @@ export class CajaService {
     return this.http
       .post<ICaja>(this.resourceUrl, copy, { observe: 'response' })
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
+
+  printInvoice(fechaInicio: string, fechaFin: string): any {
+    const httpOptions = {
+      responseType: 'arraybuffer' as 'json',
+      // 'responseType'  : 'blob' as 'json'        //This also worked
+    };
+    return this.http.get<any>(`${this.reportUrl}/${fechaInicio}/${fechaFin}`, httpOptions);
   }
 
   rememberCreationCaja(): Observable<BooleanResponseType> {
