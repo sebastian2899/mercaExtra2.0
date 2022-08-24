@@ -6,12 +6,13 @@ import { ProductoFavoritosComponent } from '../list/producto-favoritos.component
 import { ProductoFavoritosDetailComponent } from '../detail/producto-favoritos-detail.component';
 import { ProductoFavoritosUpdateComponent } from '../update/producto-favoritos-update.component';
 import { ProductoFavoritosRoutingResolveService } from './producto-favoritos-routing-resolve.service';
+import { User2RouteAccessService } from 'app/core/auth/user2-route-access.service';
 
 const productoFavoritosRoute: Routes = [
   {
     path: '',
     component: ProductoFavoritosComponent,
-    canActivate: [UserRouteAccessService],
+    canActivate: [User2RouteAccessService],
   },
   {
     path: ':id/view',
@@ -27,7 +28,7 @@ const productoFavoritosRoute: Routes = [
     resolve: {
       productoFavoritos: ProductoFavoritosRoutingResolveService,
     },
-    canActivate: [UserRouteAccessService],
+    canActivate: [User2RouteAccessService],
   },
   {
     path: ':id/edit',
@@ -35,7 +36,7 @@ const productoFavoritosRoute: Routes = [
     resolve: {
       productoFavoritos: ProductoFavoritosRoutingResolveService,
     },
-    canActivate: [UserRouteAccessService],
+    canActivate: [User2RouteAccessService],
   },
 ];
 
