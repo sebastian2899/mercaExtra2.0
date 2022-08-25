@@ -24,6 +24,13 @@
 
   <jhi-alert></jhi-alert>
 
+  <div>
+    <button class="btn btn-ligth mt-4 mb-4" (click)="openDateCajaReport()">
+      <mat-icon class="icon-config">picture_as_pdf</mat-icon>
+      <span>Generar PDF</span>
+    </button>
+  </div>
+
   <div class="alert alert-warning" id="no-result" *ngIf="cajas?.length === 0">
     <span jhiTranslate="mercaExtraApp.caja.home.notFound">No cajas found</span>
   </div>
@@ -88,4 +95,34 @@
   <div class="modal-footer">
     <h5 class="titulos">Equipo Merca Extra</h5>
   </div>
+</ng-template>
+
+<ng-template #pdfDates>
+  <div class="modal-header">
+    <h3 class="titulos">Reporte caja por fechas</h3>
+  </div>
+  <jhi-alert></jhi-alert>
+  <div class="modal-body mb-5">
+    <div class="d-flex justify-content-center mb-4">
+      <h2>Ingresa las fechas.</h2>
+    </div>
+    <div class="d-flex justify-content-center">
+      <div class="col-7">
+        <div class="d-flex justify-content-center">
+          <div class="form-group">
+            <label for="fechaIncio">Fecha Inicio</label>
+            <input type="datetime-local" class="form-control" [(ngModel)]="fechaInicio" />
+          </div>
+          <div class="form-group ms-3">
+            <label for="fechaFin">Fecha Fin</label>
+            <input type="datetime-local" class="form-control" [(ngModel)]="fechaFin" />
+          </div>
+          <div>
+            <button class="mt-4 btn btn-info ms-3" (click)="printInvoice()">Generar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer"></div>
 </ng-template>

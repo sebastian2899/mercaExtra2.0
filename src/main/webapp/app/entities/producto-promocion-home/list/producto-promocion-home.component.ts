@@ -101,7 +101,7 @@ export class ProductoPromocionHomeComponent implements OnInit {
     // unsubscribe not needed because closed completes on modal close
     modalRef.closed.subscribe(reason => {
       if (reason === 'deleted') {
-        //this.loadAll();
+        // this.loadAll();
       }
     });
   }
