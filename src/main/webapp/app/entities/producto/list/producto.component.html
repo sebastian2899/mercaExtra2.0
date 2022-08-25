@@ -247,24 +247,33 @@
                   height="500px;"
                   alt="producto image"
                 />
+                b
 
                 <div class="card-body">
                   <h5 class="card-title titulo-entidades">{{ producto.nombre }}</h5>
-                  <p class="card-text titulo-entidades">{{ producto.descripcion }}</p>
-                  <p class="card-text titulo-entidades">Categoria: {{ producto.categoria }}</p>
-                  <p *ngSwitchCase="true && isAdmin" class="card-text titulo-entidades">Cantidad: {{ producto.cantidad }}</p>
-                  <p class="card-text titulo-entidades">Precio: ${{ producto.precio }}</p>
+                  <p class="card-text titulo-entidades">
+                    <b>{{ producto.descripcion }}</b>
+                  </p>
+                  <p class="card-text titulo-entidades">
+                    <b>Categoria: {{ producto.categoria }}</b>
+                  </p>
+                  <p *ngSwitchCase="true && isAdmin" class="card-text titulo-entidades">
+                    <b>Cantidad: {{ producto.cantidad }}</b>
+                  </p>
+                  <p class="card-text titulo-entidades">
+                    <b>Precio: ${{ producto.precio }}</b>
+                  </p>
                 </div>
               </a>
-              <div class="d-flex justify-content-around mt-2" id="card-iconos">
+              <div *ngIf="account!.login === 'admin'" class="d-flex justify-content-around mt-2" id="card-iconos">
                 <!-- <button *ngSwitchCase="true" class="menu-config2" [routerLink]="['/producto', producto.id, 'view']">
                 <mat-icon class="icon-config">pageview</mat-icon>
               </button> -->
-                <button *ngSwitchCase="true && isAdmin" class="menu-config2" [routerLink]="['/producto', producto.id, 'edit']">
+                <button *ngSwitchCase="true && isAdmin" class="btn btn-outline-primary" [routerLink]="['/producto', producto.id, 'edit']">
                   <mat-icon class="icon-config">edit</mat-icon>
                 </button>
-                <button *ngSwitchCase="true && isAdmin" class="menu-config-eliminar" (click)="delete(producto)">
-                  <mat-icon class="icon-config-eliminar2">delete_forever</mat-icon>
+                <button *ngSwitchCase="true && isAdmin" class="btn btn-outline-danger" (click)="delete(producto)">
+                  <mat-icon>delete_forever</mat-icon>
                 </button>
               </div>
             </div>
