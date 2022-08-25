@@ -8,11 +8,6 @@
         <span jhiTranslate="mercaExtraApp.caja.home.refreshListLabel">Refresh List</span>
       </button>
 
-      <button class="btn btn-info me-2" (click)="openDateCajaReport()">
-        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span>Generar PDF</span>
-      </button>
-
       <button
         id="jh-create-entity"
         data-cy="entityCreateButton"
@@ -28,6 +23,13 @@
   <jhi-alert-error></jhi-alert-error>
 
   <jhi-alert></jhi-alert>
+
+  <div>
+    <button class="btn btn-ligth mt-4 mb-4" (click)="openDateCajaReport()">
+      <mat-icon class="icon-config">picture_as_pdf</mat-icon>
+      <span>Generar PDF</span>
+    </button>
+  </div>
 
   <div class="alert alert-warning" id="no-result" *ngIf="cajas?.length === 0">
     <span jhiTranslate="mercaExtraApp.caja.home.notFound">No cajas found</span>
