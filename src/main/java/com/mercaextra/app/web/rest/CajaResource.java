@@ -147,6 +147,12 @@ public class CajaResource {
         return ResponseEntity.ok().body(report);
     }
 
+    @PostMapping("cajas/cajas-by-filters")
+    public List<CajaDTO> cajasByFilter(@RequestBody CajaDTO cajaDto) {
+        log.debug("REST requesto to get cajas by filters");
+        return cajaService.cajaByFilters(cajaDto);
+    }
+
     /**
      * {@code GET  /cajas} : get all the cajas.
      *

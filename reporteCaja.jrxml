@@ -64,10 +64,14 @@
 				</textElement>
 				<text><![CDATA[                             Reporte Caja	]]></text>
 			</staticText>
+			<image>
+				<reportElement x="6" y="0" width="94" height="80" uuid="34535b36-861b-4112-8044-9ec724743d41"/>
+				<imageExpression><![CDATA["logoMercaExtra.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="71" splitType="Stretch">
+		<band height="54" splitType="Stretch">
 			<staticText>
 				<reportElement x="410" y="0" width="70" height="20" uuid="f2faf65e-b09f-47c9-9f65-a374a68e79b5"/>
 				<text><![CDATA[Fecha Inicio:]]></text>
@@ -84,12 +88,16 @@
 				<reportElement x="480" y="30" width="70" height="20" uuid="5ca7a5af-299a-4c79-84db-6f77aa9b3a07"/>
 				<textFieldExpression><![CDATA[$P{fechaFin}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="0" y="6" width="230" height="44" uuid="4508eb4d-740b-4018-a752-a764ca22674c"/>
+				<text><![CDATA[Reporte de cajas filtradas mediantes fechas, solo se filtraran los reportes cuyos valores sean mayores a 0.]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="190" splitType="Stretch">
+		<band height="142" splitType="Stretch">
 			<componentElement>
-				<reportElement x="20" y="20" width="500" height="140" uuid="b9049197-46eb-43d7-80bf-354fff0fc849">
+				<reportElement x="20" y="20" width="500" height="120" uuid="b9049197-46eb-43d7-80bf-354fff0fc849">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
@@ -181,24 +189,30 @@
 					</jr:column>
 				</jr:table>
 			</componentElement>
+		</band>
+		<band height="22">
 			<textField>
-				<reportElement x="450" y="120" width="70" height="20" uuid="d5d9bbb1-8268-417d-b0a3-f31700aaf26c"/>
-				<box leftPadding="29"/>
+				<reportElement x="470" y="0" width="70" height="20" uuid="d5d9bbb1-8268-417d-b0a3-f31700aaf26c"/>
+				<box leftPadding="6"/>
 				<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="390" y="120" width="60" height="20" uuid="a34dad90-e5ba-43a8-b72e-39e1993f6907"/>
+				<reportElement x="410" y="0" width="60" height="20" uuid="a34dad90-e5ba-43a8-b72e-39e1993f6907"/>
 				<box leftPadding="7"/>
 				<text><![CDATA[Valor Total: ]]></text>
 			</staticText>
 		</band>
-		<band height="84"/>
 	</detail>
-	<columnFooter>
-		<band height="45" splitType="Stretch"/>
-	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="39" splitType="Stretch">
+			<staticText>
+				<reportElement x="227" y="10" width="100" height="28" uuid="84606ec1-6b13-46e9-ae0e-a6105e2ed36d"/>
+				<box topPadding="7" leftPadding="8" bottomPadding="0">
+					<pen lineColor="#C51DD1"/>
+				</box>
+				<text><![CDATA[Equipo MercaExtra]]></text>
+			</staticText>
+		</band>
 	</pageFooter>
 	<summary>
 		<band height="42" splitType="Stretch"/>

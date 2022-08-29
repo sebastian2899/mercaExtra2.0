@@ -3,7 +3,7 @@ import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { finalize, windowTime } from 'rxjs/operators';
 
 import dayjs from 'dayjs/esm';
 import { DATE_TIME_FORMAT } from 'app/config/input.constants';
@@ -45,7 +45,6 @@ export class FacturaUpdateComponent implements OnInit {
   productoSeleccionado?: IProducto | null;
   productosSeleccionados: IItemFacturaVenta[] = [];
   productoItem?: IItemFacturaVenta | null;
-  productoNom?: string | null;
   tipoCategoria?: string | null;
   productoStorage?: IProducto | null;
   productoNuevo = true;
@@ -58,6 +57,7 @@ export class FacturaUpdateComponent implements OnInit {
   totalFactura?: number = 0;
   carroCompStorage?: IItemFacturaVenta[] | null = [];
   disableAdd?: boolean | null;
+  productAdd?: IProducto | null;
 
   editForm = this.fb.group({
     id: [],
@@ -92,8 +92,6 @@ export class FacturaUpdateComponent implements OnInit {
     const carrito = this.storageService.getCarrito();
     if (carrito) {
       this.productosSeleccionados = carrito;
-      this.productosSeleccionados.length > 0 ? this.ngbModal.open(this.content, { backdrop: 'static', size: 'lg' }) : undefined;
-
       carrito.forEach(item => {
         this.totalFactura! += item.precio!;
       });
@@ -254,6 +252,7 @@ export class FacturaUpdateComponent implements OnInit {
         this.productosSeleccionados.push(this.productoItem);
         this.storageService.storeCarrito(this.productosSeleccionados);
         this.mensajeProductoAddSuccess();
+        window.scrollTo(0, 0);
         this.ngbModal.dismissAll();
         this.contadorCarrito++;
       }
@@ -337,10 +336,8 @@ export class FacturaUpdateComponent implements OnInit {
   }
 
   llenarCarroCompra(producto: IProducto): void {
-    this.productoNom = producto.nombre;
-
+    this.productAdd = producto;
     this.productoSeleccionado = producto;
-
     this.ngbModal.open(this.content2, { backdrop: 'static' });
   }
 

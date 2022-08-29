@@ -39,13 +39,13 @@
 
     <div class="col-md-12">
       <div [ngClass]="{ 'col-md-9': mostrarAgotados }">
-        <h2 class="font-size-entidades" id="page-heading" data-cy="ProductoHeading">
-          <span jhiTranslate="mercaExtraApp.producto.home.title">Productos</span>
+        <h2 id="page-heading" data-cy="ProductoHeading">
+          <span id="size-bold" jhiTranslate="mercaExtraApp.producto.home.title">Productos</span>
           <div>
             <button
               *ngSwitchCase="true && verAgotados && isAdmin"
               (click)="mostrarAgotadosMethod()"
-              class="mt-2 btn btn-warning text parpadea"
+              class="mt-2 btn btn-info text parpadea"
               type="button"
               style="border: none"
             >
@@ -54,7 +54,7 @@
           </div>
 
           <div class="d-flex justify-content-end">
-            <button class="btn btn-outline-info me-2" (click)="loadAll()" [disabled]="isLoading">
+            <button class="btn btn-outline-dark me-2 size-bold" (click)="loadAll()" [disabled]="isLoading">
               <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
               <span jhiTranslate="mercaExtraApp.producto.home.refreshListLabel">Refresh List</span>
             </button>
@@ -63,7 +63,7 @@
               *ngSwitchCase="true && isAdmin"
               id="jh-create-entity"
               data-cy="entityCreateButton"
-              class="btn btn-outline-primary jh-create-entity create-producto"
+              class="btn btn-outline-dark jh-create-entity create-producto size-bold"
               [routerLink]="['/producto/new']"
             >
               <fa-icon icon="plus"></fa-icon>
@@ -73,7 +73,7 @@
 
           <div class="row d-flex justify-content-center">
             <div class="col-md-3">
-              <label class="text-pattern mb-1" for="categoria">Filtra Por Categoria</label>
+              <label class="size-bold mb-1" for="categoria">Filtra Por Categoria</label>
               <select [(ngModel)]="categoria" (click)="productosPorCategoria()" name="categoria" class="form-select" id="categoria">
                 <option></option>
                 <option *ngFor="let categoria of categorias">{{ categoria.nombreCategoria }}</option>
@@ -84,7 +84,7 @@
 
         <div class="row justify-content-around">
           <div class="col-md-3 me-5">
-            <label for="nombre" class="form-label">Nombre</label>
+            <label for="nombre" class="form-label size-bold">Nombre</label>
             <input type="text" (keyup)="productosFiltro()" placeholder="Busca por nombre" class="form-control" [(ngModel)]="nombre" />
           </div>
 
@@ -122,7 +122,7 @@
           </div>
 
           <div class="col-md-3">
-            <label for="nombre" class="form-label">Descripcion</label>
+            <label for="nombre" class="form-label size-bold">Descripcion</label>
             <input
               type="text"
               (keyup)="productosFiltro()"
@@ -225,12 +225,8 @@
   </div> -->
 
         <div class="row text-center mt-3">
-          <div
-            style="border-radius: 5%"
-            class="col-lg-3 col-md-8 mb-4"
-            *ngFor="let producto of productos! | paginate: { itemsPerPage: 12, currentPage: pA }"
-          >
-            <div class="card" style="width: 16 rem">
+          <div class="col-lg-3 col-md-8 mb-4" *ngFor="let producto of productos! | paginate: { itemsPerPage: 12, currentPage: pA }">
+            <div class="card" style="width: 16 rem; height: 34rem">
               <div class="d-flex justify-content-end">
                 <button (click)="addToFavorite(producto.id!)" class="mt-1 menu-configProduct">
                   <mat-icon [ngStyle]="{ color: producto.isFavorite === true ? '#9b00de' : '' }" class="material-symbols-sharp"
@@ -238,7 +234,7 @@
                   >
                 </button>
               </div>
-              <a class="a-productos" [routerLink]="['/producto', producto.id, 'view']" target="_top">
+              <a style="height: 30rem" class="a-productos" [routerLink]="['/producto', producto.id, 'view']" target="_top">
                 <img
                   [src]="'data:' + producto.imagenContentType + ';base64,' + producto.imagen"
                   style="max-height: 200px"
@@ -246,8 +242,6 @@
                   height="500px;"
                   alt="producto image"
                 />
-                b
-
                 <div class="card-body">
                   <h5 class="card-title titulo-entidades">{{ producto.nombre }}</h5>
                   <p class="card-text titulo-entidades">
@@ -264,11 +258,11 @@
                   </p>
                 </div>
               </a>
-              <div *ngIf="account!.login === 'admin'" class="d-flex justify-content-around mt-2" id="card-iconos">
+              <div *ngIf="account!.login === 'admin'" class="d-flex justify-content-around mt-2">
                 <!-- <button *ngSwitchCase="true" class="menu-config2" [routerLink]="['/producto', producto.id, 'view']">
                 <mat-icon class="icon-config">pageview</mat-icon>
               </button> -->
-                <button *ngSwitchCase="true && isAdmin" class="btn btn-outline-primary" [routerLink]="['/producto', producto.id, 'edit']">
+                <button *ngSwitchCase="true && isAdmin" class="btn btn-outline-dark" [routerLink]="['/producto', producto.id, 'edit']">
                   <mat-icon class="icon-config">edit</mat-icon>
                 </button>
                 <button *ngSwitchCase="true && isAdmin" class="btn btn-outline-danger" (click)="delete(producto)">

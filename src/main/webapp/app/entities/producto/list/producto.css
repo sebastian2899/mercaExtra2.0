@@ -4,11 +4,16 @@
 #card-iconos {
   height: 41px;
   border-radius: 3px;
-  background-color: rgba(126, 67, 253, 0.241);
+  background-color: rgba(0, 0, 0, 0.247);
 }
 .btn {
   border: none;
   border-radius: 8px;
+}
+
+.size-bold {
+  font-weight: bold;
+  font-size: 16px;
 }
 
 .d-flex {
