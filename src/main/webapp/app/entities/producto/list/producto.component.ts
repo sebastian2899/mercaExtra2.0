@@ -148,6 +148,10 @@ export class ProductoComponent implements OnInit {
     }
   }
 
+  srcolable(): void {
+    window.scrollTo(0, 0);
+  }
+
   ngOnInit(): void {
     this.loadAll();
     this.consultarCategorias();
