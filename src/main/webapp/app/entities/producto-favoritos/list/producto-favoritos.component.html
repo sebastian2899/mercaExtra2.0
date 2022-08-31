@@ -24,8 +24,17 @@
 
   <jhi-alert></jhi-alert>
 
-  <div class="alert alert-warning" id="no-result" *ngIf="productoFavoritos?.length === 0">
+  <!-- <div class="alert alert-warning" id="no-result" *ngIf="productoFavoritos?.length === 0">
     <span jhiTranslate="mercaExtraApp.productoFavoritos.home.notFound">No productoFavoritos found</span>
+  </div> -->
+
+  <div class="alert alert-info" role="alert">
+    <h4 class="alert-heading">Sin poductos favoritos</h4>
+    <p>
+      Hasta el momento no tienes productos agregados a tu lista de favoritos. <br />Dirigete a
+      <a [routerLink]="['/producto']" target="_parent">Productos</a> y agrega los productos que quieras a tu lista.
+    </p>
+    <p class="mb-0"></p>
   </div>
 
   <!-- <div class="table-responsive" id="entities" *ngIf="productoFavoritos && productoFavoritos.length > 0">
@@ -101,7 +110,7 @@
     </table>
   </div>
 
-  <div class="row">
+  <div *ngIf="productos && productos.length > 0" class="row">
     <div class="d-flex">
       <div class="col-md-3 me-4">
         <div class="card text-left">

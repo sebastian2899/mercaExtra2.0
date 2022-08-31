@@ -96,22 +96,29 @@ export class ReembolsoComponent {
         next: (res: HttpResponse<IReembolso>) => {
           const reembolso = res.body;
           reembolso!.metodoReembolso = this.metodoReembolso;
-          this.reembolsoService.update(res.body!).subscribe({
-            next: () => {
-              this.alertService.addAlert({
-                type: 'success',
-                message: 'Reembolso actualizado',
-              });
-              this.refundByOption(1);
-              this.modalService.dismissAll();
-            },
-            error: () => {
-              this.alertService.addAlert({
-                type: 'danger',
-                message: 'No se pudo actualizar el reembolso',
-              });
-            },
-          });
+          if (!this.metodoReembolso) {
+            this.alertService.addAlert({
+              type: 'danger',
+              message: 'Porfavor seleccione un metodo de reembolso',
+            });
+          } else {
+            this.reembolsoService.update(res.body!).subscribe({
+              next: () => {
+                this.alertService.addAlert({
+                  type: 'success',
+                  message: 'Reembolso actualizado',
+                });
+                this.refundByOption(1);
+                this.modalService.dismissAll();
+              },
+              error: () => {
+                this.alertService.addAlert({
+                  type: 'danger',
+                  message: 'No se pudo actualizar el reembolso',
+                });
+              },
+            });
+          }
         },
         error: () => {
           this.alertService.addAlert({

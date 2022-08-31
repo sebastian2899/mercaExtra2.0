@@ -18,15 +18,16 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import liquibase.repackaged.org.apache.commons.collections4.map.HashedMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -141,23 +142,19 @@ public class FacturaServiceImpl implements FacturaService {
     @Transactional(readOnly = true)
     public List<FacturaDTO> findAll() {
         log.debug("Request to get all Facturas");
-        
+
         //SEGUN EL USUARIO LOGEADO SE RETORNAN SUS DATOS CORRESPONDIENTES.
         String login = userService.getUserWithAuthorities().get().getLogin();
-        
-        if(login == "admin") {
-        	return facturaRepository.findAll().stream().map(facturaMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
-        }else {
-        	
-        	Query q = entityManager.createQuery("SELECT f FROM Factura f WHERE f.userName =:userName")
-        			.setParameter("userName", login);
-        	
-        	List<Factura>inoviceLogin = q.getResultList();
-        	
-        	return inoviceLogin.stream().map(facturaMapper::toDto).collect(Collectors.toCollection(LinkedList :: new));
-        	
-        }   
-        
+
+        if (login == "admin") {
+            return facturaRepository.findAll().stream().map(facturaMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
+        } else {
+            Query q = entityManager.createQuery("SELECT f FROM Factura f WHERE f.userName =:userName").setParameter("userName", login);
+
+            List<Factura> inoviceLogin = q.getResultList();
+
+            return inoviceLogin.stream().map(facturaMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
+        }
     }
 
     private String RamdomNumber() {
@@ -274,20 +271,19 @@ public class FacturaServiceImpl implements FacturaService {
 
         return itemsFactura;
     }
-    
-    
+
     @Override
     public BigDecimal valuePerDates(String fechaInicio, String fechaFin) {
-    	log.debug("Request to get value of invoice per dates");
-    	
-    	String fechaInicioFormat = fechaInicio.substring(0, 10);
-    	String fechaFinFormat = fechaFin.substring(0, 10);
-    	
-    	BigDecimal value = facturaRepository.valuePerDates(fechaInicioFormat, fechaFinFormat);
-    	BigDecimal resp;
-    	resp = value == null ? resp = BigDecimal.ZERO : value;
-    	
-    	return resp;
+        log.debug("Request to get value of invoice per dates");
+
+        String fechaInicioFormat = fechaInicio.substring(0, 10);
+        String fechaFinFormat = fechaFin.substring(0, 10);
+
+        BigDecimal value = facturaRepository.valuePerDates(fechaInicioFormat, fechaFinFormat);
+        BigDecimal resp;
+        resp = value == null ? resp = BigDecimal.ZERO : value;
+
+        return resp;
     }
 
     @Override
@@ -303,5 +299,36 @@ public class FacturaServiceImpl implements FacturaService {
         List<Producto> productosCategoria = facturaRepository.productoPorCategoria(categoria);
 
         return productosCategoria.stream().map(productosMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<FacturaDTO> invoiicesByFilters(FacturaDTO facturaDto) {
+        log.debug("Request to get invoices per filters");
+
+        StringBuilder sb = new StringBuilder();
+        Map<String, Object> filtros = new HashedMap<>();
+
+        //Base
+        sb.append(Constants.FACTURA_BASE);
+
+        if (facturaDto.getFechaCreacion() != null) {
+            sb.append(Constants.FACTURA_FECHA);
+            String fechaFormat = facturaDto.getFechaCreacion().toString().substring(0, 10);
+            filtros.put("fecha", fechaFormat);
+        }
+
+        if (facturaDto.getMetodoPago() != null) {
+            sb.append(Constants.FACTURA_METODOPAGO);
+            filtros.put("metodoPago", facturaDto.getMetodoPago());
+        }
+
+        Query q = entityManager.createQuery(sb.toString());
+        for (Map.Entry<String, Object> filtro : filtros.entrySet()) {
+            q.setParameter(filtro.getKey(), filtro.getValue());
+        }
+
+        List<Factura> productsFiltro = q.getResultList();
+        return productsFiltro.stream().map(facturaMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
     }
 }

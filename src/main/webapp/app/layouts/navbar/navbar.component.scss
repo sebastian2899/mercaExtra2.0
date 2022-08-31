@@ -6,6 +6,9 @@
 Navbar
 ========================================================================== */
 
+.iconos {
+  width: 10%;
+}
 .navbar-version {
   font-size: 0.65em;
   color: $navbar-dark-color;
@@ -32,6 +35,10 @@ span {
   .dropdown-item.active:focus,
   .dropdown-item.active:hover {
     background-color: $dark;
+  }
+  .dropdown-item {
+    display: flex;
+    gap: 11px;
   }
 
   a.nav-link {

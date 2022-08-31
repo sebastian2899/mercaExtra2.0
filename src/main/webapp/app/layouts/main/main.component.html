@@ -150,53 +150,54 @@
     <ul class="mt-5">
       <li class="mb-3">
         <a href="#">
-          <i class="fa fa-home" aria-hidden="true"></i>
+          <mat-icon class="iconos">home</mat-icon>
           <span class="nav-text" jhiTranslate="mercaExtraApp.main.mensajes.inicio"> Inicio </span>
         </a>
       </li>
       <li class="mb-3">
         <a [routerLink]="['domiciliario']">
-          <i class="fa fa-info-circle" aria-hidden="true"></i>
+          <mat-icon class="iconos"> info</mat-icon>
+
           <span class="nav-text" jhiTranslate="mercaExtraApp.main.mensajes.informacionDomiciliosPedidos">
             Información Domicilios y Pedidos.
           </span>
         </a>
       </li>
 
-      <li class="mb-3">
+      <li class="has-subnav mb-3">
         <a (click)="categoriaProductos()">
-          <i class="fa fa-archive" aria-hidden="true"></i>
+          <mat-icon class="iconos"> visibility</mat-icon>
           <span class="nav-text" jhiTranslate="mercaExtraApp.main.mensajes.verProductos"> Ver Productos </span>
         </a>
       </li>
 
       <li class="has-subnav mb-3">
         <a [routerLink]="['factura/new']">
-          <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+          <mat-icon class="iconos"> shopping_cart</mat-icon>
           <span class="nav-text" jhiTranslate="mercaExtraApp.main.mensajes.hacerMercado"> Hacer Mercado </span>
         </a>
       </li>
       <li class="has-subnav mb-3">
         <a [routerLink]="['pedido/new']">
-          <i class="fa fa-truck" aria-hidden="true"></i>
+          <mat-icon class="iconos"> directions_car</mat-icon>
           <span class="nav-text" jhiTranslate="mercaExtraApp.main.mensajes.mercadosListosPedir"> Mercados listos para pedir </span>
         </a>
       </li>
       <li class="has-subnav mb-3">
         <a [routerLink]="['factura']">
-          <i class="fa fa fa-money fa-2x"></i>
+          <mat-icon class="iconos"> money</mat-icon>
           <span class="nav-text" jhiTranslate="mercaExtraApp.main.mensajes.misFacturas"> Mis Facturas </span>
         </a>
       </li>
       <li class="mb-3">
         <a [routerLink]="['pedido']">
-          <i class="fa fa-cutlery fa-2x"></i>
+          <mat-icon class="iconos"> cases</mat-icon>
           <span class="nav-text" jhiTranslate="mercaExtraApp.main.mensajes.misPedidos"> Mis pedidos </span>
         </a>
       </li>
       <li class="mb-3">
         <a [routerLink]="['/producto-favoritos']">
-          <i class="fa fa-heart-o" aria-hidden="true"></i>
+          <mat-icon class="iconos">favorite_border</mat-icon>
           <span class="nav-text" jhiTranslate="mercaExtraApp.main.mensajes.misFavoritos"> Mis favoritos </span>
         </a>
       </li>
@@ -229,7 +230,7 @@
     <ul class="logout">
       <li>
         <a [routerLink]="['reembolso/new']">
-          <i class="fa fa-reply" aria-hidden="true"></i>
+          <mat-icon class="iconos">monetization_on</mat-icon>
           <span class="nav-text" jhiTranslate="mercaExtraApp.main.mensajes.gestionRembolsos"> Gestion Reembolsos </span>
         </a>
       </li>

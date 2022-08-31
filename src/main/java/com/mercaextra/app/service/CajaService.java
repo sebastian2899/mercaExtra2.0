@@ -49,5 +49,5 @@ public interface CajaService {
 
     BigDecimal valorVendidoDia();
 
-    int RememberCreationCaja();
+    Boolean RememberCreationCaja();
 }

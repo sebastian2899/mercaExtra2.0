@@ -226,18 +226,11 @@ public class ReembolsoServiceImpl implements ReembolsoService {
             .of(reembolsoRepository.findById(id))
             .filter(Optional::isPresent)
             .map(Optional::get)
-            .map(reembolso -> {
-                ReembolsoDTO reembolsoDTO = new ReembolsoDTO();
-                reembolsoDTO.setId(reembolso.getId());
-                reembolsoDTO.setDescripcion(reembolso.getDescripcion());
-                reembolsoDTO.setFechaReembolso(reembolso.getFechaReembolso());
-                reembolsoDTO.setIdPedido(reembolso.getIdPedido());
-                reembolsoDTO.setFechaPedido(fechaPedido(reembolso.getIdPedido()));
-                reembolsoDTO.setEstado(reembolso.getEstado());
-                reembolsoDTO.setNombreDomiciliario(nomDomiciliario(reembolso.getIdDomiciliario()));
-                reembolsoDTO.setIdFactura(reembolso.getIdFactura());
-
-                return reembolsoDTO;
+            .map(reembolsoMapper::toDto)
+            .map(elementReem -> {
+                elementReem.setFechaPedido(fechaPedido(elementReem.getIdPedido()));
+                elementReem.setNombreDomiciliario(nomDomiciliario(elementReem.getIdDomiciliario()));
+                return elementReem;
             });
     }
 
