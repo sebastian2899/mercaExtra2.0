@@ -4,6 +4,7 @@ import com.mercaextra.app.repository.CajaRepository;
 import com.mercaextra.app.service.CajaService;
 import com.mercaextra.app.service.dto.CajaDTO;
 import com.mercaextra.app.web.rest.errors.BadRequestAlertException;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -13,6 +14,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
@@ -136,6 +139,12 @@ public class CajaResource {
             result,
             HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, cajaDTO.getId().toString())
         );
+    }
+
+    @GetMapping("cajas/exportInvoice/{fechaInicio}/{fechaFin}")
+    public ResponseEntity<byte[]> exportInvoice(@PathVariable String fechaInicio, @PathVariable String fechaFin) throws IOException {
+        byte[] report = cajaService.exportarPdf(fechaInicio, fechaFin);
+        return ResponseEntity.ok().body(report);
     }
 
     /**

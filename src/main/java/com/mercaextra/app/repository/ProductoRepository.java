@@ -39,11 +39,11 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
     List<Producto> anotherSimilarProducts(@Param("categoria") String categoria);
 
     @Query(
-        value = "SELECT CASE WHEN EXISTS(SELECT nombre FROM producto as p INNER JOIN producto_favoritos as pf on p.id = pf.id_product WHERE p.id=:idProduct)" +
+        value = "SELECT CASE WHEN EXISTS(SELECT nombre FROM producto as p INNER JOIN producto_favoritos as pf on p.id = pf.id_product WHERE p.id=:idProduct AND pf.login =:login)" +
         "THEN 'true' ELSE 'false' end",
         nativeQuery = true
     )
-    String isFavorite(@Param("idProduct") Long idProduct);
+    String isFavorite(@Param("idProduct") Long idProduct, @Param("login") String login);
 
     @Query(
         value = "SELECT * FROM producto WHERE precio_descuento IS NOT NULL AND id NOT IN (SELECT id_producto FROM producto_promocion_home)",

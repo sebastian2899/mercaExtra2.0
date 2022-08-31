@@ -25,6 +25,7 @@ import { ProductoService } from 'app/entities/producto/service/producto.service'
 @Component({
   selector: 'jhi-factura-update',
   templateUrl: './factura-update.component.html',
+  styleUrls: ['./factura-update.component.css'],
 })
 export class FacturaUpdateComponent implements OnInit {
   @ViewChild('verCarroCompra', { static: true }) content: ElementRef | undefined;
@@ -99,7 +100,7 @@ export class FacturaUpdateComponent implements OnInit {
     }
 
     /* si el carrode compras al refrescar la pantalla tiene uno o mas productos,
-     se le setan los valores a el contador para identificar cuantos productos 
+     se le setan los valores a el contador para identificar cuantos productos
      tiene el carro de CompraService.
     */
     if (this.productosSeleccionados.length > 0) {
@@ -228,7 +229,7 @@ export class FacturaUpdateComponent implements OnInit {
 
     if (this.productoSeleccionado && this.productoNuevo && cantidad) {
       if (cantidad > this.productoSeleccionado.cantidad!) {
-        this.mensaje = `No se puede agregar el producto ${String(this.productoSeleccionado.nombre)}, ya que 
+        this.mensaje = `No se puede agregar el producto ${String(this.productoSeleccionado.nombre)}, ya que
           se estan seleccionando ${String(cantidad)} y solo hay ${String(this.productoSeleccionado.cantidad)} disponibles.`;
         this.ngbModal.open(this.content5);
       } else {
