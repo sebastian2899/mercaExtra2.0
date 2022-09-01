@@ -488,7 +488,7 @@ nav.main-menu li.active > a,
 }
 
 .tituloSmall {
-  color: rgb(79, 117, 255);
+  color: blue;
   font: 500 19px/24px Google Sans Text, Arial, Helvetica, sans-serif;
 }
 
@@ -641,10 +641,10 @@ nav.main-menu li.active > a,
 
 .raise:hover,
 .raise:focus {
-  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+  // box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
   -webkit-transform: translateY(-0.25em);
   transform: translateY(-0.25em);
-  color: rgb(57, 57, 57);
+  color: rgb(0, 0, 0);
   border-color: rgb(144, 189, 244);
 }
 
@@ -653,7 +653,10 @@ nav.main-menu li.active > a,
   --hover: #60c2ff;
   background-color: rgb(107, 140, 250);
   color: rgb(255, 255, 255);
-  border-color: #1702ff;
+  border: none;
+  border-radius: 2px;
+  height: 30px;
+  width: 105px;
 }
 
 a:hover {

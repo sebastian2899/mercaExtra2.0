@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arya:wght@700&display=swap');
 
 #card-iconos {
   height: 41px;
@@ -11,5 +12,8 @@
   border-radius: 8px;
 }
 
-.d-flex {
+.title {
+  font-size: 32px;
+  color: black;
+  font-family: 'Arya', sans-serif;
 }
