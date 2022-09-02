@@ -297,12 +297,12 @@ nav.main-menu li.active > a,
   }
 }
 
-.pulse:hover,
-.pulse:focus {
-  -webkit-animation: pulse 2s;
-  animation: pulse 2s;
-  box-shadow: 0 0 0 2em rgba(255, 255, 255, 0);
-}
+// .pulse:hover,
+// .pulse:focus {
+//   -webkit-animation: pulse 2s;
+//   animation: pulse 2s;
+//   box-shadow: 0 0 0 2em rgba(255, 255, 255, 0);
+// }
 
 @-webkit-keyframes pulse {
   0% {
@@ -655,8 +655,9 @@ nav.main-menu li.active > a,
   color: rgb(255, 255, 255);
   border: none;
   border-radius: 2px;
-  height: 30px;
-  width: 105px;
+  height: 39px;
+  width: 94px;
+  font-size: 17px;
 }
 
 a:hover {

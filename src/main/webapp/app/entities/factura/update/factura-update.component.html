@@ -143,7 +143,7 @@
               </p></b
             >
             <br />
-            <button class="btn btn-info btn-sm" (click)="llenarCarroCompra(producto)">Comprar</button>
+            <button class="btn btn-info btn-sm" (click)="llenarCarroCompra(producto)">Agregar</button>
             <br />
           </div>
         </div>
@@ -429,7 +429,7 @@
     <button class="btn btn-outline-info btn-sm" (click)="cancel()">
       <span><mat-icon class="icon-config">arrow_back</mat-icon>Volver</span>
     </button>
-    <button [disabled]="productosSeleccionados!.length === 0" class="btn btn raise" (click)="confirmarCompra()">Confirmar Pedido</button>
+    <button [disabled]="productosSeleccionados!.length === 0" class="btn btn raise" (click)="confirmarCompra()">Confirmar</button>
   </div>
 </ng-template>
 
