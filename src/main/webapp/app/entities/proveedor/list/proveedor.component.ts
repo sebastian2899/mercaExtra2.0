@@ -9,6 +9,7 @@ import { ProveedorDeleteDialogComponent } from '../delete/proveedor-delete-dialo
 @Component({
   selector: 'jhi-proveedor',
   templateUrl: './proveedor.component.html',
+  styleUrls: ['./proveedor.css'],
 })
 export class ProveedorComponent implements OnInit {
   proveedors?: IProveedor[];
