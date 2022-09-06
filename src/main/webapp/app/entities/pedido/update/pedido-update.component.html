@@ -111,8 +111,8 @@
   </div>
 
   <div *ngIf="createOrder" class="row text-center">
-    <div style="box-shadow: 5px 5px 30px rgb(54, 185, 255)" class="col-lg-3 col-md-6 mb-4" *ngFor="let factura of facturasPedido">
-      <div class="card" style="width: 18rem mr-3">
+    <div class="col-lg-3 col-md-6 mb-4" *ngFor="let factura of facturasPedido">
+      <div class="card" style="width: 18rem mr-3" style="box-shadow: 0px 0px 20px rgb(54, 185, 255)">
         <div class="card-body">
           <h5 class="card-title"><span class="font-size-black">Cliente: </span>{{ factura.infoCliente }}</h5>
           <h6 class="card-subtitle mb-2 text-muted"><span class="font-size-black">Numero de Factura: </span>{{ factura.numeroFactura }}</h6>
