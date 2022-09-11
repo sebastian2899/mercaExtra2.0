@@ -20,7 +20,7 @@ import { IProductoFavoritos, ProductoFavoritos } from 'app/entities/producto-fav
 @Component({
   selector: 'jhi-producto',
   templateUrl: './producto.component.html',
-  styleUrls: ['./producto.css'],
+  styleUrls: ['./producto.component.css'],
 })
 export class ProductoComponent implements OnInit {
   @ViewChild('mensajeAyuda', { static: true }) content: ElementRef | undefined;

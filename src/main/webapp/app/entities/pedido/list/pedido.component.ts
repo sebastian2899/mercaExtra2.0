@@ -17,6 +17,7 @@ import { AccountService } from 'app/core/auth/account.service';
 @Component({
   selector: 'jhi-pedido',
   templateUrl: './pedido.component.html',
+  styleUrls: ['./pedido.component.css'],
 })
 export class PedidoComponent implements OnInit {
   @ViewChild('detalleFactura', { static: true }) content: ElementRef | undefined;

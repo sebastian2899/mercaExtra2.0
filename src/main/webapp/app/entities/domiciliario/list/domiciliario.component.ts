@@ -13,6 +13,7 @@ import { TipoSalario } from 'app/entities/enumerations/tipo-salario.model';
 @Component({
   selector: 'jhi-domiciliario',
   templateUrl: './domiciliario.component.html',
+  styleUrls: ['./domiciliario.component.css'],
 })
 export class DomiciliarioComponent implements OnInit {
   domiciliary!: IDomiciliario | null;

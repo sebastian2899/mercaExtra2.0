@@ -74,14 +74,14 @@
     <h4 class="alert-heading" style="text-align: center">No has iniciado Sesion</h4>
     <p style="text-align: end">
       Podras ver nuestros productos disponibles,categorias y demas informacion. Si deseas adqurir algun producto
-      <button class="raise" (click)="login()">Inicia sesion</button>
+      <button class="raise" (click)="login()">Iniciar sesión</button>
     </p>
     <p class="mb-0" style="text-align: end">
-      Si no tienes cuenta registrate gratis <button class="raise" (click)="createAccount()">crear cuenta</button>
+      Si no tienes cuenta registrate gratis <button class="raise" (click)="createAccount()">Crear cuenta</button>
     </p>
   </div>
 
-  <!-- 
+  <!--
     <div class="table-responsive" id="entities" *ngIf="productos && productos.length > 0">
       <table class="table table-striped" aria-describedby="page-heading">
         <thead>
@@ -125,7 +125,7 @@
                   <fa-icon icon="eye"></fa-icon>
                   <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                 </button>
-  
+
                 <button
                   type="submit"
                   [routerLink]="['/producto', producto.id, 'edit']"
@@ -135,7 +135,7 @@
                   <fa-icon icon="pencil-alt"></fa-icon>
                   <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                 </button>
-  
+
                 <button type="submit" (click)="delete(producto)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                   <fa-icon icon="times"></fa-icon>
                   <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
@@ -148,11 +148,7 @@
     </div> -->
 
   <div class="row text-center mt-5">
-    <div
-      style="box-shadow: 10px 10px 10px rgb(240, 200, 1)"
-      class="col-lg-3 col-md-6 mb-4"
-      *ngFor="let producto of productos! | paginate: { itemsPerPage: 12, currentPage: pA }"
-    >
+    <div class="col-lg-3 col-md-6 mb-4" *ngFor="let producto of productos! | paginate: { itemsPerPage: 12, currentPage: pA }">
       <div class="card" style="width: 16 rem">
         <a *ngIf="producto.imagen" (click)="openFile(producto.imagen, producto.imagenContentType)">
           <img [src]="'data:' + producto.imagenContentType + ';base64,' + producto.imagen" style="max-height: 200px" alt="producto image" />
