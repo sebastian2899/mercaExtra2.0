@@ -61,8 +61,8 @@
   </div>
 
   <div class="d-flex justify-content-between mb-4">
-    <div class="col-md-3" style="background-color: rgba(138, 187, 215, 0.478)">
-      <label for="fecha" class="form-label tituloSmall">Filtra tus pedidos por fecha</label>
+    <div class="col-md-3">
+      <label for="fecha" class="form-label tituloSmall" style="color: black">Filtra tus pedidos por fecha</label>
       <input type="datetime-local" class="form-control" name="fecha" [(ngModel)]="fecha" />
       <button style="margin-left: 100px" class="btn-info pulse mt-2 mb-2" (click)="pedidosPorFecha()">Buscar</button>
     </div>
@@ -83,7 +83,7 @@
   </div>
 
   <div class="" id="entities" *ngIf="pedidos && pedidos.length > 0">
-    <table class="table table-bordered border-info" aria-describedby="page-heading">
+    <table class="table table-light" aria-describedby="page-heading">
       <thead>
         <tr>
           <th scope="col"><span>Acciones</span></th>
@@ -93,7 +93,7 @@
           <!-- <th scope="col"><span jhiTranslate="mercaExtraApp.pedido.idDomiciliario">Id Domiciliario</span></th>
           <th scope="col"><span jhiTranslate="mercaExtraApp.pedido.idNotificacion">Id Notificacion</span></th>
           <th scope="col"><span jhiTranslate="mercaExtraApp.pedido.idFactura">Id Factura</span></th> -->
-          <th scope="col"></th>
+          <!-- <th scope="col"></th> -->
         </tr>
       </thead>
       <tbody>

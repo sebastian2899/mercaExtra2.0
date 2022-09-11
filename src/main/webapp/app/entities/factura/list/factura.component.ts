@@ -16,6 +16,7 @@ import { DATE_FORMAT, DATE_TIME_FORMAT } from 'app/config/input.constants';
 @Component({
   selector: 'jhi-factura',
   templateUrl: './factura.component.html',
+  styleUrls: ['./factura.component.css'],
 })
 export class FacturaComponent implements OnInit {
   @ViewChild('recomprar', { static: true }) content: ElementRef | undefined;

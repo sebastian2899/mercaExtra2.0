@@ -126,9 +126,9 @@
       </div>
     </div>
   </div>
-
+  <!--
   <div class="row text-center mt-5">
-    <div class="card text-center ms-3 mb-3" *ngFor="let domiciliario of domiciliarios" style="width: 24rem">
+    <div class="card text-center ms-3 mb-3" style="width: 18rem;" *ngFor="let domiciliario of domiciliarios" style="width: 24rem">
       <div class="card-body">
         <h5 class="card-title">
           <span class="tituloSmall">Nombre: </span
@@ -167,6 +167,55 @@
               >
             </li>
           </ul>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="row text-center mt-5">
+    <div class="contenido">
+      <div class="card text-center ms-3 mb-3" style="width: 18rem" *ngFor="let domiciliario of domiciliarios" style="width: 24rem">
+        <div class="card-header">
+          <span class="tituloSmall">Nombre: </span
+          ><span class="font-size-small">{{ domiciliario.nombre }} {{ domiciliario.apellido }}</span>
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+            <span class="tituloSmall">Tipo Salario: </span><span class="font-size-small">{{ domiciliario.salario }}</span>
+          </p>
+          <p class="card-text">
+            <span class="tituloSmall">Horario: </span><span class="font-size-small"> {{ domiciliario.horario }}</span>
+          </p>
+          <p class="card-text">
+            <span class="tituloSmall">Sueldo: </span><span class="font-size-small"> {{ domiciliario.sueldo | currency }}</span>
+          </p>
+          <p [ngClass]="stateDomiciliary(domiciliario.estado!)" class="card-text">
+            <span class="tituloSmall" style="color: black">Estado: </span><span class="font-size-small"> {{ domiciliario.estado }}</span>
+          </p>
+        </div>
+        <div class="card-footer">
+          <div class="dropdown">
+            <button class="btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              Opciones <mat-icon class="icon-config">settings_applications</mat-icon>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li>
+                <a class="dropdown-item" [routerLink]="['/domiciliario', domiciliario.id, 'view']"
+                  >Ver <mat-icon class="icon-config">visibility</mat-icon></a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" [routerLink]="['/domiciliario', domiciliario.id, 'edit']"
+                  >Editar <mat-icon class="icon-config">edit</mat-icon></a
+                >
+              </li>
+              <li>
+                <a class="a-delete dropdown-item" (click)="delete(domiciliario)"
+                  >Eliminar <mat-icon class="icon-config-delete">delete</mat-icon></a
+                >
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
