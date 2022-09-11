@@ -346,33 +346,36 @@ public class PedidoServiceImpl implements PedidoService {
         log.debug("Request to get all pedidos per fecha", fecha);
 
         //Se formatea la fecha de instant a String para hacer la consulta con tipo de dato String y no Instant
-        String fechaFormat = fecha.substring(0, fecha.indexOf("T"));
-        String userName = userService.getUserWithAuthorities().get().getLogin();
 
         //Se recupera la lista object
-        List<Object[]> pedidosObject = pedidoRepository.pedidosFecha(fechaFormat, userName);
+        List<Object[]> pedidosObject = pedidoRepository.pedidosFecha(
+            fecha.substring(0, fecha.indexOf("T")),
+            userService.getUserWithAuthorities().get().getLogin()
+        );
 
         //Se instancia una clase Pedido y un arrayList de Pedido que sera retornada
-        PedidoDTO pedidoNew = null;
-        List<PedidoDTO> pedidosDTO = new ArrayList<>();
 
         //Se recorre a lista y se setan los valores correspondientes a la clase instanciada
-        for (Object[] pedido : pedidosObject) {
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            pedidoNew = new PedidoDTO();
-            try {
-                Instant fechaInstant = format.parse(pedido[0].toString().substring(0, pedido[0].toString().indexOf("T"))).toInstant();
-                pedidoNew.setFechaPedido(fechaInstant);
-                pedidoNew.setDireccion(pedido[1].toString());
-                pedidoNew.setInfoDomicilio(pedido[2].toString());
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
 
-            pedidosDTO.add(pedidoNew);
-        }
+        return pedidosObject
+            .stream()
+            .map(element -> {
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                PedidoDTO pedidoNew = new PedidoDTO();
+                try {
+                    pedidoNew.setFechaPedido(
+                        format.parse(element[0].toString().substring(0, element[0].toString().indexOf("T"))).toInstant()
+                    );
+                } catch (ParseException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                pedidoNew.setDireccion(element[0].toString());
+                pedidoNew.setInfoDomicilio(element[2].toString());
 
-        return pedidosDTO;
+                return pedidoNew;
+            })
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 
     /*
