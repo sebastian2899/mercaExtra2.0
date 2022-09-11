@@ -1,9 +1,12 @@
 package com.mercaextra.app.service;
 
 import com.mercaextra.app.service.dto.CajaDTO;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.core.io.Resource;
+import org.springframework.http.ResponseEntity;
 
 /**
  * Service Interface for managing {@link com.mercaextra.app.domain.Caja}.
@@ -50,4 +53,8 @@ public interface CajaService {
     BigDecimal valorVendidoDia();
 
     Boolean RememberCreationCaja();
+
+    byte[] exportarPdf(String fechaInicio, String fechaFin) throws IOException;
+
+    List<CajaDTO> cajaByFilters(CajaDTO caja);
 }

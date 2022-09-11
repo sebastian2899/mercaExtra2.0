@@ -19,8 +19,8 @@ h4 {
 // @import url(https://fonts.googleapis.com/css?family=Titillium+Web:300);
 @import url('https://fonts.googleapis.com/css2?family=Asap:ital,wght@1,600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Amaranth&family=Raleway:wght@300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Arya:wght@700&display=swap');
 
 .fa-2x {
   font-size: 2em;
@@ -453,9 +453,16 @@ nav.main-menu li.active > a,
 }
 
 .titulos {
+  font-family: 'Arya', sans-serif;
   color: #8c52ff;
   font-size: 40px;
-  font-family: 'Amaranth', sans-serif;
+}
+
+.titulos2 {
+  font-family: 'Arya', sans-serif;
+  color: #000000;
+  font-weight: bold;
+  font-size: 40px;
 }
 
 .titulos-white {
@@ -540,13 +547,13 @@ nav.main-menu li.active > a,
 @keyframes glow {
   from {
     color: rgb(0, 0, 0);
-    text-shadow: 0 0 10px #00fff2, 0 0 20px #00fff2, 0 0 30px #00fff2, 0 0 40px #00fff2, 0 0 50px #00fff2, 0 0 60px #00fff2,
-      0 0 70px #00fff2, 0 0 90px #00fff2;
+    text-shadow: 0 0 10px #e9e509, 0 0 20px #e9e509, 0 0 30px #e9e509, 0 0 40px #e9e509, 0 0 50px #e9e509, 0 0 60px #e9e509,
+      0 0 70px #e9e509, 0 0 90px #e9e509;
   }
   to {
     color: rgb(250, 250, 250);
-    text-shadow: 0 0 20px #00fff2, 0 0 30px #00fff2, 0 0 40px #00fff2, 0 0 50px #00fff2, 0 0 60px #00fff2, 0 0 70px #00fff2,
-      0 0 80px #00fff2, 0 1 90px #00fff2;
+    text-shadow: 0 0 20px #e9e509, 0 0 30px #e9e509, 0 0 40px #e9e509, 0 0 50px #e9e509, 0 0 60px #e9e509, 0 0 70px #e9e509,
+      0 0 80px #e9e509, 0 1 90px #e9e509;
   }
 }
 
@@ -920,9 +927,9 @@ angular-cli removes postcss-rtl processed inline css, processed rules must be ad
 
 .image-help {
   display: inline-block;
-  width: 647px;
+  width: 750px;
   height: 497px;
-  background: url('../../content/images/ayudaReembolso.png') no-repeat;
+  background: url('../../content/images/reembolsoInfo.jpeg') no-repeat;
   background-size: contain;
 }
 
@@ -961,12 +968,13 @@ angular-cli removes postcss-rtl processed inline css, processed rules must be ad
 
 .slider-container img {
   scroll-snap-align: center;
+  height: 250px;
 }
 
 .slider-container {
   display: flex;
-  width: 100%;
-  height: 420px;
+  // width: 100%;
+  // height: 420px;
   overflow-x: scroll;
   /* Vamos a añadir esto 👇 */
 }

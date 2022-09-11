@@ -3,7 +3,7 @@ import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { finalize, windowTime } from 'rxjs/operators';
 
 import dayjs from 'dayjs/esm';
 import { DATE_TIME_FORMAT } from 'app/config/input.constants';
@@ -25,6 +25,7 @@ import { ProductoService } from 'app/entities/producto/service/producto.service'
 @Component({
   selector: 'jhi-factura-update',
   templateUrl: './factura-update.component.html',
+  styleUrls: ['./factura-update.component.css'],
 })
 export class FacturaUpdateComponent implements OnInit {
   @ViewChild('verCarroCompra', { static: true }) content: ElementRef | undefined;
@@ -44,7 +45,6 @@ export class FacturaUpdateComponent implements OnInit {
   productoSeleccionado?: IProducto | null;
   productosSeleccionados: IItemFacturaVenta[] = [];
   productoItem?: IItemFacturaVenta | null;
-  productoNom?: string | null;
   tipoCategoria?: string | null;
   productoStorage?: IProducto | null;
   productoNuevo = true;
@@ -57,6 +57,7 @@ export class FacturaUpdateComponent implements OnInit {
   totalFactura?: number = 0;
   carroCompStorage?: IItemFacturaVenta[] | null = [];
   disableAdd?: boolean | null;
+  productAdd?: IProducto | null;
 
   editForm = this.fb.group({
     id: [],
@@ -91,15 +92,13 @@ export class FacturaUpdateComponent implements OnInit {
     const carrito = this.storageService.getCarrito();
     if (carrito) {
       this.productosSeleccionados = carrito;
-      this.productosSeleccionados.length > 0 ? this.ngbModal.open(this.content, { backdrop: 'static', size: 'lg' }) : undefined;
-
       carrito.forEach(item => {
         this.totalFactura! += item.precio!;
       });
     }
 
     /* si el carrode compras al refrescar la pantalla tiene uno o mas productos,
-     se le setan los valores a el contador para identificar cuantos productos 
+     se le setan los valores a el contador para identificar cuantos productos
      tiene el carro de CompraService.
     */
     if (this.productosSeleccionados.length > 0) {
@@ -228,7 +227,7 @@ export class FacturaUpdateComponent implements OnInit {
 
     if (this.productoSeleccionado && this.productoNuevo && cantidad) {
       if (cantidad > this.productoSeleccionado.cantidad!) {
-        this.mensaje = `No se puede agregar el producto ${String(this.productoSeleccionado.nombre)}, ya que 
+        this.mensaje = `No se puede agregar el producto ${String(this.productoSeleccionado.nombre)}, ya que
           se estan seleccionando ${String(cantidad)} y solo hay ${String(this.productoSeleccionado.cantidad)} disponibles.`;
         this.ngbModal.open(this.content5);
       } else {
@@ -253,6 +252,7 @@ export class FacturaUpdateComponent implements OnInit {
         this.productosSeleccionados.push(this.productoItem);
         this.storageService.storeCarrito(this.productosSeleccionados);
         this.mensajeProductoAddSuccess();
+        window.scrollTo(0, 0);
         this.ngbModal.dismissAll();
         this.contadorCarrito++;
       }
@@ -336,10 +336,8 @@ export class FacturaUpdateComponent implements OnInit {
   }
 
   llenarCarroCompra(producto: IProducto): void {
-    this.productoNom = producto.nombre;
-
+    this.productAdd = producto;
     this.productoSeleccionado = producto;
-
     this.ngbModal.open(this.content2, { backdrop: 'static' });
   }
 

@@ -28,7 +28,7 @@
     <span jhiTranslate="mercaExtraApp.productoFavoritos.home.notFound">No productoFavoritos found</span>
   </div> -->
 
-  <div class="alert alert-info" role="alert">
+  <div *ngIf="productos!.length === 0" class="alert alert-info" role="alert">
     <h4 class="alert-heading">Sin poductos favoritos</h4>
     <p>
       Hasta el momento no tienes productos agregados a tu lista de favoritos. <br />Dirigete a

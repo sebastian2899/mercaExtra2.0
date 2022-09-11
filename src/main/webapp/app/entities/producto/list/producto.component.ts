@@ -20,6 +20,7 @@ import { IProductoFavoritos, ProductoFavoritos } from 'app/entities/producto-fav
 @Component({
   selector: 'jhi-producto',
   templateUrl: './producto.component.html',
+  styleUrls: ['./producto.css'],
 })
 export class ProductoComponent implements OnInit {
   @ViewChild('mensajeAyuda', { static: true }) content: ElementRef | undefined;
@@ -145,6 +146,10 @@ export class ProductoComponent implements OnInit {
         }
       });
     }
+  }
+
+  srcolable(): void {
+    window.scrollTo(0, 0);
   }
 
   ngOnInit(): void {

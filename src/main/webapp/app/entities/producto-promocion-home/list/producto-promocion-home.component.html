@@ -1,6 +1,6 @@
 <div>
-  <h2 id="page-heading" data-cy="ProductoPromocionHomeHeading">
-    <span jhiTranslate="mercaExtraApp.productoPromocionHome.home.title">Producto Promocion Homes</span>
+  <h2 id="page-heading" data-cy="ProductoPromocionHomeHeading" class="title">
+    <span jhiTranslate="mercaExtraApp.productoPromocionHome.home.title">Productos Promocion Homes</span>
 
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="consultarProductosDescuento()" [disabled]="isLoading">
@@ -134,6 +134,7 @@
 
         <div class="card-body d-flex justify-content-between">
           <button
+            id="button"
             *ngIf="producto.estado === 'unchecked' || !producto.estado"
             class="btn btn-outline-info"
             (click)="generarDescripcion(producto.id!)"
