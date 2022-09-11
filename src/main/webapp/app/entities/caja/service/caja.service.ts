@@ -21,6 +21,7 @@ export class CajaService {
   protected valorVendidoDiaUrl = this.applicationConfigService.getEndpointFor('api/cajas-valor-dia');
   protected rememberCreationCajaUrl = this.applicationConfigService.getEndpointFor('api/cajas-remember-creation');
   protected reportUrl = this.applicationConfigService.getEndpointFor('api/cajas/exportInvoice');
+  protected filtersUrl = this.applicationConfigService.getEndpointFor('api/cajas/cajas-by-filters');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
@@ -37,6 +38,12 @@ export class CajaService {
       // 'responseType'  : 'blob' as 'json'        //This also worked
     };
     return this.http.get<any>(`${this.reportUrl}/${fechaInicio}/${fechaFin}`, httpOptions);
+  }
+
+  cajasByFilters(caja: ICaja): Observable<EntityArrayResponseType> {
+    return this.http
+      .post<ICaja[]>(this.filtersUrl, caja, { observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
   rememberCreationCaja(): Observable<BooleanResponseType> {

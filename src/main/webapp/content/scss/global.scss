@@ -458,6 +458,13 @@ nav.main-menu li.active > a,
   font-size: 40px;
 }
 
+.titulos2 {
+  font-family: 'Arya', sans-serif;
+  color: #000000;
+  font-weight: bold;
+  font-size: 40px;
+}
+
 .titulos-white {
   color: #ffffff;
   font-size: 25px;
@@ -540,13 +547,13 @@ nav.main-menu li.active > a,
 @keyframes glow {
   from {
     color: rgb(0, 0, 0);
-    text-shadow: 0 0 10px #00fff2, 0 0 20px #00fff2, 0 0 30px #00fff2, 0 0 40px #00fff2, 0 0 50px #00fff2, 0 0 60px #00fff2,
-      0 0 70px #00fff2, 0 0 90px #00fff2;
+    text-shadow: 0 0 10px #e9e509, 0 0 20px #e9e509, 0 0 30px #e9e509, 0 0 40px #e9e509, 0 0 50px #e9e509, 0 0 60px #e9e509,
+      0 0 70px #e9e509, 0 0 90px #e9e509;
   }
   to {
     color: rgb(250, 250, 250);
-    text-shadow: 0 0 20px #00fff2, 0 0 30px #00fff2, 0 0 40px #00fff2, 0 0 50px #00fff2, 0 0 60px #00fff2, 0 0 70px #00fff2,
-      0 0 80px #00fff2, 0 1 90px #00fff2;
+    text-shadow: 0 0 20px #e9e509, 0 0 30px #e9e509, 0 0 40px #e9e509, 0 0 50px #e9e509, 0 0 60px #e9e509, 0 0 70px #e9e509,
+      0 0 80px #e9e509, 0 1 90px #e9e509;
   }
 }
 
