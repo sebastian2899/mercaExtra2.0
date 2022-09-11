@@ -9,6 +9,7 @@ import { ComentarioDeleteDialogComponent } from '../delete/comentario-delete-dia
 @Component({
   selector: 'jhi-comentario',
   templateUrl: './comentario.component.html',
+  styleUrls: ['./comentario.component.css'],
 })
 export class ComentarioComponent implements OnInit {
   comentarios?: IComentario[];

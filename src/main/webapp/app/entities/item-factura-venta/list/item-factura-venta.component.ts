@@ -9,6 +9,7 @@ import { ItemFacturaVentaDeleteDialogComponent } from '../delete/item-factura-ve
 @Component({
   selector: 'jhi-item-factura-venta',
   templateUrl: './item-factura-venta.component.html',
+  styleUrls: ['./item-factura-venta.css'],
 })
 export class ItemFacturaVentaComponent implements OnInit {
   itemFacturaVentas?: IItemFacturaVenta[];

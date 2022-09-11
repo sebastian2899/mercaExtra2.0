@@ -17,13 +17,13 @@
 
 .title {
   font-family: 'Arya', sans-serif;
-  color: #8c52ff;
+  color: #000000;
 }
 .card-header {
   font-family: 'Fira Sans Condensed', sans-serif;
-  color: #ffffff;
+  color: #000000;
   font-size: 22px;
-  background-color: #8c52ff;
+  background-color: #f3f2f2;
 }
 
 #button {
