@@ -11,6 +11,7 @@ import { IDatosReembolso } from '../datosRemProces';
 @Component({
   selector: 'jhi-reembolso',
   templateUrl: './reembolso.component.html',
+  styleUrls: ['./reembolso.css'],
 })
 export class ReembolsoComponent {
   @ViewChild('seeRefundData', { static: true }) content: ElementRef | undefined;

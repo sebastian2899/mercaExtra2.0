@@ -55,4 +55,6 @@ public interface CajaService {
     Boolean RememberCreationCaja();
 
     byte[] exportarPdf(String fechaInicio, String fechaFin) throws IOException;
+
+    List<CajaDTO> cajaByFilters(CajaDTO caja);
 }

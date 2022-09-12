@@ -1,5 +1,7 @@
 package com.mercaextra.app.service.impl;
 
+import static org.springframework.data.jpa.domain.Specification.where;
+
 import com.mercaextra.app.config.Utilities;
 import com.mercaextra.app.domain.Caja;
 import com.mercaextra.app.repository.CajaRepository;
@@ -7,17 +9,15 @@ import com.mercaextra.app.service.CajaService;
 import com.mercaextra.app.service.dto.CajaDTO;
 import com.mercaextra.app.service.dto.ReporteCajaDTO;
 import com.mercaextra.app.service.mapper.CajaMapper;
+import com.mercaextra.app.specification.CajaSpecification;
 import com.mercaextra.app.web.rest.errors.BadRequestAlertException;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -32,19 +32,11 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.Resource;
-import org.springframework.http.ContentDisposition;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.ResourceUtils;
 
 /**
  * Service Implementation for managing {@link Caja}.
@@ -105,6 +97,17 @@ public class CajaServiceImpl implements CajaService {
     public void delete(Long id) {
         log.debug("Request to delete Caja : {}", id);
         cajaRepository.deleteById(id);
+    }
+
+    @Override
+    public List<CajaDTO> cajaByFilters(CajaDTO caja) {
+        log.debug("Request to get cajas by filters.");
+
+        List<Caja> cajas = cajaRepository.findAll(
+            where(CajaSpecification.cajaByValue(caja.getValorTotalDia()).and(CajaSpecification.cajaByEstado(caja.getEstado())))
+        );
+
+        return cajas.stream().map(cajaMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
     }
 
     @Override
@@ -214,7 +217,10 @@ public class CajaServiceImpl implements CajaService {
              * //byte[] bytes = Files.readAllBytes(Paths.get(pdfFile.getAbsolutePath()));
              *
              * headers.setContentDisposition(contentDisposition);
+             *
+             *
              */
+
             return reporte;
         } catch (Exception e) {
             e.getMessage();
