@@ -126,11 +126,11 @@ export class FacturaComponent implements OnInit {
   }
 
   confirmRepurcharse(): void {
-    if (this.valorPagado && this.metodoPagoSelect === 'Contra entrega') {
+    if (this.valorPagado && this.metodoPagoSelect === MetodoPago.CONTRA_ENTREGA) {
       this.factura!.valorPagado = this.valorPagado;
       this.factura!.valorDeuda = this.deuda;
       this.factura!.metodoPago = MetodoPago.CONTRA_ENTREGA;
-    } else if (this.metodoPagoSelect === 'Transaccion Bancaria') {
+    } else if (this.metodoPagoSelect === MetodoPago.TRANSACCION_BANCARIA) {
       this.factura!.metodoPago = MetodoPago.TRANSACCION_BANCARIA;
     }
     this.subscribeToSaveResponse(this.facturaService.rePurchaseInvoice(this.factura!));

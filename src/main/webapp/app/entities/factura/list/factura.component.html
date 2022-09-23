@@ -186,7 +186,7 @@
         </select>
       </div>
     </div>
-    <div *ngIf="metodoPagoSelect === 'Contra entrega'" class="col-10 mt-3">
+    <div *ngIf="metodoPagoSelect === 'CONTRA_ENTREGA'" class="col-10 mt-3">
       <div class="justify-content-center">
         <label class="form-label" for="valorFactura">ValorFactura:</label>
         <input class="form-control" type="number" readonly [(ngModel)]="valorFactura" />
@@ -200,7 +200,7 @@
         <input class="form-control" type="number" placeholder="$Deuda" [(ngModel)]="deuda" />
       </div>
     </div>
-    <div *ngIf="metodoPagoSelect === 'Transaccion Bancaria'" class="col-10 mt-3">
+    <div *ngIf="metodoPagoSelect === 'TRANSACCION_BANCARIA'" class="col-10 mt-3">
       <div class="justify-content-center">
         <label class="form-label" for="valorFactura">Numero cuenta a consignar</label>
         <input class="form-control" type="text" readonly [value]="'111-222-333-444'" />
