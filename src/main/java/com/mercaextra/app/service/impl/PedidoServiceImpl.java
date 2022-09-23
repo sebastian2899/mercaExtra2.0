@@ -394,8 +394,7 @@ public class PedidoServiceImpl implements PedidoService {
         List<Object[]> enEntrega = pedidoRepository.AllOrdersInComming();
 
         //HORA ACTUAL
-        LocalTime time = LocalTime.now();
-        String timeFormat = time.toString().substring(0, 5);
+        String timeFormat = LocalTime.now().toString().substring(0, 5);
 
         int timeComparing = Integer.parseInt(timeFormat.replace(":", ""));
 
