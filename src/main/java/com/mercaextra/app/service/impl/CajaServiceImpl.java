@@ -158,7 +158,11 @@ public class CajaServiceImpl implements CajaService {
             Date date2 = format.parse(fechaFin);
 
             if (date.after(date2)) {
-                throw new BadRequestAlertException(fechaFin, "La fecha inicio no puede ser mayor a la fecha fin.", fechaFin);
+                throw new BadRequestAlertException(
+                    fechaFin.toString(),
+                    "La fecha inicio no puede ser mayor a la fecha fin.",
+                    fechaFin.toString()
+                );
             }
         } catch (ParseException e1) {
             e1.printStackTrace();
