@@ -226,7 +226,7 @@
 
         <div class="row text-center mt-3">
           <div class="col-lg-3 col-md-8 mb-4" *ngFor="let producto of productos! | paginate: { itemsPerPage: 12, currentPage: pA }">
-            <div class="card" style="width: 16 rem; height: 34rem">
+            <div class="card" style="width: 10 rem; height: 35rem">
               <div class="d-flex justify-content-end">
                 <button (click)="addToFavorite(producto.id!)" class="mt-1 menu-configProduct">
                   <mat-icon [ngStyle]="{ color: producto.isFavorite === true ? '#9b00de' : '' }" class="material-symbols-sharp"
