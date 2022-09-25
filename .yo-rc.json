@@ -38,9 +38,6 @@
       "ProductoPromocionHome"
     ],
     "entitySuffix": "",
-    "herokuAppName": "merca-extra",
-    "herokuDeployType": "git",
-    "herokuJavaVersion": "11",
     "jhiPrefix": "jhi",
     "jhipsterVersion": "7.7.0",
     "jwtSecretKey": "OGRjNGU5Y2QzZjAwZDViYjVjMjJiYjFkMGQzMWJjMzQ4NTc3MjBhYWZhMDE3ZDIxMTRjZDk3ZjcyODY1MWYyNjkxNWMzZTc0NGRkYmJlYzhjYmNiNTFkNjg1ZGEwZjZjMDE3NDk1OTUzOTYwZWU5MTZlYjhlYTViOWVjM2RiMmY=",

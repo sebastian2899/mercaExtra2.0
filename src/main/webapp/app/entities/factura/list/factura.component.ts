@@ -11,7 +11,7 @@ import { AlertService } from 'app/core/util/alert.service';
 import { finalize, Observable } from 'rxjs';
 import { MetodoPago } from 'app/entities/enumerations/metodo-pago.model';
 import dayjs from 'dayjs/esm';
-import { DATE_FORMAT } from 'app/config/input.constants';
+import { DATE_FORMAT, DATE_TIME_FORMAT } from 'app/config/input.constants';
 
 @Component({
   selector: 'jhi-factura',
