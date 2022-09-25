@@ -137,8 +137,9 @@
             <input type="datetime-local" class="form-control" [(ngModel)]="fechaFin" />
           </div>
           <div>
-            <button class="mt-4 btn btn-info ms-3" (click)="printInvoice()">
-              <fa-icon fa-icon icon="sync" [spin]="isLoading"></fa-icon> <span>Generar</span>
+            <button class="mt-4 btn btn-info ms-3 d-flex" (click)="printInvoice()" [disabled]="isLoading">
+              <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+              <span class="ms-2">Generar</span>
             </button>
           </div>
         </div>

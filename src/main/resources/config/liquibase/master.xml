@@ -26,6 +26,7 @@
     <include file="config/liquibase/changelog/20220408221432_added_entity_Proveedor.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220408221433_added_entity_Egreso.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220413210416_added_entity_ItemFacturaVenta.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220509161334_added_entity_ItemFacturaCompra.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220408221425_added_entity_Producto.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220509161332_added_entity_Reembolso.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220617144517_added_entity_ProductoFavoritos.xml" relativeToChangelogFile="false"/>

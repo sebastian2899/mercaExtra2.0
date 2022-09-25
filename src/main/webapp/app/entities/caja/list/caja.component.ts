@@ -55,7 +55,6 @@ export class CajaComponent implements OnInit {
         const file = new Blob([response], { type: 'application/pdf' });
         const fileURL = URL.createObjectURL(file);
         window.open(fileURL);
-
         this.isLoading = false;
       });
     } else {
@@ -63,8 +62,8 @@ export class CajaComponent implements OnInit {
         type: 'warning',
         message: 'Por favor ingrese las fechas.',
       });
+      this.isLoading = false;
     }
-    this.isLoading = false;
   }
 
   cajasByFilters(): void {
