@@ -1,0 +1,24 @@
+{
+  "changelogDate": "20220927193201",
+  "dto": "no",
+  "fields": [
+    {
+      "fieldName": "idComment",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "login",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "isLike",
+      "fieldType": "Boolean"
+    }
+  ],
+  "jpaMetamodelFiltering": false,
+  "name": "UserLikeComment",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

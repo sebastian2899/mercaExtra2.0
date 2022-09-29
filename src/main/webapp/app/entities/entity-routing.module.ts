@@ -84,6 +84,11 @@ import { RouterModule } from '@angular/router';
         data: { pageTitle: 'mercaExtraApp.productoPromocionHome.home.title' },
         loadChildren: () => import('./producto-promocion-home/producto-promocion-home.module').then(m => m.ProductoPromocionHomeModule),
       },
+      {
+        path: 'user-like-comment',
+        data: { pageTitle: 'mercaExtraApp.userLikeComment.home.title' },
+        loadChildren: () => import('./user-like-comment/user-like-comment.module').then(m => m.UserLikeCommentModule),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],

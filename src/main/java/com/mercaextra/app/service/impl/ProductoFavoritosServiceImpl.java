@@ -80,8 +80,6 @@ public class ProductoFavoritosServiceImpl implements ProductoFavoritosService {
 
             if (producFavoritos.size() == 0 || null == producFavoritos) {
                 productoFavoritos.setPuesto(1);
-            } else if (producFavoritos.size() == 1) {
-                productoFavoritos.setPuesto(2);
             } else {
                 Query q = entityManager
                     .createQuery("SELECT MAX(pf.puesto) FROM ProductoFavoritos pf WHERE pf.login =:login")

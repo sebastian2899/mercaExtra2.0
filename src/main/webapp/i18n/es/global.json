@@ -23,6 +23,7 @@
         "productoFavoritos": "Producto Favoritos",
         "comentario": "Comentario",
         "productoPromocionHome": "Producto Promocion Home",
+        "userLikeComment": "User Like Comment",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

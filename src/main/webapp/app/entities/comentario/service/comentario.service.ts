@@ -17,6 +17,7 @@ export class ComentarioService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/comentarios');
   protected uploadCommentProductsUrl = this.applicationConfigService.getEndpointFor('api/comentarioProductos');
   protected uploadCommentRespoProductsUrl = this.applicationConfigService.getEndpointFor('api/comentariosRespuesta');
+  protected managementLikesUrl = this.applicationConfigService.getEndpointFor('api/managementLikesComment');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
@@ -64,6 +65,10 @@ export class ComentarioService {
     return this.http
       .get<IComentario[]>(this.resourceUrl, { params: options, observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+  }
+
+  managementLikes(comment: IComentario): Observable<HttpResponse<{}>> {
+    return this.http.post(this.managementLikesUrl, comment, { observe: 'response' });
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {

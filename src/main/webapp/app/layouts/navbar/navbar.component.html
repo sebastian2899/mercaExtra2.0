@@ -238,6 +238,18 @@
                 <span jhiTranslate="global.menu.entities.productoPromocionHome">Producto Promocion Home</span>
               </a>
             </li>
+            <li>
+              <a
+                class="dropdown-item"
+                routerLink="user-like-comment"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="collapseNavbar()"
+              >
+                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                <span jhiTranslate="global.menu.entities.userLikeComment">User Like Comment</span>
+              </a>
+            </li>
             <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
           </ul>
         </li>

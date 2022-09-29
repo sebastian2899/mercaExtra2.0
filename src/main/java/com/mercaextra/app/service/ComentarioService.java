@@ -49,4 +49,6 @@ public interface ComentarioService {
     List<ComentarioDTO> uploadCommentsProduct(Long idProducto);
 
     List<ComentarioDTO> responseComments(Long idProducto, Long idComentario);
+
+    void managementLikeComment(ComentarioDTO comentariodto);
 }

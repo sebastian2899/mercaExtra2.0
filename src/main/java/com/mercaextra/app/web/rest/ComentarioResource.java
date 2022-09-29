@@ -153,6 +153,16 @@ public class ComentarioResource {
         return comentarioService.uploadCommentsProduct(idProducto);
     }
 
+    @PostMapping("/managementLikesComment")
+    public ResponseEntity<Void> managementLikes(@RequestBody ComentarioDTO comentarioDTO) {
+        log.info("REST request to managament likes per comment per user login");
+        comentarioService.managementLikeComment(comentarioDTO);
+        return ResponseEntity
+            .noContent()
+            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, comentarioDTO.getId().toString()))
+            .build();
+    }
+
     /**
      * {@code GET  /comentarios/:id} : get the "id" comentario.
      *

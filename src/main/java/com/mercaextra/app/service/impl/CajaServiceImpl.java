@@ -118,11 +118,9 @@ public class CajaServiceImpl implements CajaService {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
         String fecha = Utilities.validateDate(Instant.now());
-        Date date;
         boolean resp = false;
         try {
-            date = format.parse(fecha);
-            String fechaFormat = format.format(date);
+            String fechaFormat = format.format(format.parse(fecha));
             resp = Boolean.parseBoolean(cajaRepository.booleanResult(fechaFormat));
         } catch (ParseException e) {
             // TODO Auto-generated catch block
@@ -140,13 +138,12 @@ public class CajaServiceImpl implements CajaService {
         log.debug("Request to get total daily value");
 
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = new Date();
         // Se formatea la fecha para la consulta
-        String fechaFormat = format.format(date);
+        String fechaFormat = format.format(new Date());
 
         BigDecimal valorVendidoDia = cajaRepository.valorVendidoDia(fechaFormat);
 
-        return valorVendidoDia;
+        return valorVendidoDia == null ? BigDecimal.ZERO : valorVendidoDia;
     }
 
     @Override

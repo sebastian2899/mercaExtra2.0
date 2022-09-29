@@ -1,0 +1,26 @@
+{
+  "mercaExtraApp": {
+    "userLikeComment": {
+      "home": {
+        "title": "User Like Comments",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo User Like Comment",
+        "createOrEditLabel": "Crear o editar User Like Comment",
+        "notFound": "Ningún User Like Comments encontrado"
+      },
+      "created": "Un nuevo User Like Comment ha sido creado con el identificador {{ param }}",
+      "updated": "Un User Like Comment ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un User Like Comment ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar User Like Comment {{ id }}?"
+      },
+      "detail": {
+        "title": "User Like Comment"
+      },
+      "id": "ID",
+      "idComment": "Id Comment",
+      "login": "Login",
+      "isLike": "Is Like"
+    }
+  }
+}

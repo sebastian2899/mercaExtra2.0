@@ -28,7 +28,6 @@
           <a (click)="openFile(producto.imagen, producto.imagenContentType)">
             <img [src]="'data:' + producto.imagenContentType + ';base64,' + producto.imagen" style="max-width: 60%" alt="producto image" />
           </a>
-          {{ producto.imagenContentType }}, {{ byteSize(producto.imagen) }}
         </div>
 
         <dl class="row-md jh-entity-details ms-5 mb-3">
@@ -126,7 +125,10 @@
               <span>{{ comment.fechaComentario | formatMediumDate }}</span>
             </div>
             <p class="card-text">{{ comment.descripcion }}</p>
-            <button class="menu-white me-2"><mat-icon class="icon-config">thumb_up</mat-icon>1</button>
+            <button (click)="addCommentLike(comment)" class="booton-like menu-white me-2">
+              <mat-icon class="icon-config">thumb_up</mat-icon>
+              <span style="color: black">{{ comment.likes === null ? 0 : comment.likes }}</span>
+            </button>
             <a (click)="changeActionRespo(comment.id!)" class="mt-1" style="text-decoration: none; color: rgb(0, 174, 255)">Responder</a>
           </div>
           <div class="mt-2 col-md-7" *ngIf="actionResp && comment.id === idComment">
@@ -158,14 +160,16 @@
                     <span>{{ resp.fechaComentario | formatMediumDate }}</span>
                   </div>
                   <p class="card-text">{{ resp.descripcion }}</p>
-                  <button class="menu-white me-2"><mat-icon class="icon-config">thumb_up</mat-icon>1</button>
+                  <button class="booton-like menu-white me-2" (click)="addCommentLike(resp)">
+                    <mat-icon class="icon-config">thumb_up </mat-icon
+                    ><span style="color: black">{{ resp.likes === null ? 0 : resp.likes }}</span>
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
       <div style="margin-top: 100px">
         <h3 class="mt-3 mb-3 titulos">Puedes adquirir tambien estos productos</h3>
         <div class="slider-container">

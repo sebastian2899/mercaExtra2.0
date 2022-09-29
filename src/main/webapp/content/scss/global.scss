@@ -1027,6 +1027,14 @@ angular-cli removes postcss-rtl processed inline css, processed rules must be ad
   }
 }
 
+.booton-like {
+  color: #a1a1a1;
+}
+
+.booton-like:hover {
+  color: #0066ff;
+}
+
 .menu-configProduct2 {
   background: none;
   border: none;

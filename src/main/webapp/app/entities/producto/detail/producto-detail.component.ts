@@ -139,6 +139,21 @@ export class ProductoDetailComponent implements OnInit {
     });
   }
 
+  addCommentLike(comment: IComentario): void {
+    this.comentarioService.managementLikes(comment).subscribe({
+      next: () => {
+        this.loadCommentsMethod(this.producto!.id!);
+      },
+      error: () => {
+        this.alertService.addAlert({
+          type: 'danger',
+          message: 'Error',
+        });
+      },
+    });
+    this.loadCommentsMethod(this.producto!.id!);
+  }
+
   findAnotherSimilarProducts(categoria: string): void {
     if (categoria) {
       this.productoService.getAnotherSimilarProducts(categoria).subscribe({
