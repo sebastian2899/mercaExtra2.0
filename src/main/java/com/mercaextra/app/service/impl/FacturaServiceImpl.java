@@ -14,8 +14,13 @@ import com.mercaextra.app.service.dto.FacturaDTO;
 import com.mercaextra.app.service.dto.ProductoDTO;
 import com.mercaextra.app.service.mapper.FacturaMapper;
 import com.mercaextra.app.service.mapper.ProductoMapper;
+import com.mercaextra.app.service.utils.GenerateExcel;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -50,6 +55,8 @@ public class FacturaServiceImpl implements FacturaService {
 
     private final UserService userService;
 
+    private final GenerateExcel generateExcel;
+
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -58,13 +65,15 @@ public class FacturaServiceImpl implements FacturaService {
         FacturaMapper facturaMapper,
         ItemFacturaVentaRepository itemFacturaVentaRepository,
         ProductoMapper productosMapper,
-        UserService userService
+        UserService userService,
+        GenerateExcel generateExcel
     ) {
         this.facturaRepository = facturaRepository;
         this.facturaMapper = facturaMapper;
         this.itemFacturaVentaRepository = itemFacturaVentaRepository;
         this.productosMapper = productosMapper;
         this.userService = userService;
+        this.generateExcel = generateExcel;
     }
 
     @Override
@@ -330,5 +339,43 @@ public class FacturaServiceImpl implements FacturaService {
 
         List<Factura> productsFiltro = q.getResultList();
         return productsFiltro.stream().map(facturaMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    @Override
+    public byte[] zipFileInvoice() throws IOException {
+        log.info("Request to create zip");
+
+        // FECHA ACTUAL
+        String fechaActual = Instant.now().toString().substring(0, 10);
+
+        Calendar calendarMesAnterior = Calendar.getInstance();
+        calendarMesAnterior.add(Calendar.MONTH, -1);
+
+        Instant calendarToInstant = calendarMesAnterior.toInstant();
+        String fechaMesAnterior = calendarToInstant.toString().substring(0, 10);
+
+        List<Factura> facturas = facturaRepository.rangeMonthInvoice(fechaMesAnterior, fechaActual);
+
+        List<Object> invocieString;
+
+        invocieString =
+            facturas
+                .stream()
+                .map(element -> {
+                    LinkedHashMap<String, String> data = new LinkedHashMap<>();
+                    data.put("fecha", element.getFechaCreacion().toString().substring(0, 10));
+                    data.put("cliente", element.getInfoCiente());
+                    data.put("numFac", element.getNumeroFactura());
+                    data.put("tipoFa", element.getTipoFactura().toString());
+                    data.put("vafac", element.getValorFactura().toString());
+                    data.put("valpa", element.getValorPagado().toString());
+                    data.put("valde", element.getValorDeuda().toString());
+                    data.put("facest", element.getEstadoFactura());
+
+                    return data;
+                })
+                .collect(Collectors.toList());
+
+        return generateExcel.writeExcel(invocieString, Constants.invoiceColumns);
     }
 }

@@ -1,5 +1,7 @@
 package com.mercaextra.app.config;
 
+import java.util.List;
+
 /**
  * Application constants.
  */
@@ -54,6 +56,18 @@ public final class Constants {
     public static final String COMPRA_PROVEEDOR = " AND c.idProveedor =:idProveedor";
     public static final String COMPRA_NUMERO_FACTURA = " AND c.numeroFactura =:numeroFactura";
     public static final String COMPRA_FECHA = " AND DATE_FORMAT(c.fechaCreacion, '%Y-%m-%d') =:fechaCreacion";
+
+    // FACTURA HEADERS XLSX
+    public static final List<String> invoiceColumns = List.of(
+        "Fecha de creacion",
+        "Cliente",
+        "Numero de factura",
+        "Tipo de factura",
+        "Valor Factura",
+        "Valor Pagado",
+        "Valor Deuda",
+        "Estado"
+    );
 
     private Constants() {}
 }

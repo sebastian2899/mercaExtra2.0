@@ -38,13 +38,13 @@
     </div>
   </div>
 
-  <div class="col-md-6 mt-4 mb-4">
-    <div class="d-flex justify-content-around">
-      <div class="form-group">
+  <div class="d-flex mt-4 mb-4">
+    <div class="d-flex justify-content-start col-md-8">
+      <div class="form-group me-3">
         <label for="fechaInicio" style="font-weight: bold">Buscar por fecha</label>
         <input type="datetime-local" class="form-control" [(ngModel)]="fechaConsultar" name="fechaInicio" id="fechaInicio" />
       </div>
-      <div class="form-group">
+      <div class="form-group me-3">
         <label for="fechaFin" style="font-weight: bold">Busca por metodo de pago</label>
         <select [(ngModel)]="metodoPagoConsulta" name="metodoPago" id="metodoPago" class="form-select">
           <option></option>
@@ -54,6 +54,12 @@
       <div class="mt-4 form-group">
         <button (click)="buscarPorFiltros()" class="btn btn-outline-info">Buscar</button>
       </div>
+    </div>
+    <div class="col-md-3 d-flex justify-content-end">
+      <a (click)="generateExcelReport()">
+        <img src="content/images/excel.png" alt="" />
+      </a>
+      <span class="ms-3 mt-3"><mat-icon class="icon-config">arrow_back</mat-icon> Genear excel del mes</span>
     </div>
   </div>
 

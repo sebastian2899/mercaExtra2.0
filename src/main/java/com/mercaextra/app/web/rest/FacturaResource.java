@@ -5,6 +5,7 @@ import com.mercaextra.app.service.FacturaService;
 import com.mercaextra.app.service.dto.FacturaDTO;
 import com.mercaextra.app.service.dto.ProductoDTO;
 import com.mercaextra.app.web.rest.errors.BadRequestAlertException;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -186,6 +187,19 @@ public class FacturaResource {
             result,
             HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, facturaDTO.getId().toString())
         );
+    }
+
+    @GetMapping("/facturas/zip-file")
+    public ResponseEntity<byte[]> fileZipInvoice() throws IOException {
+        log.info("REST request to generate zip file invoices per months");
+
+        byte[] file = facturaService.zipFileInvoice();
+
+        if (null == file) {
+            return ResponseEntity.badRequest().body(null);
+        }
+
+        return new ResponseEntity<>(file, HttpStatus.OK);
     }
 
     /**

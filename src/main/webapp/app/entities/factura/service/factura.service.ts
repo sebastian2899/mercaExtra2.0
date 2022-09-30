@@ -24,6 +24,7 @@ export class FacturaService {
   protected rePurcharseInvoiceUrl = this.applicationConfigService.getEndpointFor('api/factura-rePurcharse');
   protected valueInvoiceDatesUrl = this.applicationConfigService.getEndpointFor('api/facturas/value-per-dates');
   protected filterUrl = this.applicationConfigService.getEndpointFor('api/facturas/find-by-filters');
+  protected generateExcelReportUrl = this.applicationConfigService.getEndpointFor('api/facturas/zip-file');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
@@ -32,6 +33,11 @@ export class FacturaService {
     return this.http
       .post<IFactura>(this.resourceUrl, copy, { observe: 'response' })
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
+
+  generateExcelReport(): Observable<any> {
+    const httpOptions = { responseType: 'arrayBuffer' as 'json' };
+    return this.http.get<any>(this.generateExcelReportUrl, httpOptions);
   }
 
   findByFilter(factura: IFactura): Observable<EntityArrayResponseType> {

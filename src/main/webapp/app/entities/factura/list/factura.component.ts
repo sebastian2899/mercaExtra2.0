@@ -73,6 +73,22 @@ export class FacturaComponent implements OnInit {
     }
   }
 
+  generateExcelReport(): void {
+    this.facturaService.generateExcelReport().subscribe(
+      (res: any) => {
+        const file = new Blob([res], { type: 'application/zip' });
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      },
+      () => {
+        this.alertService.addAlert({
+          type: 'danger',
+          message: 'Error al genera el archivo.',
+        });
+      }
+    );
+  }
+
   isAutenticated(): void {
     this.accountService.isAuthenticated();
   }
