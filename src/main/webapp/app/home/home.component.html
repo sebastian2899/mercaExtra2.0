@@ -131,7 +131,7 @@
   <div class="row mt-5 mb-5">
     <h2 class="titulos d-flex justify-content-center" jhiTranslate="home.inicio.title">Productos en oferta</h2>
     <div class="row justify-content-center mt-5">
-      <div *ngFor="let prodct of productosDescuento" class="card mb-3 ms-4" style="max-width: 580px">
+      <div *ngFor="let prodct of productosDescuento" class="card mb-3 ms-4" style="max-width: 570px">
         <a class="a-product-home" [routerLink]="['/producto', prodct.id, 'view']" target="_top">
           <div class="row g-0" style="padding: 15px">
             <div class="col-md-4">
@@ -235,7 +235,7 @@
         <button class="ms-5 btn btn-warning" [routerLink]="['producto']">Ver Productos</button>
       </div>
       <div class="col-md-5">
-        <img src="content/images/logoMercaExtra.png" style="width: 80%; height: 90%" alt="" />
+        <img class="logo" src="content/images/logoMercaExtra.png" alt="" />
       </div>
     </div>
 

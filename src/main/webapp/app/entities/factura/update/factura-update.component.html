@@ -28,7 +28,7 @@
     />
     <label class="form-check-label" style="position: relative; top: -19px" for="tipoCategoria"> Carnes </label>
     <input
-      value="quesos"
+      value="bebidas"
       class="form-check-input"
       type="radio"
       (change)="tipoCategoriaMethod()"
@@ -36,7 +36,7 @@
       name="tipo1"
       id="tipo1"
     />
-    <label class="form-check-label" style="position: relative; top: -19px" for="tipo1"> Quesos </label>
+    <label class="form-check-label" style="position: relative; top: -19px" for="tipo1"> Bebidas </label>
     <input
       value="granos"
       class="form-check-input"
@@ -58,7 +58,7 @@
     />
     <label class="form-check-label" style="position: relative; top: -19px" for="tipo3"> Aseo </label>
     <input
-      value="verduruasFrutas"
+      value="verduras"
       class="form-check-input"
       (change)="tipoCategoriaMethod()"
       [(ngModel)]="tipoCategoria"
@@ -66,9 +66,9 @@
       name="tipo4"
       id="tipo4"
     />
-    <label class="form-check-label" style="position: relative; top: -19px" for="tipo4"> Verduras- Frutas </label>
+    <label class="form-check-label" style="position: relative; top: -19px" for="tipo4"> Verduras</label>
     <input
-      value="pasabocas"
+      value="dulces"
       class="form-check-input"
       type="radio"
       (change)="tipoCategoriaMethod()"
@@ -76,8 +76,8 @@
       name="tipo5"
       id="tipo5"
     />
-    <label class="form-check-label" style="position: relative; top: -19px" for="tipo5"> Pasabocas </label>
-    <input
+    <label class="form-check-label" style="position: relative; top: -19px" for="tipo5"> Dulces </label>
+    <!-- <input
       value="otros"
       class="form-check-input"
       type="radio"
@@ -86,7 +86,7 @@
       name="tipo6"
       id="tipo6"
     />
-    <label class="form-check-label" style="position: relative; top: -19px" for="tipo6"> Otros </label>
+    <label class="form-check-label" style="position: relative; top: -19px" for="tipo6"> Otros </label> -->
     <div class="mt-3">
       <label for="nombre" class="form-label font-size-black2">Nombre</label>
       <input
@@ -103,40 +103,42 @@
   <div class="col-md-10">
     <div class="row text-center mt-5">
       <div class="col-lg-3 col-md-6 mb-4" *ngFor="let producto of productos! | paginate: { itemsPerPage: 12, currentPage: pA }">
-        <div class="card" style="width: 16 rem; height: 420px">
-          <button style="border-radius: 10px" class="btn btn-info btn-sm mb-2" (click)="llenarCarroCompra(producto)">Agregar</button>
+        <div class="card" style="width: 16 rem; height: 420px; padding: 10px">
           <a *ngIf="producto.imagen" (click)="openFile(producto.imagen, producto.imagenContentType)">
             <img
               [src]="'data:' + producto.imagenContentType + ';base64,' + producto.imagen"
-              style="max-height: 100px"
+              style="max-height: 140px"
               alt="producto image"
             />
           </a>
           <div class="card-body">
-            <p class="card-text font-size-black2">
-              <b>{{ producto.descripcion }}</b>
+            <p id="title" class="card-text font-size-black2">
+              {{ producto.nombre }}
             </p>
-            <b
-              ><h5 *ngIf="account!.login === 'admin'" class="card-text titulo-entidades">
+            <b>
+              <h6 *ngIf="account!.login === 'admin'" class="card-text titulo-entidades">
                 <span class="font-size-black2">Disponibles:</span> {{ producto.cantidad }}
-              </h5></b
-            >
+              </h6>
+            </b>
             <b
-              ><h5 class="font-size-black2"><span class="font-size-black2">Precio:</span> ${{ producto.precio }}</h5></b
+              ><h6 class="font-size-black2"><span class="font-size-black2">Precio:</span> ${{ producto.precio }}</h6></b
             >
+            <button id="buttonCompra" class="btn btn-info btn-sm mb-2" (click)="llenarCarroCompra(producto)">Agregar</button>
             <br />
-            <b
-              ><p *ngIf="producto.precioDescuento" class="card-text titulo-entidades neons">
-                <span class="">Descuento del dia: </span> {{ producto.precioDescuento }}%
-              </p></b
-            >
-            <br />
+            <b>
+              <p id="descuento" *ngIf="producto.precioDescuento" class="card-text titulo-entidades">
+                <span>Descuento: </span> {{ producto.precioDescuento }}%
+              </p>
+            </b>
             <b
               ><p *ngIf="producto.precioDescuento" class="card-text">
                 <span style="color: red"
                   >Antes <del>${{ producto.precio }}</del></span
                 >
-                <span class="font-size-black2"> Ahora: ${{ producto.precioConDescuento }}</span>
+                <span class="font-size-black2"
+                  ><br />
+                  Ahora: ${{ producto.precioConDescuento }}</span
+                >
               </p></b
             >
           </div>
@@ -327,7 +329,7 @@
 
 <ng-template #llenarCarro>
   <div class="modal-header">
-    <h4 class="modal-title">Validar Compra</h4>
+    <h4 class="modal-title">Agregar cantidad</h4>
   </div>
   <div class="modal-body">
     <div class="row d-flex justify-content-center">
@@ -336,16 +338,16 @@
           <img
             class="card-img-top"
             [src]="'data:' + productAdd!.imagenContentType + ';base64,' + productAdd!.imagen"
-            style="max-height: 120px; padding: 5px"
+            style="max-height: 180px; padding: 5px"
             alt="producto image"
           />
           <div class="card-body">
-            <h4 class="card-title">Producto: {{ productAdd!.nombre }}</h4>
-            <h4 class="card-text">Disponibles: {{ productAdd!.precio }}</h4>
+            <h5 class="card-title">Producto: {{ productAdd!.nombre }}</h5>
+            <h5 class="card-text">Precio: {{ productAdd!.precio }}</h5>
           </div>
         </div>
         <div class="mt-4">
-          <label for="cantidad" class="form-label">Cantidad</label>
+          <!-- <label for="cantidad" class="form-label">Cantidad</label> -->
           <input
             (keyup)="validationValueAmount()"
             type="number"

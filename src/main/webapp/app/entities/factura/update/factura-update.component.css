@@ -1,5 +1,21 @@
 .card {
-  border-radius: 10px;
+  /* border-radius: 10px; */
   border-width: 1px;
-  border-color: black;
+  /* border-color: black; */
+  box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
+}
+
+#buttonCompra {
+  margin-top: 10px;
+  font-size: 17px;
+}
+
+#descuento {
+  -webkit-text-stroke-color: #0008ffbd;
+  -webkit-text-stroke-width: 1.2px;
+}
+
+#title {
+  font-weight: bold;
+  font-size: 15px;
 }
